@@ -4,9 +4,9 @@ const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/reading-group-app
 
 const connectDB = () => {
     mongoose.connect(dbUrl)
-        .then(() => console.log("CONNECTED TO MONGODB"))
+        .then(() => console.log("Connected to MongoDB"))
         .catch(err => {
-            console.log("COULD NOT CONNECT TO MONGODB")
+            console.log("Could not connect to  MongoDB")
             console.log(err)
         })
 }

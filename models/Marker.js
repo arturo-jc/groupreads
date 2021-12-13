@@ -2,14 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const MarkerSchema = new Schema({
-    group: {
+    record: {
         type: Schema.Types.ObjectId,
-        ref: "Group",
-        required: true
-    },
-    book: {
-        type: Schema.Types.ObjectId,
-        ref: "Book",
+        ref: "Record",
         required: true
     },
     page: {

@@ -5,6 +5,7 @@ const connectDB = require("./connectDB");
 const userRoutes = require("./routes/users");
 const groupRoutes = require("./routes/groups");
 const bookRoutes = require("./routes/books");
+const recordRoutes = require("./routes/records")
 const markerRoutes = require("./routes/markers");
 const bookmarkRoutes = require("./routes/bookmarks");
 const postRoutes = require("./routes/posts");
@@ -14,14 +15,17 @@ const app = express();
 
 connectDB();
 
+app.use(express.json())
+
 // Routing
 app.use("/api/users", userRoutes);
-api.use("/api/groups", groupRoutes);
-api.use("/api/groups/:groupId/books", bookRoutes);
-api.use("/api/groups/:groupId/books/:bookId/bookmarks", bookmarkRoutes);
-api.use("/api/groups/:groupId/books/:bookId/markers", markerRoutes)
-api.use("/api/groups/:groupId/books/:bookId/posts", postRoutes);
-api.use("/api/groups/:groupId/books/:bookId/posts/:postId", commentRoutes);
+app.use("/api/groups", groupRoutes);
+app.use("/api/books", bookRoutes);
+app.use("/api/groups/:groupId/records", recordRoutes);
+app.use("/api/groups/:groupId/records/:recordId/bookmarks", bookmarkRoutes);
+app.use("/api/groups/:groupId/records/:recordId/markers", markerRoutes)
+app.use("/api/groups/:groupId/records/:recordId/posts", postRoutes);
+app.use("/api/groups/:groupId/records/:recordId/posts/:postId/comments", commentRoutes);
 
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Server started on ${port}`));

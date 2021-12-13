@@ -2,23 +2,22 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const BookmarkSchema = new Schema({
-    group: {
+    record: {
         type: Schema.Types.ObjectId,
-        ref: "Group",
-        required: true
-    },
-    book: {
-        type: Schema.Types.ObjectId,
-        ref: "Book",
+        ref: "Record",
         required: true
     },
     addedBy: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        // required: true
     },
     page: {
         type: Number,
+        required: true
+    },
+    body: {
+        type: String,
         required: true
     },
     date: {

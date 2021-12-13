@@ -10,7 +10,7 @@ const GroupSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     }],
-    books: [{
+    records: [{
         book: {
             type: Schema.Types.ObjectId,
             ref: "Book",

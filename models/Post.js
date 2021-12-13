@@ -2,20 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-    group: {
+    record: {
         type: Schema.Types.ObjectId,
-        ref: "Group",
-        required: true
-    },
-    book: {
-        type: Schema.Types.ObjectId,
-        ref: "Book",
+        ref: "Record",
         required: true
     },
     author: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        // required: true
     },
     title: {
         type: String,
@@ -28,7 +23,11 @@ const PostSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
+    }]
 })
 
 module.exports = mongoose.model("Post", PostSchema)

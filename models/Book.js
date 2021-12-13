@@ -24,7 +24,14 @@ const BookSchema = new Schema({
     publisher: String,
     publishedOn: Date,
     description: String,
-    industryIdentifiers: [IndustryIdentifierSchema]
+    industryIdentifiers: [IndustryIdentifierSchema],
+    pageCount: Number,
+    imageUrl: String,
+    addedBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    googleBooksUrl: String
 })
 
 module.exports = mongoose.model("Book", BookSchema)
