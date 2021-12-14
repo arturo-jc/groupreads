@@ -3,6 +3,7 @@ const connectDB = require("./connectDB");
 
 // Routes
 const userRoutes = require("./routes/users");
+const authRoutes = require("./routes/auth")
 const groupRoutes = require("./routes/groups");
 const bookRoutes = require("./routes/books");
 const recordRoutes = require("./routes/records")
@@ -19,6 +20,7 @@ app.use(express.json())
 
 // Routing
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/groups", groupRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/groups/:groupId/records", recordRoutes);
