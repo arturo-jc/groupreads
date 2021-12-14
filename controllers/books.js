@@ -13,7 +13,7 @@ module.exports.addBook = async (req, res) => {
         industryIdentifiers: req.body.industryIdentifiers,
         pageCount: req.body.pageCount,
         imageUrl: req.body.imageUrl,
-        // addedBy...,
+        addedBy: req.user.id,
         googleBooksUrl: req.body.googleBooksUrl
     })
 

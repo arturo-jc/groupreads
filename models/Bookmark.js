@@ -10,7 +10,7 @@ const BookmarkSchema = new Schema({
     addedBy: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        // required: true
+        required: true
     },
     page: {
         type: Number,

@@ -10,7 +10,7 @@ module.exports.index = async (req, res) => {
 module.exports.addPost = async (req, res) => {
     const newPost = new Post({
         record: req.params.recordId,
-        // author...
+        author: req.user.id,
         title: req.body.title,
         body: req.body.body
     })

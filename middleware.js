@@ -5,7 +5,7 @@ const User = require("./models/User");
 const bcrypt = require('bcryptjs/dist/bcrypt');
 const jwt = require("jsonwebtoken");
 
-module.exports.authenticate = async (req, res, next) => {
+module.exports.authenticate = (req, res, next) => {
     const token = req.header("x-auth-token");
 
     if (!token) {

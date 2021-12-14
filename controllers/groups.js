@@ -6,7 +6,7 @@ module.exports.createGroup = async (req, res) => {
         name: req.body.name
     })
 
-    // Todo: add user to group
+    newGroup.members.push(req.user.id);
 
     const group = await newGroup.save();
     return res.json(group);

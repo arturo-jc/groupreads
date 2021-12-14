@@ -11,7 +11,7 @@ module.exports.index = async (req, res) => {
 // POST api/groups/:groupId/books/:bookId/posts/:postId/comments
 module.exports.addComment = async (req, res) => {
     const newComment = new Comment({
-        // author...
+        author: req.user.id,
         body: req.body.body
     });
 

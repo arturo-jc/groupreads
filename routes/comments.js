@@ -1,16 +1,17 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const catchAsync = require("../utils/catchAsync");
-const { index, addComment, updateComment, deleteComment } = require("../controllers/comments")
+const { index, addComment, updateComment, deleteComment } = require("../controllers/comments");
+const { authenticate } = require("../middleware");
 
 // api/groups/:groupId/books/:bookId/posts/:postId/comments
 
 router.route("/")
-    .get(catchAsync(index))
-    .post(catchAsync(addComment))
+    .get(authenticate, catchAsync(index))
+    .post(authenticate, catchAsync(addComment))
 
 router.route("/:commentId")
-    .put(catchAsync(updateComment))
-    .delete(catchAsync(deleteComment))
+    .put(authenticate, catchAsync(updateComment))
+    .delete(authenticate, catchAsync(deleteComment))
 
 module.exports = router;

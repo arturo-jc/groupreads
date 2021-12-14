@@ -21,8 +21,8 @@ app.use(express.json())
 // Routing
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/groups", groupRoutes);
 app.use("/api/books", bookRoutes);
+app.use("/api/groups", groupRoutes);
 app.use("/api/groups/:groupId/records", recordRoutes);
 app.use("/api/groups/:groupId/records/:recordId/bookmarks", bookmarkRoutes);
 app.use("/api/groups/:groupId/records/:recordId/markers", markerRoutes)

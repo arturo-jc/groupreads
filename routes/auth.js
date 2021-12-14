@@ -5,7 +5,7 @@ const { getCurrentUser, getToken } = require("../controllers/auth");
 const { authenticate, validateLogin } = require("../middleware")
 
 router.route("/")
-    .get(catchAsync(authenticate), catchAsync(getCurrentUser))
+    .get(authenticate, catchAsync(getCurrentUser))
     .post(catchAsync(validateLogin), catchAsync(getToken))
 
 module.exports = router;

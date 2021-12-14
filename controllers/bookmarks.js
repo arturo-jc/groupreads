@@ -10,7 +10,7 @@ module.exports.index = async (req, res) => {
 module.exports.addBookmark = async (req, res) => {
     const newBookmark = new Bookmark({
         record: req.params.recordId,
-        // AddedBy...
+        addedBy: req.user.id,
         body: req.body.body,
         page: req.body.page
     })
