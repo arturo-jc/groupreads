@@ -9,7 +9,7 @@ router.route("/")
     .get(catchAsync(index))
     .post(catchAsync(addPost))
 
-router.route("/:markerId")
+router.route("/:postId")
     .put(catchAsync(updatePost))
     .delete(catchAsync(deletePost))
 

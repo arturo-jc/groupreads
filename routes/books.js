@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const catchAsync = require("../utils/catchAsync");
-const { index, addBook, showBook, updateBook, deleteBook } = require("../controllers/books");
+const { addBook, showBook, updateBook, deleteBook } = require("../controllers/books");
 
 // Route route: api/books
 

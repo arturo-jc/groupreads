@@ -23,7 +23,7 @@ module.exports.updatePost = async (req, res) => {
     const post = await Post.findByIdAndUpdate(
         req.params.postId,
         {
-            $Set: {
+            $set: {
                 title: req.body.title,
                 body: req.body.body
             }

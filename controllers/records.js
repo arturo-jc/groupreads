@@ -15,7 +15,7 @@ module.exports.addRecord = async (req, res) => {
     await Group.findByIdAndUpdate(
         req.params.groupId,
         {
-            $AddToSet: {
+            $addToSet: {
                 records: newRecord
             }
         })
@@ -36,7 +36,7 @@ module.exports.updateRecord = async (req, res) => {
     const record = await Record.findByIdAndUpdate(
         req.params.recordId,
         {
-            $Set:
+            $set:
             {
                 startedOn: req.body.startedOn,
                 finishedOn: req.body.finishedOn

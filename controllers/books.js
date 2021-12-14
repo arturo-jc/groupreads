@@ -34,6 +34,7 @@ module.exports.updateBook = async (req, res) => {
         {
             $set: {
                 title: req.body.title,
+                subtitle: req.body.subtitle,
                 authors: req.body.authors,
                 publisher: req.body.publisher,
                 publishedOn: req.body.publishedOn,
@@ -41,7 +42,7 @@ module.exports.updateBook = async (req, res) => {
                 industryIdentifiers: req.body.industryIdentifiers,
                 pageCount: req.body.pageCount,
                 imageUrl: req.body.imageUrl,
-                addedBy: req.body.imageUrl,
+                // addedBy...,
                 googleBooksUrl: req.body.googleBooksUrl
             }
         },

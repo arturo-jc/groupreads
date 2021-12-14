@@ -34,5 +34,5 @@ module.exports.updateMarker = async (req, res) => {
 // DELETE api/groups/:groupId/records/:recordId/markers/:markerId
 module.exports.deleteMarker = async (req, res) => {
     await Marker.findByIdAndDelete(req.params.markerId);
-    return res.json({ msg: "Bookmark deleted." })
+    return res.json({ msg: "Progress marker deleted." })
 }

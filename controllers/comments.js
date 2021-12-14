@@ -18,7 +18,7 @@ module.exports.addComment = async (req, res) => {
     await Post.findByIdAndUpdate(
         req.params.postId,
         {
-            $AddToSet: {
+            $addToSet: {
                 comments: newComment
             }
         });
@@ -32,7 +32,7 @@ module.exports.updateComment = async (req, res) => {
     const comment = await Comment.findByIdAndUpdate(
         req.params.commentId,
         {
-            $Set:
+            $set:
                 { body: req.body.body }
         },
         { new: true }
