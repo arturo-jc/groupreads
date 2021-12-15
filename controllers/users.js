@@ -8,9 +8,6 @@ const jwt = require("jsonwebtoken")
 
 // POST api/users
 module.exports.registerUser = async (req, res) => {
-    // todo: validate form
-    // todo: does user exist
-
     const { name, email, password } = req.body;
     const user = new User({ name, email, password });
     const salt = await genSalt(10);

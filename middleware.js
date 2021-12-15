@@ -68,7 +68,6 @@ module.exports.isCommentAuthor = async (req, res, next) => {
 // VALIDATION
 
 module.exports.validateRegister = async (req, res, next) => {
-
     const userSchema = joi.object({
         name: joi.string().required(),
         email: joi.string().email().required(),
