@@ -42,7 +42,6 @@ module.exports.updateBook = async (req, res) => {
                 industryIdentifiers: req.body.industryIdentifiers,
                 pageCount: req.body.pageCount,
                 imageUrl: req.body.imageUrl,
-                // addedBy...,
                 googleBooksUrl: req.body.googleBooksUrl
             }
         },

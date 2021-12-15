@@ -3,14 +3,16 @@ if (process.env.NODE_ENV !== "production") {
 };
 const User = require("./models/User");
 const Group = require("./models/Group");
+const Record = require("./models/Record");
 const Book = require("./models/Book");
 const Bookmark = require("./models/Bookmark");
 const Post = require("./models/Post");
 const Comment = require("./models/Comment");
+const joi = require("joi")
 const bcrypt = require('bcryptjs/dist/bcrypt');
 const jwt = require("jsonwebtoken");
 
-// Auth
+// PERMISSIONS
 
 module.exports.authenticate = (req, res, next) => {
     const token = req.header("x-auth-token");
@@ -22,7 +24,7 @@ module.exports.authenticate = (req, res, next) => {
     next();
 };
 
-module.exports.isGroupMember = (req, res, next) => {
+module.exports.isGroupMember = async (req, res, next) => {
     const group = await Group.findById(req.params.groupId);
     const members = group.members.map(userId => userId.toString());
     if (!members.includes(req.user.id)) {
@@ -63,9 +65,24 @@ module.exports.isCommentAuthor = async (req, res, next) => {
     next();
 }
 
+// VALIDATION
+
 module.exports.validateRegister = async (req, res, next) => {
-    const { name, email, password } = req.body;
-    const user = await User.findOne({ email });
+
+    const userSchema = joi.object({
+        name: joi.string().required(),
+        email: joi.string().email().required(),
+        password: joi.string().required().min(6)
+    });
+
+    const { error } = userSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({ errors: error.details });
+    }
+
+    const user = await User.findOne({ email: req.body.email });
+
     if (user) {
         return res.status(400).json({ msg: "User already exists." })
     };
@@ -74,7 +91,16 @@ module.exports.validateRegister = async (req, res, next) => {
 
 module.exports.validateLogin = async (req, res, next) => {
 
-    // todo: joi validation
+    const userSchema = joi.object({
+        email: joi.string().email().required(),
+        password: joi.string().required()
+    });
+
+    const { error } = userSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({ errors: error.details });
+    }
 
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -89,3 +115,131 @@ module.exports.validateLogin = async (req, res, next) => {
 
     next();
 };
+
+module.exports.validateGroup = (req, res, next) => {
+    const groupSchema = joi.object({
+        name: joi.string().required()
+    });
+
+    const { error } = groupSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({ errors: error.details });
+    }
+
+    next();
+}
+
+module.exports.validateRecord = (req, res, next) => {
+    const recordSchema = joi.object({
+        bookId: joi.string().required(),
+        startedOn: joi.date(),
+        finishedOn: joi.date()
+    });
+
+    const { error } = recordSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({ errors: error.details });
+    }
+
+    next();
+}
+
+module.exports.validateBookmark = async (req, res, next) => {
+    const record = await Record.findById(req.params.recordId)
+        .populate({
+            path: "book",
+            select: "pageCount"
+        });
+
+    const bookmarkSchema = joi.object({
+        body: joi.string().required(),
+        page: joi.number().min(0).max(record.book.pageCount).required()
+    });
+
+    const { error } = bookmarkSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({ errors: error.details });
+    };
+
+    next();
+}
+
+module.exports.validateMarker = async (req, res, next) => {
+    const record = await Record.findById(req.params.recordId)
+        .populate({
+            path: "book",
+            select: "pageCount"
+        });
+
+    const markerSchema = joi.object({
+        page: joi.number().min(0).max(record.book.pageCount).required()
+    });
+
+    const { error } = markerSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({ errors: error.details });
+    };
+
+    next();
+}
+
+module.exports.validatePost = (req, res, next) => {
+    const postSchema = joi.object({
+        title: joi.string().required(),
+        body: joi.string().required()
+    });
+
+    const { error } = postSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({ errors: error.details });
+    };
+
+    next();
+}
+
+module.exports.validateComment = (req, res, next) => {
+    const commentSchema = joi.object({
+        body: joi.string().required()
+    });
+
+    const { error } = commentSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({ errors: error.details });
+    };
+
+    next();
+}
+
+module.exports.validateBook = (req, res, next) => {
+    const bookSchema = joi.object({
+        title: joi.string().required(),
+        subtitle: joi.string(),
+        authors: joi.array().has(joi.string()).required(),
+        publisher: joi.string(),
+        publishedOn: joi.date(),
+        description: joi.string(),
+        industryIdentifiers: joi.array().items(
+            joi.object({
+                type: joi.string().required(),
+                identifier: joi.string().required()
+            })
+        ),
+        pageCount: joi.number().min(0).required(),
+        imageUrl: joi.string().uri(),
+        googleBooksUrl: joi.string().uri()
+    });
+
+    const { error } = bookSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({ errors: error.details });
+    };
+
+    next();
+}

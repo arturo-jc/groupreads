@@ -26,7 +26,11 @@ const BookSchema = new Schema({
     publishedOn: Date,
     description: String,
     industryIdentifiers: [IndustryIdentifierSchema],
-    pageCount: Number,
+    pageCount: {
+        type: Number,
+        min: 0,
+        required: true
+    },
     imageUrl: String,
     addedBy: {
         type: Schema.Types.ObjectId,
