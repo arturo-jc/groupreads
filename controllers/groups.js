@@ -1,5 +1,11 @@
 const Group = require("../models/Group")
 
+// GET api/groups
+module.exports.index = async (req, res) => {
+    const groups = await Group.find({ members: { $in: req.user.id } });
+    return res.json(groups);
+}
+
 // POST api/groups
 module.exports.createGroup = async (req, res) => {
     const newGroup = new Group({

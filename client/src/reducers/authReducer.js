@@ -17,7 +17,7 @@ const initialState = {
     error: null
 };
 
-const logReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case USER_LOADED:
             return {
@@ -62,4 +62,4 @@ const logReducer = (state = initialState, action) => {
     }
 }
 
-export default logReducer;
+export default authReducer;

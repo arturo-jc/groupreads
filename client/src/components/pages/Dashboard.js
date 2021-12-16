@@ -4,6 +4,7 @@ import Sidebar from '../dashboard/Sidebar';
 const Dashboard = () => {
     return (
         <div>
+            Dashboard
             <Sidebar />
         </div>
     )

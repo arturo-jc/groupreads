@@ -4,6 +4,7 @@ import Groups from "./Groups";
 const Sidebar = () => {
     return (
         <div>
+            {/* Groups */}
             <Groups />
         </div>
     )
