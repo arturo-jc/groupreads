@@ -1,7 +1,7 @@
 import {
     GET_GROUPS,
     ADD_GROUP,
-    SET_CURRENT,
+    SET_CURRENT_GROUP,
     CLEAR_GROUPS,
     CLEAR_CURRENT,
     GROUPS_ERROR
@@ -16,7 +16,7 @@ const initialState = {
 
 const groupReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_CURRENT:
+        case SET_CURRENT_GROUP:
             return {
                 ...state,
                 current: action.payload

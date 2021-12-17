@@ -3,6 +3,9 @@ const Book = require("../models/Book")
 // POST api/books
 module.exports.addBook = async (req, res) => {
 
+    console.log("Hit addBook controller");
+    console.log(req.body);
+
     // Add addedBy and dataSource
     const newBook = new Book({
         title: req.body.title,

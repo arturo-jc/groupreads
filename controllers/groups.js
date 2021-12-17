@@ -2,7 +2,8 @@ const Group = require("../models/Group")
 
 // GET api/groups
 module.exports.index = async (req, res) => {
-    const groups = await Group.find({ members: { $in: req.user.id } });
+    const groups = await Group.find({ members: { $in: req.user.id } })
+        .populate({ path: "members", select: "name" })
     return res.json(groups);
 }
 

@@ -3,16 +3,16 @@ import setAuthToken from "../utils/setAuthToken";
 import {
     GET_GROUPS,
     ADD_GROUP,
-    SET_CURRENT,
+    SET_CURRENT_GROUP,
     CLEAR_GROUPS,
     CLEAR_CURRENT,
     GROUPS_ERROR
 } from "./types";
 
 // Set current
-export const setCurrent = group => {
+export const setCurrentGroup = group => {
     return {
-        type: SET_CURRENT,
+        type: SET_CURRENT_GROUP,
         payload: group
     }
 }
@@ -58,7 +58,6 @@ export const createGroup = (group) => async dispatch => {
         // Send group data to backend for storage
         // Expect group in return
         const res = await axios.post("/api/groups", group, config)
-        console.log("made call to api/groups")
 
         // If successful, add new group to state
         dispatch({
@@ -67,7 +66,7 @@ export const createGroup = (group) => async dispatch => {
         });
 
         // Set new group as current
-        setCurrent(res.data);
+        setCurrentGroup(res.data);
 
     } catch (err) {
         dispatch({ type: GROUPS_ERROR })

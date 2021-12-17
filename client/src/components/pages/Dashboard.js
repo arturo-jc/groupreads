@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react'
 import Sidebar from '../dashboard/Sidebar';
 import Group from '../dashboard/Group';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SearchBooks from "../dashboard/SearchBooks";
+import { Routes, Route } from 'react-router-dom';
 
 const Dashboard = () => {
     return (
         <Fragment>
-            {/* <Sidebar /> */}
             <div>
                 <Sidebar />
                 <Routes>
-                    <Route path="/viewgroup" element={<Group />} />
+                    <Route path="/groups/:groupId" element={<Group />} />
+                    <Route path="/search" element={<SearchBooks />} />
                 </Routes>
             </div>
 

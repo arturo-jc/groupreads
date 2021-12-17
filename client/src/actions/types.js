@@ -7,10 +7,15 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
-export const SET_CURRENT = 'SET_CURRENT';
+export const SET_CURRENT_GROUP = 'SET_CURRENT_GROUP';
 
-export const GET_GROUPS = 'GET_GROUPS'
+export const GET_GROUPS = 'GET_GROUPS';
 export const ADD_GROUP = 'ADD_GROUP';
 export const CLEAR_GROUPS = 'CLEAR_CONTACTS';
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const GROUPS_ERROR = 'CLEAR_ERRORS';
+
+export const SEARCH_BOOKS = 'SEARCH_BOOKS';
+
+export const ADD_RECORD = 'ADD_RECORD';
+export const SET_CURRENT_RECORD = 'SET_CURRENT_RECORD';

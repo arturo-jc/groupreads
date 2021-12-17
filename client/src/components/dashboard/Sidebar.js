@@ -6,7 +6,6 @@ const Sidebar = () => {
     return (
         <div>
             <Groups />
-            <Link to="viewgroup">View group page</Link>
         </div>
     )
 }

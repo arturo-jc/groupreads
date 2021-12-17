@@ -22,8 +22,8 @@ const AddGroupForm = ({ createGroup }) => {
     return (
         <form onSubmit={onSubmit}>
             <label htmlFor="name"></label>
+            <input type="submit" value="Add group" />
             <input type="text" id="name" name="name" value={name} onChange={onChange} />
-            <input type="submit" value="Submit" />
         </form>
     )
 }
