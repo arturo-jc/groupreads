@@ -17,5 +17,6 @@ export const GROUPS_ERROR = 'CLEAR_ERRORS';
 
 export const SEARCH_BOOKS = 'SEARCH_BOOKS';
 
+export const GET_RECORDS = 'GET_RECORDS';
 export const ADD_RECORD = 'ADD_RECORD';
 export const SET_CURRENT_RECORD = 'SET_CURRENT_RECORD';

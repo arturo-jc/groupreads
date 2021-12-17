@@ -4,7 +4,10 @@ const Record = require("../models/Record")
 // GET api/groups/:groupId/records
 module.exports.index = async (req, res) => {
     const group = await Group.findById(req.params.groupId)
-        .populate("records")
+        .populate({
+            path: "records",
+            populate: "book"
+        })
     return res.json(group.records);
 }
 

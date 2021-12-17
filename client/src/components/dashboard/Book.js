@@ -8,7 +8,6 @@ const Book = ({ groupState, addRecord, book }) => {
     const { title, authors, imageLinks } = book.volumeInfo;
 
     const onClick = () => {
-        console.log("onclick activated")
         const recordData = {
             volumeInfo: book.volumeInfo,
             groupId: current._id
@@ -18,10 +17,10 @@ const Book = ({ groupState, addRecord, book }) => {
 
     return (
         <div>
-            <img src={imageLinks.smallThumbnail} />
-            <p>{title}</p>
+            {imageLinks && (<img src={imageLinks.smallThumbnail} />)}
+            {title ? (<p>{title}</p>) : (<p>Title unkown</p>)}
             {authors && <p>By {authors.join(", ")}</p>}
-            <a href="#" onClick={onClick}>Add to group ({current.name})</a>
+            <a href="#" onClick={onClick}>Add to group</a>
         </div>
     )
 };

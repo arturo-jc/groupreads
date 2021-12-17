@@ -12,7 +12,7 @@ const SearchBooks = ({ bookState }) => {
             <h1>Search books</h1>
             <SearchBookForm />
             {!loading && books ?
-                (books.map(book => <Book key={book._id} book={book} />))
+                (books.map(book => <Book key={book.id} book={book} />))
                 :
                 (<p>No books found</p>)}
         </div>

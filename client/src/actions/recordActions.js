@@ -1,9 +1,38 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import {
+    GET_RECORDS,
     ADD_RECORD,
     SET_CURRENT_RECORD
 } from "./types"
+
+// Get records for group
+export const getRecordsFor = (group) => async dispatch => {
+
+    // Config request headers
+    const config = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    try {
+        const res = await axios.get(`/api/groups/${group._id}/records`, config);
+
+        dispatch({
+            type: GET_RECORDS,
+            payload: res.data
+        })
+
+    } catch (err) {
+
+    }
+}
 
 // Set current record
 export const setCurrentRecord = record => {
@@ -34,16 +63,19 @@ export const addRecord = recordData => async dispatch => {
     try {
         // Send volume info to backend
         // Expect book in return
-        const booksRes = await axios.post("/api/books", volumeInfo, config);
-        const newBook = booksRes.data;
+        // const booksRes = await axios.post("/api/books", volumeInfo, config);
+        // const newBook = booksRes.data;
 
         // If successful, send book id to backend
         // In order to create new record and add to selected group 
+        // const newBookId = {
+        //     bookId: newBook._id
+        // }
         const newBookId = {
-            bookId: newBook._id
+            bookId: "61bc22bb3c8e906f36b8743d"
         }
         const recordsRes = await axios.post(`/api/groups/${groupId}/records`, newBookId, config);
-
+        console.log(recordsRes.data);
         // If successful, add resulting record to state
         dispatch({
             type: ADD_RECORD,

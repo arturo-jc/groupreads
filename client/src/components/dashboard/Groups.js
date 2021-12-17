@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { setCurrentGroup, getGroups } from "../../actions/groupActions";
 import AddGroupForm from './AddGroupForm';
+import { getRecordsFor } from "../../actions/recordActions";
 
 const Groups = ({ groupState, setCurrentGroup, getGroups }) => {
 
@@ -34,13 +35,14 @@ const Groups = ({ groupState, setCurrentGroup, getGroups }) => {
 
 Groups.propTypes = {
     groupState: PropTypes.object.isRequired,
-    getGroups: PropTypes.func.isRequired
+    getGroups: PropTypes.func.isRequired,
+    getRecordsFor: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    groupState: state.group
+    groupState: state.group,
 });
 
-const addState = connect(mapStateToProps, { setCurrentGroup, getGroups });
+const addState = connect(mapStateToProps, { setCurrentGroup, getGroups, getRecordsFor });
 
 export default addState(Groups);
