@@ -1,0 +1,9 @@
+module.exports.auth = require("./auth");
+module.exports.bookmarks = require("./bookmarks");
+module.exports.books = require("./books");
+module.exports.comments = require("./comments");
+module.exports.groups = require("./groups");
+module.exports.markers = require("./markers");
+module.exports.posts = require("./posts");
+module.exports.records = require("./records");
+module.exports.users = require("./users");

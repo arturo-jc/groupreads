@@ -1,6 +1,6 @@
 import React from 'react';
-import Members from './Members';
-import Records from './Records';
+import Members from './groupDetails/Members';
+import Records from './groupDetails/Records';
 
 const GroupDetails = () => {
     return (

@@ -1,6 +1,9 @@
 import axios from "axios";
 import {
-    SEARCH_BOOKS
+    SEARCH_BOOKS,
+    CLEAR_BOOKS,
+    BOOKS_ERROR,
+    SET_LOADING
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -19,7 +22,13 @@ export const searchBooks = book => async dispatch => {
             payload: res.data.items
         })
 
-    } catch (err) {
+    } catch (err) { dispatch({ type: BOOKS_ERROR }) }
+}
 
-    }
+export const clearBooks = () => {
+    return { type: CLEAR_BOOKS }
+}
+
+export const setLoading = () => {
+    return { type: SET_LOADING }
 }

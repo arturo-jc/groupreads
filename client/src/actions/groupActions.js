@@ -5,16 +5,14 @@ import {
     ADD_GROUP,
     SET_CURRENT_GROUP,
     CLEAR_GROUPS,
-    CLEAR_CURRENT,
-    GROUPS_ERROR
+    CLEAR_CURRENT_GROUP,
+    GROUPS_ERROR,
+    SET_LOADING
 } from "./types";
 
 // Set current
 export const setCurrentGroup = group => {
-    return {
-        type: SET_CURRENT_GROUP,
-        payload: group
-    }
+    return { type: SET_CURRENT_GROUP, payload: group }
 }
 
 // Get groups
@@ -24,6 +22,10 @@ export const getGroups = () => async dispatch => {
     if (localStorage.token) {
         setAuthToken(localStorage.token)
     }
+
+    //Set loading to true while waiting for server response
+    dispatch(setLoading)
+
     try {
 
         // Request groups from backend
@@ -42,11 +44,10 @@ export const getGroups = () => async dispatch => {
 
 // Create group
 export const createGroup = (group) => async dispatch => {
+
     // Config request headers
     const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
+        headers: { "Content-Type": "application/json" }
     }
 
     // Add token to request headers for authentication
@@ -54,7 +55,11 @@ export const createGroup = (group) => async dispatch => {
         setAuthToken(localStorage.token)
     }
 
+    //Set loading to true while waiting for server response
+    dispatch(setLoading)
+
     try {
+
         // Send group data to backend for storage
         // Expect group in return
         const res = await axios.post("/api/groups", group, config)
@@ -68,9 +73,7 @@ export const createGroup = (group) => async dispatch => {
         // Set new group as current
         setCurrentGroup(res.data);
 
-    } catch (err) {
-        dispatch({ type: GROUPS_ERROR })
-    }
+    } catch (err) { dispatch({ type: GROUPS_ERROR }) }
 }
 
 // Clear groups
@@ -79,6 +82,11 @@ export const clearGroups = () => {
 }
 
 // Clear current
-export const clearCurrent = () => {
-    return { type: CLEAR_CURRENT }
+export const clearCurrentGroup = () => {
+    return { type: CLEAR_CURRENT_GROUP }
+}
+
+// Set loading
+export const setLoading = () => {
+    return { type: SET_LOADING }
 }

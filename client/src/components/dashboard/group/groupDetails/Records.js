@@ -8,6 +8,10 @@ const Records = ({ groupState }) => {
     const { loading } = groupState;
     const { records } = groupState.current;
 
+    if (loading) {
+        return (<p>Loading...</p>)
+    }
+
     return (
         <div>
             <h5>Books</h5>

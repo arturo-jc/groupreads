@@ -6,13 +6,14 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    SET_LOADING
 } from "../actions/types";
 
 const initialState = {
     token: localStorage.getItem("token"),
     isAuthenticated: null,
-    loading: true,
+    loading: false,
     user: null,
     error: null
 };
@@ -55,8 +56,14 @@ const authReducer = (state = initialState, action) => {
                 isAuthenticated: false,
                 loading: false,
                 user: null,
-                error: action.payload
+                error: null
             };
+        case SET_LOADING:
+            console.log("SET_LOADING called in authReducer")
+            return {
+                ...state,
+                loading: true
+            }
         default:
             return state;
     }

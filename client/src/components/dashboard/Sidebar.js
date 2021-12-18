@@ -1,11 +1,10 @@
 import React from 'react';
-import Groups from "./Groups";
-import { Link } from "react-router-dom";
+import GroupMenu from "./sidebar/GroupMenu";
 
 const Sidebar = () => {
     return (
         <div>
-            <Groups />
+            <GroupMenu />
         </div>
     )
 }

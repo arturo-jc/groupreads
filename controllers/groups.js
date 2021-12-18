@@ -16,6 +16,10 @@ module.exports.createGroup = async (req, res) => {
 
     newGroup.members.push(req.user.id);
 
-    const group = await newGroup.save();
+    // Stupid way of doing things while I figure out the right way
+    const { _id } = await newGroup.save();
+    const group = await Group.findById(_id)
+        .populate({ path: "members", select: "name" })
+        .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
     return res.json(group);
 }

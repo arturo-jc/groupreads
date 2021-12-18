@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { createGroup } from "../../actions/groupActions";
+import { createGroup } from "../../../actions/groupActions";
 
 const AddGroupForm = ({ createGroup }) => {
     const [group, setGroup] = useState({ name: "" });

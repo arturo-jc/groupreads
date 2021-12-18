@@ -3,8 +3,9 @@ import {
     ADD_GROUP,
     SET_CURRENT_GROUP,
     CLEAR_GROUPS,
-    CLEAR_CURRENT,
-    GROUPS_ERROR
+    CLEAR_CURRENT_GROUP,
+    GROUPS_ERROR,
+    SET_LOADING
 } from "../actions/types";
 
 const initialState = {
@@ -38,10 +39,16 @@ const groupReducer = (state = initialState, action) => {
                 ...state,
                 groups: null
             }
-        case CLEAR_CURRENT:
+        case CLEAR_CURRENT_GROUP:
             return {
                 ...state,
                 current: null
+            }
+        case SET_LOADING:
+            console.log("SET_LOADING called on groupReducer")
+            return {
+                ...state,
+                loading: true
             }
         case GROUPS_ERROR:
             console.error(action.payload);

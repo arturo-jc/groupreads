@@ -1,19 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Routes, Route } from 'react-router-dom';
-import GroupDetails from './GroupDetails';
-import SearchBooks from './SearchBooks';
+import GroupDetails from './group/GroupDetails';
+import Search from './group/Search';
 
 const Group = ({ groupState }) => {
-    const { current } = groupState;
+    const { current, loading } = groupState;
+
+    if (loading) {
+        return (<p>Loading...</p>)
+    }
+
     return (
         <div>
             <h1>{current.name}</h1>
             <Routes>
                 <Route path="" element={<GroupDetails />} />
-                <Route path="/search" element={<SearchBooks />} />
+                <Route path="/search" element={<Search />} />
             </Routes>
         </div>
     )

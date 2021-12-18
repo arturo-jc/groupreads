@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { connect } from "react-redux";
 import Sidebar from '../dashboard/Sidebar';
 import Group from '../dashboard/Group';
 import { Routes, Route } from 'react-router-dom';
+import { getGroups } from '../../actions/groupActions';
 
-const Dashboard = () => {
+const Dashboard = ({ getGroups }) => {
+
+    useEffect(() => {
+        getGroups();
+    }, [])
+
     return (
         <div>
             <Sidebar />
@@ -15,4 +22,6 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard;
+const addState = connect(null, { getGroups })
+
+export default addState(Dashboard);

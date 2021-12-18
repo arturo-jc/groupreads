@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import { setCurrentGroup, getGroups } from "../../actions/groupActions";
+import { setCurrentGroup } from "../../../actions/groupActions";
 import AddGroupForm from './AddGroupForm';
-import { getRecordsFor } from "../../actions/recordActions";
+import { getRecordsFor } from "../../../actions/recordActions";
 
-const Groups = ({ groupState, setCurrentGroup, getGroups }) => {
-
-    useEffect(() => {
-        getGroups();
-    }, [])
+const GroupMenu = ({ groupState, setCurrentGroup }) => {
 
     const { groups, loading } = groupState;
+
+    if (loading) {
+        return (<p>Loading...</p>)
+    }
 
     return (
         <div>
             <h4>Groups</h4>
-            {!loading && !groups ?
+            {!groups || groups.length === 0 ?
                 (<p>You don't have any groups yet</p>)
                 :
                 (groups.map(group =>
@@ -33,9 +33,8 @@ const Groups = ({ groupState, setCurrentGroup, getGroups }) => {
     )
 };
 
-Groups.propTypes = {
+GroupMenu.propTypes = {
     groupState: PropTypes.object.isRequired,
-    getGroups: PropTypes.func.isRequired,
     getRecordsFor: PropTypes.func.isRequired
 };
 
@@ -43,6 +42,6 @@ const mapStateToProps = state => ({
     groupState: state.group,
 });
 
-const addState = connect(mapStateToProps, { setCurrentGroup, getGroups, getRecordsFor });
+const addState = connect(mapStateToProps, { setCurrentGroup, getRecordsFor });
 
-export default addState(Groups);
+export default addState(GroupMenu);

@@ -8,7 +8,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    SET_LOADING
 } from "./types";
 
 // Load User
@@ -18,6 +19,9 @@ export const loadUser = () => async dispatch => {
     if (localStorage.token) {
         setAuthToken(localStorage.token)
     }
+
+    //Set loading to true while waiting for server response
+    dispatch(setLoading)
 
     try {
         // Request user data from backend
@@ -40,11 +44,12 @@ export const register = (user) => async dispatch => {
 
     // Config request headers
     const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-
+        headers: { "Content-Type": "application/json" }
     }
+
+    //Set loading to true while waiting for server response
+    dispatch(setLoading)
+
     try {
         // Send user to backend for registration
         // Expect token in return
@@ -74,11 +79,12 @@ export const login = (user) => async dispatch => {
 
     // Config request headers
     const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-
+        headers: { "Content-Type": "application/json" }
     }
+
+    //Set loading to true while waiting for server response
+    dispatch(setLoading)
+
     try {
 
         // Send user to backend for authentication,
@@ -103,10 +109,9 @@ export const login = (user) => async dispatch => {
     }
 }
 // Logout
-export const logout = () => {
-    return {
-        type: LOGOUT
-    }
-}
+export const logout = () => { return { type: LOGOUT } }
 
 // Clear errors
+
+// Set loading to true
+export const setLoading = () => { return { type: SET_LOADING } }

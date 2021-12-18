@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { searchBooks } from "../../actions/bookActions";
+import { searchBooks } from '../../../actions/bookActions';
 
-const SearchBookForm = ({ searchBooks }) => {
+const SearchForm = ({ searchBooks }) => {
     const [book, setBook] = useState({ name: "" });
     const { name } = book;
 
@@ -31,9 +31,9 @@ const SearchBookForm = ({ searchBooks }) => {
     )
 };
 
-SearchBookForm.propTypes = {
+SearchForm.propTypes = {
     searchBooks: PropTypes.func.isRequired
 };
 
 const addState = connect(null, { searchBooks });
-export default addState(SearchBookForm);
+export default addState(SearchForm);

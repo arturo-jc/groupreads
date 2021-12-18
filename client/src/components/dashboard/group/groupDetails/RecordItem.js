@@ -1,5 +1,4 @@
 import React from 'react'
-import Records from './Records';
 
 const RecordItem = ({ record }) => {
     const { title, authors, imageUrl } = record.book;
