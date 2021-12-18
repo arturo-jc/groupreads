@@ -1,5 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
+import formatBookData from "../utils/formatBookData"
 import {
     GET_RECORDS,
     ADD_RECORD,
@@ -58,24 +59,23 @@ export const addRecord = recordData => async dispatch => {
 
     // Get volumeInfo to create new record
     // Get groupId to attach record to selected group
-    const { volumeInfo, groupId } = recordData;
+    const { rawBookData, groupId } = recordData;
+
+    // Format book data to comply with backend validation
+    const bookData = formatBookData(rawBookData)
 
     //Set loading to true while waiting for server response
     dispatch(setLoading);
 
     try {
-        // Send volume info to backend
+        // Send book data to backend
         // Expect book in return
-        const booksRes = await axios.post("/api/books", volumeInfo, config);
+        const booksRes = await axios.post("/api/books", bookData, config);
         const newBook = booksRes.data;
 
         // If successful, send book id to backend
         // In order to create new record and add to selected group 
         const newBookId = { bookId: newBook._id }
-
-        // const newBookId = {
-        //     bookId: "61bc22bb3c8e906f36b8743d"
-        // }
 
         const recordsRes = await axios.post(`/api/groups/${groupId}/records`, newBookId, config);
         console.log(recordsRes.data);
@@ -85,7 +85,10 @@ export const addRecord = recordData => async dispatch => {
             type: ADD_RECORD,
             payload: recordsRes.data
         })
-    } catch (err) { dispatch({ type: RECORDS_ERROR }) };
+    } catch (err) {
+        console.log(err);
+        dispatch({ type: RECORDS_ERROR })
+    };
 }
 
 // Set loading

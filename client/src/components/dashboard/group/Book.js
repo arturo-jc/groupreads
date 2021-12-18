@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { addRecord } from "../../../actions/recordActions"
+import { addRecord } from "../../../actions/recordActions";
 
 const Book = ({ groupState, addRecord, book }) => {
     const { current } = groupState;
@@ -9,7 +9,7 @@ const Book = ({ groupState, addRecord, book }) => {
 
     const onClick = () => {
         const recordData = {
-            volumeInfo: book.volumeInfo,
+            rawBookData: book,
             groupId: current._id
         }
         addRecord(recordData);

@@ -6,7 +6,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-    records: null,
+    records: [],
     current: null,
     loading: false,
     error: null
