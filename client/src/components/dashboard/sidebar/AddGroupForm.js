@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { createGroup, setCurrentGroup } from "../../../actions/groupActions";
+import { getRecordsFor } from "../../../actions/recordActions";
 import { useNavigate } from 'react-router-dom';
 
-const AddGroupForm = ({ groupState, createGroup }) => {
-    const [group, setGroup] = useState({ name: "" });
-    const { name } = group;
+const AddGroupForm = ({ groupState, createGroup, setCurrentGroup, getRecordsFor }) => {
 
+    // Form state
+    const [group, setGroup] = useState({ name: "" });
+
+    // Control form state
     const onChange = e => {
         setGroup({
             ...group,
@@ -19,9 +22,9 @@ const AddGroupForm = ({ groupState, createGroup }) => {
 
     const onSubmit = async e => {
         e.preventDefault();
-        // const newGroup = await createGroup(group);
-        // await setCurrentGroup(newGroup);
         const newGroup = await createGroup(group);
+        setCurrentGroup(newGroup);
+        getRecordsFor(newGroup);
         navigate(`/dashboard/groups/${newGroup._id}`);
     }
 
@@ -29,7 +32,7 @@ const AddGroupForm = ({ groupState, createGroup }) => {
         <form onSubmit={onSubmit}>
             <label htmlFor="name"></label>
             <input type="submit" value="Add group" />
-            <input type="text" id="name" name="name" value={name} onChange={onChange} />
+            <input type="text" id="name" name="name" value={group.name} onChange={onChange} />
         </form>
     )
 }
@@ -42,6 +45,6 @@ const mapStateToProps = state => ({
     groupState: state.group
 })
 
-const connection = connect(mapStateToProps, { createGroup, setCurrentGroup })
+const connection = connect(mapStateToProps, { createGroup, setCurrentGroup, getRecordsFor })
 
 export default connection(AddGroupForm);

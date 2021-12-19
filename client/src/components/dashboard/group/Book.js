@@ -23,7 +23,7 @@ const Book = ({ groupState, addRecord, book }) => {
             {imageLinks && (<img src={imageLinks.smallThumbnail} />)}
             {title ? (<p>{title}</p>) : (<p>Title unkown</p>)}
             {authors && <p>By {authors.join(", ")}</p>}
-            <a href="#" onClick={onClick}>Add to group</a>
+            <button onClick={onClick}>Add to group</button>
         </div>
     )
 };

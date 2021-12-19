@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import RecordItem from './RecordItem';
-import { getRecordsFor } from '../../../../actions/recordActions';
 
-const Records = ({ groupState, recordState, getRecordsFor }) => {
+const Records = ({ groupState, recordState }) => {
     const { current } = groupState;
     const { records, loading } = recordState;
-    useEffect(() => {
-        getRecordsFor(current);
-    }, []);
 
     if (loading) {
         return (<p>Loading...</p>)
@@ -31,7 +27,8 @@ const Records = ({ groupState, recordState, getRecordsFor }) => {
 };
 
 Records.propTypes = {
-    recordState: PropTypes.object.isRequired
+    recordState: PropTypes.object.isRequired,
+    groupState: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -39,6 +36,6 @@ const mapStateToProps = state => ({
     groupState: state.group
 });
 
-const addState = connect(mapStateToProps, { getRecordsFor })
+const addState = connect(mapStateToProps)
 
 export default addState(Records);

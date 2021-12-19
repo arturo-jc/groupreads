@@ -22,6 +22,6 @@ const Dashboard = ({ getGroups }) => {
     )
 }
 
-const addState = connect(null, { getGroups })
+const addState = connect(null, { getGroups, getGroups })
 
 export default addState(Dashboard);

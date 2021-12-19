@@ -23,7 +23,8 @@ module.exports.addRecord = async (req, res) => {
             }
         })
 
-    const record = await newRecord.save()
+    const { _id } = await newRecord.save();
+    const record = await Record.findById(_id).populate("book");
     return res.json(record);
 }
 
