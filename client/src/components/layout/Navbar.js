@@ -19,7 +19,6 @@ const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup
 
     const authLinks = (
         <Fragment>
-            <Link to="dashboard">Dashboard</Link>
             <li>
                 <a href="#" onClick={onLogout}>Sign out</a>
             </li>
@@ -35,7 +34,7 @@ const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup
 
     return (
         <div>
-            <Link to=""><i className={icon} /> {title}</Link>
+            <Link to={isAuthenticated ? ("/dashboard") : ("/")}><i className={icon} /> {title}</Link>
             <ul>
                 {isAuthenticated ? authLinks : guestLinks}
             </ul>

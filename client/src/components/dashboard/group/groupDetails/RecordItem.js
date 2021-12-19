@@ -2,7 +2,6 @@ import React from 'react'
 
 const RecordItem = ({ record }) => {
     const { title, authors, imageUrl } = record.book;
-    // const { addedOn, finishedOn } = record;
     return (
         <div>
             <img src={imageUrl} alt="" />

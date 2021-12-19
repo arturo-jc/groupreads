@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { createGroup } from "../../../actions/groupActions";
+import { createGroup, setCurrentGroup } from "../../../actions/groupActions";
+import { useNavigate } from 'react-router-dom';
 
-const AddGroupForm = ({ createGroup }) => {
+const AddGroupForm = ({ groupState, createGroup }) => {
     const [group, setGroup] = useState({ name: "" });
     const { name } = group;
 
@@ -14,9 +15,14 @@ const AddGroupForm = ({ createGroup }) => {
         })
     }
 
-    const onSubmit = e => {
+    const navigate = useNavigate();
+
+    const onSubmit = async e => {
         e.preventDefault();
-        createGroup(group);
+        // const newGroup = await createGroup(group);
+        // await setCurrentGroup(newGroup);
+        const newGroup = await createGroup(group);
+        navigate(`/dashboard/groups/${newGroup._id}`);
     }
 
     return (
@@ -32,6 +38,10 @@ AddGroupForm.propTypes = {
     createGroup: PropTypes.func.isRequired
 }
 
-const connection = connect(null, { createGroup })
+const mapStateToProps = state => ({
+    groupState: state.group
+})
+
+const connection = connect(mapStateToProps, { createGroup, setCurrentGroup })
 
 export default connection(AddGroupForm);

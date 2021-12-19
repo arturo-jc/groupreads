@@ -12,6 +12,7 @@ import {
 
 // Set current
 export const setCurrentGroup = group => {
+    console.log("hit setCurrentGroup")
     return { type: SET_CURRENT_GROUP, payload: group }
 }
 
@@ -70,8 +71,12 @@ export const createGroup = (group) => async dispatch => {
             payload: res.data
         });
 
-        // Set new group as current
-        setCurrentGroup(res.data);
+        // Set new group as current (NOT WORKING)
+        // dispatch(() => setCurrentGroup(res.data));
+        // return res.data
+        // setCurrentGroup(res.data);
+
+        return res.data;
 
     } catch (err) { dispatch({ type: GROUPS_ERROR }) }
 }

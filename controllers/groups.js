@@ -16,7 +16,7 @@ module.exports.createGroup = async (req, res) => {
 
     newGroup.members.push(req.user.id);
 
-    // Stupid way of doing things while I figure out the right way
+    // Stupid way of doing things while I figure out a better way
     const { _id } = await newGroup.save();
     const group = await Group.findById(_id)
         .populate({ path: "members", select: "name" })

@@ -15,7 +15,6 @@ const jwt = require("jsonwebtoken");
 // PERMISSIONS
 
 module.exports.authenticate = (req, res, next) => {
-    console.log("hit authenticate middleware")
     const token = req.header("x-auth-token");
     if (!token) {
         return res.status(401).json({ msg: "No token, authorization denied." });
@@ -217,7 +216,6 @@ module.exports.validateComment = (req, res, next) => {
 }
 
 module.exports.validateBook = (req, res, next) => {
-    console.log("hit validateBook middleware")
 
     const bookSchema = joi.object({
         title: joi.string().required(),

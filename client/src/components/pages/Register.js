@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { register } from '../../actions/authActions';
+import { useNavigate } from 'react-router-dom';
 
-const Register = ({ register }) => {
+const Register = ({ authState, register }) => {
+
+    const { isAuthenticated, error } = authState;
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/dashboard");
+        }
+        if (error) {
+            console.log(`ALERT: ${error}`)
+        }
+    }, [error, isAuthenticated]);
 
     const [user, setUser] = useState({
         name: "",
@@ -64,5 +76,9 @@ Register.propTypes = {
     register: PropTypes.func.isRequired
 }
 
-const connection = connect(null, { register })
+const mapStateToProps = state => ({
+    authState: state.auth
+})
+
+const connection = connect(mapStateToProps, { register })
 export default connection(Register);

@@ -2,17 +2,20 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addRecord } from "../../../actions/recordActions";
+import { useNavigate } from 'react-router-dom';
 
 const Book = ({ groupState, addRecord, book }) => {
     const { current } = groupState;
     const { title, authors, imageLinks } = book.volumeInfo;
+    const navigate = useNavigate();
 
-    const onClick = () => {
+    const onClick = async () => {
         const recordData = {
             rawBookData: book,
             groupId: current._id
         }
-        addRecord(recordData);
+        await addRecord(recordData);
+        navigate(`/dashboard/groups/${current._id}`);
     }
 
     return (

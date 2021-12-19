@@ -76,15 +76,14 @@ export const addRecord = recordData => async dispatch => {
         // If successful, send book id to backend
         // In order to create new record and add to selected group 
         const newBookId = { bookId: newBook._id }
-
         const recordsRes = await axios.post(`/api/groups/${groupId}/records`, newBookId, config);
-        console.log(recordsRes.data);
 
         // If successful, add resulting record to state
         dispatch({
             type: ADD_RECORD,
             payload: recordsRes.data
         })
+
     } catch (err) {
         console.log(err);
         dispatch({ type: RECORDS_ERROR })
@@ -92,6 +91,4 @@ export const addRecord = recordData => async dispatch => {
 }
 
 // Set loading
-export const setLoading = () => {
-    return { type: SET_LOADING }
-}
+export const setLoading = () => { return { type: SET_LOADING } }
