@@ -1,29 +1,28 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { searchBooks } from '../../../actions/bookActions';
+import { getBooks } from '../../../../actions/bookActions';
 
-const SearchForm = ({ searchBooks }) => {
-    const [book, setBook] = useState({ name: "" });
-    const { name } = book;
+const SearchForm = ({ getBooks }) => {
+    const [query, setQuery] = useState({ text: "" });
 
     const onChange = e => {
-        setBook({
-            ...book,
+        setQuery({
+            ...query,
             [e.target.name]: e.target.value
         })
     }
 
     const onSubmit = e => {
         e.preventDefault();
-        searchBooks(book);
+        getBooks(query);
     }
 
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <label htmlFor="name"></label>
-                <input type="text" name="name" id="name" onChange={onChange} value={name} />
+                <label htmlFor="text"></label>
+                <input type="text" name="text" id="text" onChange={onChange} value={query.text} />
                 <input type="submit" value="Search" />
             </form>
 
@@ -32,8 +31,8 @@ const SearchForm = ({ searchBooks }) => {
 };
 
 SearchForm.propTypes = {
-    searchBooks: PropTypes.func.isRequired
+    getBooks: PropTypes.func.isRequired
 };
 
-const addState = connect(null, { searchBooks });
+const addState = connect(null, { getBooks });
 export default addState(SearchForm);

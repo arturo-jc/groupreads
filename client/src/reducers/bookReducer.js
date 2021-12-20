@@ -1,18 +1,20 @@
 import {
-    SEARCH_BOOKS,
+    GET_BOOKS,
     CLEAR_BOOKS,
+    BOOKS_ERROR,
     SET_LOADING
-} from "../actions/types";
+} from "./../actions/types";
 
 const initialState = {
-    books: null,
+    books: [],
+    current: null,
     loading: false,
     error: null
 }
 
 const bookReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SEARCH_BOOKS:
+        case GET_BOOKS:
             return {
                 ...state,
                 books: action.payload,
@@ -21,10 +23,14 @@ const bookReducer = (state = initialState, action) => {
         case CLEAR_BOOKS:
             return {
                 ...state,
-                books: null
+                books: []
+            }
+        case BOOKS_ERROR:
+            return {
+                ...state,
+                error: action.payload
             }
         case SET_LOADING:
-            console.log("SET_LOADING called on bookReducer")
             return {
                 ...state,
                 loading: true

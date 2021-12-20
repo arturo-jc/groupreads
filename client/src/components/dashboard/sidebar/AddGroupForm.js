@@ -5,7 +5,7 @@ import { createGroup, setCurrentGroup } from "../../../actions/groupActions";
 import { getRecordsFor } from "../../../actions/recordActions";
 import { useNavigate } from 'react-router-dom';
 
-const AddGroupForm = ({ groupState, createGroup, setCurrentGroup, getRecordsFor }) => {
+const AddGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor }) => {
 
     // Form state
     const [group, setGroup] = useState({ name: "" });
@@ -38,13 +38,11 @@ const AddGroupForm = ({ groupState, createGroup, setCurrentGroup, getRecordsFor 
 }
 
 AddGroupForm.propTypes = {
-    createGroup: PropTypes.func.isRequired
+    createGroup: PropTypes.func.isRequired,
+    setCurrentGroup: PropTypes.func.isRequired,
+    getRecordsFor: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
-    groupState: state.group
-})
-
-const connection = connect(mapStateToProps, { createGroup, setCurrentGroup, getRecordsFor })
+const connection = connect(null, { createGroup, setCurrentGroup, getRecordsFor })
 
 export default connection(AddGroupForm);

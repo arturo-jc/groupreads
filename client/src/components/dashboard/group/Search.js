@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import SearchForm from "./SearchForm";
-import Book from "./Book"
+import SearchForm from "./search/SearchForm";
+import Book from "./search/Book"
 
 const Search = ({ bookState }) => {
     const { books, loading } = bookState;

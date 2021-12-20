@@ -1,32 +1,34 @@
 import axios from "axios";
+import setAuthToken from "../utils/setAuthToken";
 import {
-    ADD_BOOK,
-    SEARCH_BOOKS,
+    GET_BOOKS,
     CLEAR_BOOKS,
     BOOKS_ERROR,
     SET_LOADING
 } from "./types";
-import setAuthToken from "../utils/setAuthToken";
 
-export const searchBooks = book => async dispatch => {
 
+export const getBooks = query => async dispatch => {
+
+    // Define endpoint
+    const baseUrl = "https://books.googleapis.com/books/v1/volumes";
+    const maxResults = 15;
+    const params = `?q=${query.text}&maxResults=${maxResults}`;
+    const endpoint = baseUrl + params;
+
+    // Remove auth token from headers
+    setAuthToken();
+
+    // Set loading to true while waiting for response
     dispatch(setLoading)
 
     try {
-        // Remove auth token from headers
-        setAuthToken();
-
-        // Set Google Books API endpoint
-        const baseUrl = "https://books.googleapis.com/books/v1/volumes";
-        const maxResults = 15;
-        const params = `?q=${book.name}&maxResults=${maxResults}`;
-        const endpoint = baseUrl + params;
-
-        // Request books
+        // Get books from Google Books API
         const res = await axios.get(endpoint);
 
+        // If successful, add results to result state
         dispatch({
-            type: SEARCH_BOOKS,
+            type: GET_BOOKS,
             payload: res.data.items
         })
 

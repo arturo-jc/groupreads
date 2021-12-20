@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { logout } from "../../actions/authActions";
 import { clearGroups, clearCurrentGroup } from '../../actions/groupActions';
-import { clearBooks } from "../../actions/bookActions"
+import { clearBooks } from "../../actions/bookActions";
 
 const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup, clearBooks }) => {
 
@@ -48,7 +48,8 @@ Navbar.propTypes = {
     authState: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired,
     clearGroups: PropTypes.func.isRequired,
-    clearCurrentGroup: PropTypes.func.isRequired
+    clearCurrentGroup: PropTypes.func.isRequired,
+    clearBooks: PropTypes.func.isRequired
 }
 
 Navbar.defaultProps = {
