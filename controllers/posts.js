@@ -3,6 +3,7 @@ const Post = require("../models/Post")
 // GET api/groups/:groupId/records/:recordId/posts
 module.exports.index = async (req, res) => {
     const posts = await Post.find({ record: req.params.recordId })
+        .populate({ path: "author", select: "name" });
     return res.json(posts);
 }
 
@@ -14,7 +15,10 @@ module.exports.addPost = async (req, res) => {
         title: req.body.title,
         body: req.body.body
     })
-    const post = await newPost.save();
+
+    const { _id } = await newPost.save();
+    const post = await Post.findById(_id)
+        .populate({ path: "author", select: "name" });
     return res.json(post);
 }
 

@@ -17,8 +17,8 @@ const Dashboard = ({ getGroups }) => {
             <Sidebar />
             <Routes>
                 <Route path="/" element={<p>Recent activity</p>} />
+                <Route path="/groups/:groupId/records/:recordId/*" element={<Record />} />
                 <Route path="/groups/:groupId/*" element={<Group />} />
-                <Route path="/records/:recordId/*" element={<Record />} />
             </Routes>
         </div>
     )

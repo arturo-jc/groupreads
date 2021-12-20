@@ -24,3 +24,8 @@ export const GET_RECORDS = 'GET_RECORDS';
 export const ADD_RECORD = 'ADD_RECORD';
 export const SET_CURRENT_RECORD = 'SET_CURRENT_RECORD';
 export const RECORDS_ERROR = 'RECORDS_ERROR';
+
+export const GET_POSTS = 'GET_POSTS';
+export const ADD_POST = 'ADD_POST';
+export const SET_CURRENT_POST = 'SET_CURRENT_POST';
+export const POSTS_ERROR = 'POSTS_ERROR';

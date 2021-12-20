@@ -63,7 +63,7 @@ export const createGroup = (group) => async dispatch => {
 
     try {
 
-        // Send group data to backend for storage
+        // Send group data to server for storage
         // Expect group in return
         const res = await axios.post("/api/groups", group, config)
 

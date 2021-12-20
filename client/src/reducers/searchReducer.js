@@ -28,7 +28,8 @@ const searchReducer = (state = initialState, action) => {
         case SEARCH_ERROR:
             return {
                 ...state,
-                error: action.payload
+                error: action.payload,
+                loading: false
             }
         case SET_LOADING:
             return {

@@ -1,43 +1,38 @@
 import {
-    GET_RECORDS,
-    ADD_RECORD,
-    SET_CURRENT_RECORD,
-    SET_LOADING,
-    RECORDS_ERROR
+    GET_POSTS,
+    ADD_POST,
+    SET_CURRENT_POST,
+    POSTS_ERROR,
+    SET_LOADING
 } from "../actions/types";
 
 const initialState = {
-    records: [],
+    posts: [],
     current: null,
     loading: false,
     error: null
 }
 
-const recordReducer = (state = initialState, action) => {
+const postReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_RECORDS:
+        case ADD_POST:
             return {
                 ...state,
-                records: action.payload,
+                posts: [...state.posts, action.payload],
                 loading: false
             }
-        case ADD_RECORD:
+        case GET_POSTS:
             return {
                 ...state,
-                records: [...state.records, action.payload],
+                posts: action.payload,
                 loading: false
-            }
-        case SET_CURRENT_RECORD:
-            return {
-                ...state,
-                current: action.payload
             }
         case SET_LOADING:
             return {
                 ...state,
                 loading: true
             }
-        case RECORDS_ERROR:
+        case POSTS_ERROR:
             return {
                 ...state,
                 error: action.payload,
@@ -48,4 +43,4 @@ const recordReducer = (state = initialState, action) => {
     }
 }
 
-export default recordReducer;
+export default postReducer;
