@@ -45,7 +45,7 @@ export const setCurrentRecord = record => {
 }
 
 // Add a record
-export const addRecord = recordData => async dispatch => {
+export const addRecord = (bookId, groupId) => async dispatch => {
 
     // Config request headers
     const config = {
@@ -57,31 +57,18 @@ export const addRecord = recordData => async dispatch => {
         setAuthToken(localStorage.token)
     }
 
-    // Get volumeInfo to create new record
-    // Get groupId to attach record to selected group
-    const { rawBookData, groupId } = recordData;
-
-    // Format book data to comply with backend validation
-    const bookData = formatBookData(rawBookData)
-
     //Set loading to true while waiting for server response
     dispatch(setLoading);
 
     try {
-        // Send book data to backend
-        // Expect book in return
-        const booksRes = await axios.post("/api/books", bookData, config);
-        const newBook = booksRes.data;
-
-        // If successful, send book id to backend
-        // In order to create new record and add to selected group 
-        const newBookId = { bookId: newBook._id }
-        const recordsRes = await axios.post(`/api/groups/${groupId}/records`, newBookId, config);
+        // Send book id to backend to create new record
+        // Expect record back
+        const res = await axios.post(`/api/groups/${groupId}/records`, { bookId }, config);
 
         // If successful, add resulting record to state
         dispatch({
             type: ADD_RECORD,
-            payload: recordsRes.data
+            payload: res.data
         })
 
     } catch (err) {

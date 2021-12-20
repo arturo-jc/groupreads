@@ -1,15 +1,15 @@
-const formatBookData = rawBookData => {
+const formatBookData = bookData => {
     return {
-        title: rawBookData.volumeInfo.title,
-        subtitle: rawBookData.volumeInfo.subtitle,
-        authors: rawBookData.volumeInfo.authors,
-        publisher: rawBookData.volumeInfo.publisher,
-        publishedOn: rawBookData.volumeInfo.publishedDate,
-        description: rawBookData.volumeInfo.description,
-        industryIdentifiers: rawBookData.volumeInfo.industryIdentifiers,
-        pageCount: rawBookData.volumeInfo.pageCount,
-        imageUrl: rawBookData.volumeInfo.imageLinks.smallThumbnail,
-        googleBooksUrl: rawBookData.selfLink
+        title: bookData.volumeInfo.title,
+        subtitle: bookData.volumeInfo.subtitle,
+        authors: bookData.volumeInfo.authors,
+        publisher: bookData.volumeInfo.publisher,
+        publishedOn: bookData.volumeInfo.publishedDate,
+        description: bookData.volumeInfo.description,
+        industryIdentifiers: bookData.volumeInfo.industryIdentifiers,
+        pageCount: bookData.volumeInfo.pageCount,
+        imageUrl: bookData.volumeInfo.imageLinks.smallThumbnail,
+        googleBooksUrl: bookData.selfLink
     };
 }
 
