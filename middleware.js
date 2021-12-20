@@ -77,7 +77,7 @@ module.exports.validateRegister = async (req, res, next) => {
     const { error } = userSchema.validate(req.body);
 
     if (error) {
-        return res.status(400).json({ errors: error.details });
+        return res.status(400).json({ msg: error.details[0].message });
     }
 
     const user = await User.findOne({ email: req.body.email });
@@ -98,7 +98,7 @@ module.exports.validateLogin = async (req, res, next) => {
     const { error } = userSchema.validate(req.body);
 
     if (error) {
-        return res.status(400).json({ errors: error.details });
+        return res.status(400).json({ msg: error.details[0].message });
     }
 
     const { email, password } = req.body;
@@ -123,7 +123,7 @@ module.exports.validateGroup = (req, res, next) => {
     const { error } = groupSchema.validate(req.body);
 
     if (error) {
-        return res.status(400).json({ errors: error.details });
+        return res.status(400).json({ msg: error.details[0].message });
     }
 
     next();
@@ -139,7 +139,7 @@ module.exports.validateRecord = (req, res, next) => {
     const { error } = recordSchema.validate(req.body);
 
     if (error) {
-        return res.status(400).json({ errors: error.details });
+        return res.status(400).json({ msg: error.details[0].message });
     }
 
     next();
@@ -160,7 +160,7 @@ module.exports.validateBookmark = async (req, res, next) => {
     const { error } = bookmarkSchema.validate(req.body);
 
     if (error) {
-        return res.status(400).json({ errors: error.details });
+        return res.status(400).json({ msg: error.details[0].message });
     };
 
     next();
@@ -180,7 +180,7 @@ module.exports.validateMarker = async (req, res, next) => {
     const { error } = markerSchema.validate(req.body);
 
     if (error) {
-        return res.status(400).json({ errors: error.details });
+        return res.status(400).json({ msg: error.details[0].message });
     };
 
     next();
@@ -195,7 +195,7 @@ module.exports.validatePost = (req, res, next) => {
     const { error } = postSchema.validate(req.body);
 
     if (error) {
-        return res.status(400).json({ errors: error.details });
+        return res.status(400).json({ msg: error.details[0].message });
     };
 
     next();
@@ -209,7 +209,7 @@ module.exports.validateComment = (req, res, next) => {
     const { error } = commentSchema.validate(req.body);
 
     if (error) {
-        return res.status(400).json({ errors: error.details });
+        return res.status(400).json({ msg: error.details[0].message });
     };
 
     next();
@@ -230,7 +230,7 @@ module.exports.validateBook = (req, res, next) => {
                 identifier: joi.string().required()
             })
         ),
-        pageCount: joi.number().min(0).required(),
+        pageCount: joi.number().min(0),
         imageUrl: joi.string().uri(),
         googleBooksUrl: joi.string().uri()
     });
@@ -238,8 +238,7 @@ module.exports.validateBook = (req, res, next) => {
     const { error } = bookSchema.validate(req.body);
 
     if (error) {
-        console.log(error)
-        return res.status(400).json({ errors: error.details });
+        return res.status(400).json({ msg: error.details[0].message });
     };
 
     next();

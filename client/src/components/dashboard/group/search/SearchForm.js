@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { getBooks } from '../../../../actions/bookActions';
+import { search } from '../../../../actions/searchActions';
 
-const SearchForm = ({ getBooks }) => {
+const SearchForm = ({ search }) => {
     const [query, setQuery] = useState({ text: "" });
 
     const onChange = e => {
@@ -15,7 +15,7 @@ const SearchForm = ({ getBooks }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        getBooks(query);
+        search(query);
     }
 
     return (
@@ -31,8 +31,8 @@ const SearchForm = ({ getBooks }) => {
 };
 
 SearchForm.propTypes = {
-    getBooks: PropTypes.func.isRequired
+    search: PropTypes.func.isRequired
 };
 
-const addState = connect(null, { getBooks });
+const addState = connect(null, { search });
 export default addState(SearchForm);

@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import authReducer from "./authReducer";
 import groupReducer from "./groupReducer";
-import bookReducer from "./bookReducer";
+import searchReducer from "./searchReducer";
 import recordReducer from "./recordReducer";
 
 export default combineReducers({
     auth: authReducer,
     group: groupReducer,
-    book: bookReducer,
+    search: searchReducer,
     record: recordReducer
 });

@@ -35,7 +35,10 @@ export const loadUser = () => async dispatch => {
         });
 
     } catch (err) {
-        dispatch({ type: AUTH_ERROR })
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.errors
+        })
     }
 }
 
@@ -102,6 +105,7 @@ export const login = (user) => async dispatch => {
         dispatch(loadUser());
 
     } catch (err) {
+        console.dir(err)
         dispatch({
             type: LOGIN_FAIL,
             payload: err.response.data.msg
@@ -112,6 +116,7 @@ export const login = (user) => async dispatch => {
 export const logout = () => { return { type: LOGOUT } }
 
 // Clear errors
+export const clearErrors = () => { return { type: CLEAR_ERRORS } }
 
 // Set loading to true
 export const setLoading = () => { return { type: SET_LOADING } }

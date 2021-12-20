@@ -2,13 +2,13 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import formatBookData from "../utils/formatBookData"
 import {
-    GET_BOOKS,
-    CLEAR_BOOKS,
-    BOOKS_ERROR,
+    SEARCH,
+    CLEAR_RESULTS,
+    SEARCH_ERROR,
     SET_LOADING
 } from "./types";
 
-export const saveBook = bookData => async dispatch => {
+export const saveResult = bookData => async dispatch => {
 
     // Config request headers
     const config = {
@@ -32,10 +32,15 @@ export const saveBook = bookData => async dispatch => {
         const res = await axios.post("/api/books", book, config);
         return res.data;
 
-    } catch (err) { dispatch({ type: BOOKS_ERROR }) }
+    } catch (err) {
+        dispatch({
+            type: SEARCH_ERROR,
+            payload: err.response.data.msg
+        })
+    }
 }
 
-export const getBooks = query => async dispatch => {
+export const search = query => async dispatch => {
 
     // Define endpoint
     const baseUrl = "https://books.googleapis.com/books/v1/volumes";
@@ -55,15 +60,20 @@ export const getBooks = query => async dispatch => {
 
         // If successful, add results to result state
         dispatch({
-            type: GET_BOOKS,
+            type: SEARCH,
             payload: res.data.items
         })
 
-    } catch (err) { dispatch({ type: BOOKS_ERROR }) }
+    } catch (err) {
+        dispatch({
+            type: SEARCH_ERROR,
+            payload: err.response.data.msg
+        })
+    }
 }
 
-export const clearBooks = () => {
-    return { type: CLEAR_BOOKS }
+export const clearResults = () => {
+    return { type: CLEAR_RESULTS }
 }
 
 export const setLoading = () => {

@@ -38,7 +38,10 @@ export const getGroups = () => async dispatch => {
         });
 
     } catch (err) {
-        dispatch({ type: GROUPS_ERROR })
+        dispatch({
+            type: GROUPS_ERROR,
+            payload: err.response.data.msg
+        })
     };
 }
 
@@ -72,7 +75,12 @@ export const createGroup = (group) => async dispatch => {
 
         return res.data;
 
-    } catch (err) { dispatch({ type: GROUPS_ERROR }) }
+    } catch (err) {
+        dispatch({
+            type: GROUPS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
 }
 
 // Clear groups

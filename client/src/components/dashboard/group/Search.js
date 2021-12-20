@@ -2,18 +2,18 @@ import React from 'react'
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import SearchForm from "./search/SearchForm";
-import Book from "./search/Book"
+import Result from "./search/Result"
 
-const Search = ({ bookState }) => {
-    const { books, loading } = bookState;
+const Search = ({ searchState }) => {
+    const { results, loading } = searchState;
 
     return (
         <div>
             <h1>Search books</h1>
             <SearchForm />
             {loading && (<p>Loading...</p>)}
-            {!loading && books ?
-                (books.map(book => <Book key={book.id} book={book} />))
+            {!loading && results ?
+                (results.map(result => <Result key={result.id} result={result} />))
                 :
                 (<p>No books found</p>)}
         </div>
@@ -21,11 +21,11 @@ const Search = ({ bookState }) => {
 };
 
 Search.propTypes = {
-    bookState: PropTypes.object.isRequired
+    searchState: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    bookState: state.book
+    searchState: state.search
 })
 
 const addState = connect(mapStateToProps);

@@ -1,6 +1,5 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
-import formatBookData from "../utils/formatBookData"
 import {
     GET_RECORDS,
     ADD_RECORD,
@@ -33,7 +32,12 @@ export const getRecordsFor = (group) => async dispatch => {
             payload: res.data
         })
 
-    } catch (err) { dispatch({ type: RECORDS_ERROR }) }
+    } catch (err) {
+        dispatch({
+            type: RECORDS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
 }
 
 // Set current record
@@ -72,8 +76,10 @@ export const addRecord = (bookId, groupId) => async dispatch => {
         })
 
     } catch (err) {
-        console.log(err);
-        dispatch({ type: RECORDS_ERROR })
+        dispatch({
+            type: RECORDS_ERROR,
+            payload: err.response.data.msg
+        })
     };
 }
 

@@ -2,18 +2,18 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addRecord } from "../../../../actions/recordActions";
-import { saveBook, clearBooks } from '../../../../actions/bookActions';
+import { saveResult, clearResults } from '../../../../actions/searchActions';
 import { useNavigate } from 'react-router-dom';
 
-const Book = ({ book, groupState, addRecord, saveBook, clearBooks }) => {
+const Result = ({ result, groupState, addRecord, saveResult, clearResults }) => {
     const { current } = groupState;
-    const { title, authors, imageLinks } = book.volumeInfo;
+    const { title, authors, imageLinks } = result.volumeInfo;
     const navigate = useNavigate();
 
     const onClick = async () => {
-        const newBook = await saveBook(book)
+        const newBook = await saveResult(result)
         addRecord(newBook._id, current._id);
-        clearBooks();
+        clearResults();
         navigate(`/dashboard/groups/${current._id}`);
     }
 
@@ -27,18 +27,18 @@ const Book = ({ book, groupState, addRecord, saveBook, clearBooks }) => {
     )
 };
 
-Book.propTypes = {
-    book: PropTypes.object.isRequired,
+Result.propTypes = {
+    result: PropTypes.object.isRequired,
     groupState: PropTypes.object.isRequired,
     addRecord: PropTypes.func.isRequired,
-    saveBook: PropTypes.func.isRequired,
-    clearBooks: PropTypes.func.isRequired
+    saveResult: PropTypes.func.isRequired,
+    clearResults: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     groupState: state.group
 });
 
-const addState = connect(mapStateToProps, { addRecord, saveBook, clearBooks });
+const addState = connect(mapStateToProps, { addRecord, saveResult, clearResults });
 
-export default addState(Book);
+export default addState(Result);

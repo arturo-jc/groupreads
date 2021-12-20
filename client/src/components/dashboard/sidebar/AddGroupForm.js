@@ -23,9 +23,11 @@ const AddGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor }) => {
     const onSubmit = async e => {
         e.preventDefault();
         const newGroup = await createGroup(group);
-        setCurrentGroup(newGroup);
-        getRecordsFor(newGroup);
-        navigate(`/dashboard/groups/${newGroup._id}`);
+        if (newGroup) {
+            setCurrentGroup(newGroup);
+            getRecordsFor(newGroup);
+            navigate(`/dashboard/groups/${newGroup._id}`);
+        }
     }
 
     return (

@@ -1,8 +1,8 @@
 const formatBookData = bookData => {
     return {
-        title: bookData.volumeInfo.title,
+        title: bookData.volumeInfo.title || "untitled",
         subtitle: bookData.volumeInfo.subtitle,
-        authors: bookData.volumeInfo.authors,
+        authors: bookData.volumeInfo.authors || ["unknown author"],
         publisher: bookData.volumeInfo.publisher,
         publishedOn: bookData.volumeInfo.publishedDate,
         description: bookData.volumeInfo.description,

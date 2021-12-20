@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { logout } from "../../actions/authActions";
 import { clearGroups, clearCurrentGroup } from '../../actions/groupActions';
-import { clearBooks } from "../../actions/bookActions";
+import { clearResults } from "../../actions/searchActions";
 
-const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup, clearBooks }) => {
+const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup, clearResults }) => {
 
     const onLogout = () => {
         logout();
         clearGroups();
         clearCurrentGroup();
-        clearBooks();
+        clearResults();
     };
 
     const { isAuthenticated } = authState;
@@ -49,7 +49,7 @@ Navbar.propTypes = {
     logout: PropTypes.func.isRequired,
     clearGroups: PropTypes.func.isRequired,
     clearCurrentGroup: PropTypes.func.isRequired,
-    clearBooks: PropTypes.func.isRequired
+    clearResults: PropTypes.func.isRequired
 }
 
 Navbar.defaultProps = {
@@ -61,6 +61,6 @@ const mapStateToProps = state => ({
     authState: state.auth
 })
 
-const connection = connect(mapStateToProps, { logout, clearGroups, clearCurrentGroup, clearBooks })
+const connection = connect(mapStateToProps, { logout, clearGroups, clearCurrentGroup, clearResults })
 
 export default connection(Navbar);

@@ -1,31 +1,31 @@
 import {
-    GET_BOOKS,
-    CLEAR_BOOKS,
-    BOOKS_ERROR,
+    SEARCH,
+    CLEAR_RESULTS,
+    SEARCH_ERROR,
     SET_LOADING
 } from "./../actions/types";
 
 const initialState = {
-    books: [],
+    results: [],
     current: null,
     loading: false,
     error: null
 }
 
-const bookReducer = (state = initialState, action) => {
+const searchReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_BOOKS:
+        case SEARCH:
             return {
                 ...state,
-                books: action.payload,
+                results: action.payload,
                 loading: false
             }
-        case CLEAR_BOOKS:
+        case CLEAR_RESULTS:
             return {
                 ...state,
-                books: []
+                results: []
             }
-        case BOOKS_ERROR:
+        case SEARCH_ERROR:
             return {
                 ...state,
                 error: action.payload
@@ -40,4 +40,4 @@ const bookReducer = (state = initialState, action) => {
     }
 }
 
-export default bookReducer;
+export default searchReducer;

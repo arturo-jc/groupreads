@@ -16,9 +16,9 @@ export const CLEAR_GROUPS = 'CLEAR_GROUPS';
 export const CLEAR_CURRENT_GROUP = 'CLEAR_CURRENT_GROUP';
 export const GROUPS_ERROR = 'GROUPS_ERRORS';
 
-export const GET_BOOKS = 'GET_BOOKS';
-export const CLEAR_BOOKS = 'CLEAR_BOOKS';
-export const BOOKS_ERROR = 'BOOKS_ERROR';
+export const SEARCH = 'SEARCH';
+export const CLEAR_RESULTS = 'CLEAR_RESULTS';
+export const SEARCH_ERROR = 'SEARCH_ERROR';
 
 export const GET_RECORDS = 'GET_RECORDS';
 export const ADD_RECORD = 'ADD_RECORD';

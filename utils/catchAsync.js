@@ -3,7 +3,7 @@ module.exports = func => {
         func(req, res, next)
             .catch(err => {
                 console.error(err.message);
-                return res.status(500).send("Server error")
+                return res.status(500).json({ msg: "Server error." });
             });
     }
 }
