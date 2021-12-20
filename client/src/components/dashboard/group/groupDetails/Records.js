@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import RecordItem from './RecordItem';
 
-const Records = ({ groupState, recordState }) => {
-    const { current } = groupState;
+const Records = ({ recordState }) => {
     const { records, loading } = recordState;
 
     if (loading) {
@@ -27,13 +26,11 @@ const Records = ({ groupState, recordState }) => {
 };
 
 Records.propTypes = {
-    recordState: PropTypes.object.isRequired,
-    groupState: PropTypes.object.isRequired
+    recordState: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    recordState: state.record,
-    groupState: state.group
+    recordState: state.record
 });
 
 const addState = connect(mapStateToProps)

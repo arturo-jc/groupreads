@@ -14,7 +14,7 @@ const GroupMenu = ({ groupState, setCurrentGroup, getRecordsFor }) => {
         return (<p>Loading...</p>)
     }
 
-    const onClick = (group) => {
+    const onClick = group => {
         setCurrentGroup(group);
         getRecordsFor(group);
     }
