@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import { setCurrentGroup } from "../../../actions/groupActions";
-import { getRecordsFor } from "../../../actions/recordActions";
+import { setCurrentGroup } from '../../../../actions/groupActions';
+import { getRecordsFor } from '../../../../actions/recordActions';
 import AddGroupForm from './AddGroupForm';
 
 const GroupMenu = ({ groupState, setCurrentGroup, getRecordsFor }) => {
@@ -27,7 +27,7 @@ const GroupMenu = ({ groupState, setCurrentGroup, getRecordsFor }) => {
                 :
                 (groups.map(group =>
                     <Link
-                        to={`groups/${group._id}`}
+                        to={`/groups/${group._id}`}
                         key={group._id}
                         onClick={() => onClick(group)}>
                         {group.name}

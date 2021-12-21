@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import { logout } from "../../actions/authActions";
-import { clearGroups, clearCurrentGroup } from '../../actions/groupActions';
-import { clearResults } from "../../actions/searchActions";
+import { logout } from "../actions/authActions";
+import { clearGroups, clearCurrentGroup } from '../actions/groupActions';
+import { clearResults } from "../actions/searchActions";
 
 const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup, clearResults }) => {
 
@@ -19,9 +19,9 @@ const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup
 
     const authLinks = (
         <Fragment>
-            <li>
-                <a href="#" onClick={onLogout}>Sign out</a>
-            </li>
+            <button onClick={onLogout}>
+                Sign out
+            </button>
         </Fragment>
     )
 
@@ -34,7 +34,7 @@ const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup
 
     return (
         <div>
-            <Link to={isAuthenticated ? ("/dashboard") : ("/")}><i className={icon} /> {title}</Link>
+            <Link to="/"><i className={icon} /> {title}</Link>
             <ul>
                 {isAuthenticated ? authLinks : guestLinks}
             </ul>

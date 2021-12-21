@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { createGroup, setCurrentGroup } from "../../../actions/groupActions";
-import { getRecordsFor } from "../../../actions/recordActions";
+import { createGroup, setCurrentGroup } from '../../../../actions/groupActions';
+import { getRecordsFor } from '../../../../actions/recordActions';
 import { useNavigate } from 'react-router-dom';
 
 const AddGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor }) => {
@@ -26,7 +26,7 @@ const AddGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor }) => {
         if (newGroup) {
             setCurrentGroup(newGroup);
             getRecordsFor(newGroup);
-            navigate(`/dashboard/groups/${newGroup._id}`);
+            navigate(`/groups/${newGroup._id}`);
         }
     }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { login } from '../../actions/authActions';
+import { login } from '../actions/authActions';
 import { useNavigate } from 'react-router-dom';
 
 const Login = ({ authState, login }) => {
@@ -9,7 +9,7 @@ const Login = ({ authState, login }) => {
     const navigate = useNavigate();
     useEffect(() => {
         if (isAuthenticated) {
-            navigate("/dashboard");
+            navigate("/");
         }
         if (error) {
             console.log(`ALERT: ${error}`)

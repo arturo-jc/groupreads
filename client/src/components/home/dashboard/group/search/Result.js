@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { addRecord } from "../../../../actions/recordActions";
-import { saveResult, clearResults } from '../../../../actions/searchActions';
+import { addRecord } from '../../../../../actions/recordActions';
+import { saveResult, clearResults } from '../../../../../actions/searchActions';
 import { useNavigate } from 'react-router-dom';
 
 const Result = ({ result, groupState, addRecord, saveResult, clearResults }) => {
@@ -14,7 +14,7 @@ const Result = ({ result, groupState, addRecord, saveResult, clearResults }) => 
         const newBook = await saveResult(result)
         addRecord(newBook._id, current._id);
         clearResults();
-        navigate(`/dashboard/groups/${current._id}`);
+        navigate(`/groups/${current._id}`);
     }
 
     return (

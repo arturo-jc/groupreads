@@ -1,24 +1,24 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import PropTypes from 'prop-types'
-import { setCurrentRecord } from '../../../../actions/recordActions';
-import { getPostsFor } from '../../../../actions/postActions';
+import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { setCurrentRecord } from "../../../../../actions/recordActions"
+import { getPostsFor } from '../../../../../actions/postActions';
 
-const RecordItem = ({ record, setCurrentRecord, getPostsFor }) => {
+const RecordItem = ({ record, groupState, setCurrentRecord, getPostsFor }) => {
     const { title, authors, imageUrl } = record.book;
-    const { groupId } = useParams();
+    const { current } = groupState;
 
     const onClick = record => {
         setCurrentRecord(record);
-        getPostsFor(groupId, record);
+        getPostsFor(current._id, record);
     }
 
     return (
         <div>
             <img src={imageUrl} alt="" />
             <Link
-                to={`/dashboard/groups/${groupId}/records/${record._id}`}
+                to={`/groups/${current._id}/records/${record._id}`}
                 key={record._id}
                 onClick={() => onClick(record)}
             >{title}</Link>
@@ -29,10 +29,14 @@ const RecordItem = ({ record, setCurrentRecord, getPostsFor }) => {
 
 RecordItem.propTypes = {
     record: PropTypes.object.isRequired,
+    groupState: PropTypes.object.isRequired,
     setCurrentRecord: PropTypes.func.isRequired,
     getPostsFor: PropTypes.func.isRequired
 }
 
-const addState = connect(null, { setCurrentRecord, getPostsFor });
+const mapStateToProps = state => ({
+    groupState: state.group
+})
+const addState = connect(mapStateToProps, { setCurrentRecord, getPostsFor });
 
 export default addState(RecordItem);

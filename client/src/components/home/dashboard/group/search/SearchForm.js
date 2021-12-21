@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { search } from '../../../../actions/searchActions';
+import { search } from '../../../../../actions/searchActions';
 
 const SearchForm = ({ search }) => {
     const [query, setQuery] = useState({ text: "" });

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { register } from '../../actions/authActions';
+import { register } from '../actions/authActions';
 import { useNavigate } from 'react-router-dom';
 
 const Register = ({ authState, register }) => {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { addPost } from "../../../actions/postActions";
+import { addPost } from '../../../../actions/postActions';
 
-const AddPostForm = ({ addPost }) => {
+const AddPostForm = ({ groupState, recordState, addPost }) => {
 
-    const { groupId, recordId } = useParams();
+    const { current: group } = groupState;
+    const { current: record } = recordState;
 
     const [post, setPost] = useState({
         title: "",
@@ -23,7 +23,7 @@ const AddPostForm = ({ addPost }) => {
 
     const onSubmit = e => {
         e.preventDefault()
-        addPost(groupId, recordId, post);
+        addPost(group._id, record._id, post);
     }
 
 
@@ -39,8 +39,15 @@ const AddPostForm = ({ addPost }) => {
 }
 
 AddPostForm.propTypes = {
+    groupState: PropTypes.object.isRequired,
+    recordState: PropTypes.object.isRequired,
     addPost: PropTypes.func.isRequired
 }
 
-const addState = connect(null, { addPost });
+const mapStateToProps = state => ({
+    groupState: state.group,
+    recordState: state.record
+})
+
+const addState = connect(mapStateToProps, { addPost });
 export default addState(AddPostForm);
