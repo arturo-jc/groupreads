@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Comments = ({ comments }) => {
     return (comments.map(comment => (
-        <div>
+        <div key={comment._id}>
             <p>{comment.author.name} commented:</p>
             <p>{comment.body}</p>
         </div>
@@ -12,7 +12,7 @@ const Comments = ({ comments }) => {
 }
 
 Comments.propTypes = {
-    comments: PropTypes.object.isRequired
+    comments: PropTypes.array.isRequired
 }
 
 export default Comments

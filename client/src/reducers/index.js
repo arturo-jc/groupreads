@@ -4,7 +4,8 @@ import groupReducer from "./groupReducer";
 import searchReducer from "./searchReducer";
 import recordReducer from "./recordReducer";
 import postReducer from "./postReducer";
-import commentReducer from "./commentReducer"
+import commentReducer from "./commentReducer";
+import markerReducer from "./markerReducer";
 
 export default combineReducers({
     auth: authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     search: searchReducer,
     record: recordReducer,
     post: postReducer,
-    comment: commentReducer
+    comment: commentReducer,
+    marker: markerReducer
 });

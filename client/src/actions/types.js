@@ -33,3 +33,8 @@ export const POSTS_ERROR = 'POSTS_ERROR';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_RECORD_COMMENTS = 'GET_RECORD_COMMENTS';
 export const COMMENT_ERROR = 'COMMENT_ERROR';
+
+export const GET_MARKERS = 'GET_MARKERS';
+export const ADD_MARKER = 'ADD_MARKER';
+export const MARKERS_ERROR = 'MARKERS_ERROR';
+
