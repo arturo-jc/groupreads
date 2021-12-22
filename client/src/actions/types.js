@@ -38,3 +38,6 @@ export const GET_MARKERS = 'GET_MARKERS';
 export const ADD_MARKER = 'ADD_MARKER';
 export const MARKERS_ERROR = 'MARKERS_ERROR';
 
+export const GET_BOOKMARKS = 'GET_BOOKMARKS';
+export const ADD_BOOKMARK = 'ADD_BOOKMARK';
+export const BOOKMARKS_ERROR = 'BOOKMARKS_ERROR';

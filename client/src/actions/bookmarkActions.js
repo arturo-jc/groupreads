@@ -1,14 +1,14 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import {
-    GET_MARKERS,
-    ADD_MARKER,
-    MARKERS_ERROR,
+    GET_BOOKMARKS,
+    ADD_BOOKMARK,
+    BOOKMARKS_ERROR,
     SET_LOADING
 } from "./types";
 
-// get markers for given record
-export const getMarkersFor = (groupId, record) => async dispatch => {
+// get bookmarks for given record
+export const getBookmarksFor = (groupId, record) => async dispatch => {
 
     // Add token to request headers for authentication
     if (localStorage.token) {
@@ -19,22 +19,22 @@ export const getMarkersFor = (groupId, record) => async dispatch => {
     dispatch(setLoading);
 
     try {
-        // Request markers from server
-        const res = await axios.get(`/api/groups/${groupId}/records/${record._id}/markers`)
+        // Request bookmarks from server
+        const res = await axios.get(`/api/groups/${groupId}/records/${record._id}/bookmarks`)
         dispatch({
-            type: GET_MARKERS,
+            type: GET_BOOKMARKS,
             payload: res.data
         });
     } catch (err) {
         dispatch({
-            type: MARKERS_ERROR,
+            type: BOOKMARKS_ERROR,
             payload: err.response.data.msg
         })
     }
 }
 
-// add markers
-export const addMarker = (groupId, recordId, marker) => async dispatch => {
+// add bookmark
+export const addBookmark = (groupId, recordId, bookmark) => async dispatch => {
 
     // Config request headers
     const config = {
@@ -50,18 +50,18 @@ export const addMarker = (groupId, recordId, marker) => async dispatch => {
     dispatch(setLoading);
 
     try {
-        // Send marker data to server
-        // Expect marker in return
-        const res = await axios.post(`/api/groups/${groupId}/records/${recordId}/markers`, marker, config);
+        // Send bookmark data to server
+        // Expect bookmark in return
+        const res = await axios.post(`/api/groups/${groupId}/records/${recordId}/bookmarks`, bookmark, config);
 
-        // If successful, add marker to state
+        // If successful, add bookmark to state
         dispatch({
-            type: ADD_MARKER,
+            type: ADD_BOOKMARK,
             payload: res.data
         });
     } catch (err) {
         dispatch({
-            type: MARKERS_ERROR,
+            type: BOOKMARKS_ERROR,
             payload: err.response.data.msg
         })
     }

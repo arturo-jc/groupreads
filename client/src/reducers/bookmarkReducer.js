@@ -1,28 +1,28 @@
 import {
-    GET_MARKERS,
-    ADD_MARKER,
-    MARKERS_ERROR,
+    GET_BOOKMARKS,
+    ADD_BOOKMARK,
+    BOOKMARKS_ERROR,
     SET_LOADING
 } from "../actions/types";
 
 const initialState = {
-    markers: [],
+    bookmarks: [],
     loading: false,
     error: null
 }
 
-const markerReducer = (state = initialState, action) => {
+const bookmarkReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_MARKER:
+        case ADD_BOOKMARK:
             return {
                 ...state,
-                markers: [...state.markers, action.payload],
+                bookmarks: [...state.bookmarks, action.payload],
                 loading: false
             }
-        case GET_MARKERS:
+        case GET_BOOKMARKS:
             return {
                 ...state,
-                markers: action.payload,
+                bookmarks: action.payload,
                 loading: false
             }
         case SET_LOADING:
@@ -30,7 +30,7 @@ const markerReducer = (state = initialState, action) => {
                 ...state,
                 loading: true
             }
-        case MARKERS_ERROR:
+        case BOOKMARKS_ERROR:
             return {
                 ...state,
                 error: action.payload,
@@ -41,4 +41,4 @@ const markerReducer = (state = initialState, action) => {
     }
 }
 
-export default markerReducer;
+export default bookmarkReducer;
