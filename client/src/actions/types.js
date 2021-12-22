@@ -29,3 +29,7 @@ export const GET_POSTS = 'GET_POSTS';
 export const ADD_POST = 'ADD_POST';
 export const SET_CURRENT_POST = 'SET_CURRENT_POST';
 export const POSTS_ERROR = 'POSTS_ERROR';
+
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const GET_RECORD_COMMENTS = 'GET_RECORD_COMMENTS';
+export const COMMENT_ERROR = 'COMMENT_ERROR';

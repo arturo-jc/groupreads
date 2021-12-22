@@ -19,6 +19,7 @@ const Dashboard = ({ getGroups }) => {
                 <Route path="/" element={<p>Recent activity</p>} />
                 <Route path="/groups/:groupId/records/:recordId/*" element={<Record />} />
                 <Route path="/groups/:groupId/*" element={<Group />} />
+                <Route path="/*" element={<p>Sorry, that page does not exist</p>} />
             </Routes>
         </div>
     )

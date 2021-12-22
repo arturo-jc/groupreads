@@ -6,13 +6,13 @@ import Dashboard from "./home/Dashboard"
 import { loadUser } from '../actions/authActions';
 
 const Home = ({ authState, loadUser }) => {
+    const { isAuthenticated, loading } = authState;
     useEffect(() => {
-        if (localStorage.token) {
+        if (!isAuthenticated && !loading && localStorage.token) {
             loadUser();
         }
     }, [])
 
-    const { isAuthenticated, loading } = authState;
     return !isAuthenticated && !loading ? <Landing /> : <Dashboard />
 }
 

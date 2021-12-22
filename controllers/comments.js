@@ -1,14 +1,14 @@
 const Comment = require("../models/Comment");
 const Post = require("../models/Post");
 
-// GET api/groups/:groupId/books/:bookId/posts/:postId/comments
+// GET api/groups/:groupId/records/:recordId/posts/:postId/comments
 module.exports.index = async (req, res) => {
     const post = await Post.findById(req.params.commentId)
         .populate("comments");
     return res.json(post.comments);
 }
 
-// POST api/groups/:groupId/books/:bookId/posts/:postId/comments
+// POST api/groups/:groupId/records/:recordId/posts/:postId/comments
 module.exports.addComment = async (req, res) => {
     const newComment = new Comment({
         author: req.user.id,
@@ -27,7 +27,7 @@ module.exports.addComment = async (req, res) => {
     return res.json(comment);
 }
 
-// PUT api/groups/:groupId/books/:bookId/posts/:postId/comments/:commentId
+// PUT api/groups/:groupId/records/:recordId/posts/:postId/comments/:commentId
 module.exports.updateComment = async (req, res) => {
     const comment = await Comment.findByIdAndUpdate(
         req.params.commentId,
@@ -40,7 +40,7 @@ module.exports.updateComment = async (req, res) => {
     return res.json(comment);
 }
 
-// DELETE api/groups/:groupId/books/:bookId/posts/:postId/comments/:commentId
+// DELETE api/groups/:groupId/records/:recordId/posts/:postId/comments/:commentId
 module.exports.deleteComment = async (req, res) => {
     const { commentId, postId } = req.params;
 

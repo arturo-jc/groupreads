@@ -45,7 +45,6 @@ const groupReducer = (state = initialState, action) => {
                 current: null
             }
         case SET_LOADING:
-            console.log("SET_LOADING called on groupReducer")
             return {
                 ...state,
                 loading: true

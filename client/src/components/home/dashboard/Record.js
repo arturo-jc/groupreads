@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import AddPostForm from './record/AddPostForm';
+import Post from "./record/Post"
 
 const Record = ({ recordState, postState }) => {
 
@@ -21,13 +22,7 @@ const Record = ({ recordState, postState }) => {
             {!posts || posts.length === 0 ?
                 (<p>You don't have any posts yet</p>)
                 :
-                (posts.map(post =>
-                (<div key={post._id}>
-                    <p>{post.author.name} posted: </p>
-                    <p>{post.title}</p>
-                    <p>{post.body}</p>
-                </div>)
-                ))
+                (posts.map(post => <Post key={post._id} post={post} />))
             }
 
         </div>

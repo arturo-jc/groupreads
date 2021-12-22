@@ -32,9 +32,9 @@ const AddGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor }) => {
 
     return (
         <form onSubmit={onSubmit}>
-            <label htmlFor="name"></label>
-            <input type="submit" value="Add group" />
+            <label htmlFor="name">Group's name</label>
             <input type="text" id="name" name="name" value={group.name} onChange={onChange} />
+            <input type="submit" value="Add group" />
         </form>
     )
 }
