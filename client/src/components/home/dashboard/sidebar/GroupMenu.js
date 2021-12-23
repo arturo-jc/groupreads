@@ -2,23 +2,16 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import { setCurrentGroup } from '../../../../actions/groupActions';
-import { getRecordsFor } from '../../../../actions/recordActions';
 import AddGroupForm from './AddGroupForm';
 import SearchGroupForm from "./SearchGroupForm";
 
-const GroupMenu = ({ groupState, setCurrentGroup, getRecordsFor }) => {
+const GroupMenu = ({ groupState  }) => {
 
     const { groups, loading, searchResult } = groupState;
 
     if (loading) {
         return (<p>Loading...</p>)
     }
-
-    // const onClick = group => {
-    //     setCurrentGroup(group);
-    //     getRecordsFor(group);
-    // }
 
     return (
         <div>
@@ -27,11 +20,7 @@ const GroupMenu = ({ groupState, setCurrentGroup, getRecordsFor }) => {
                 (<p>You don't have any groups yet</p>)
                 :
                 (groups.map(group =>
-                    <Link
-                        to={`/groups/${group._id}`}
-                        key={group._id}
-                    // onClick={() => onClick(group)}
-                    >
+                    <Link to={`/groups/${group._id}`} key={group._id}>
                         {group.name}
                     </Link>))
             }
@@ -45,15 +34,13 @@ const GroupMenu = ({ groupState, setCurrentGroup, getRecordsFor }) => {
 };
 
 GroupMenu.propTypes = {
-    groupState: PropTypes.object.isRequired,
-    setCurrentGroup: PropTypes.func.isRequired,
-    getRecordsFor: PropTypes.func.isRequired
+    groupState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
     groupState: state.group
 });
 
-const addState = connect(mapStateToProps, { setCurrentGroup, getRecordsFor });
+const addState = connect(mapStateToProps);
 
 export default addState(GroupMenu);
