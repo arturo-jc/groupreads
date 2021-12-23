@@ -8,12 +8,13 @@ import { setCurrentGroup } from '../../../actions/groupActions';
 import { getRecordsFor } from '../../../actions/recordActions';
 
 const Group = ({ groupState, setCurrentGroup, getRecordsFor }) => {
-    const { current, loading, groups } = groupState;
+    const { current, groups } = groupState;
     const { groupId } = useParams();
     const group = groups.find(group => group._id === groupId);
 
     useEffect(() => {
         setCurrentGroup(group);
+        getRecordsFor(group);
     }, [])
 
     return (
