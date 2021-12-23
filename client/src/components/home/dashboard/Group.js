@@ -12,27 +12,19 @@ const Group = ({ groupState, setCurrentGroup, getRecordsFor }) => {
     const { groupId } = useParams();
     const group = groups.find(group => group._id === groupId);
 
-    // if (loading) {
-    //     return (<p>Loading...</p>)
-    // }
-
     useEffect(() => {
         setCurrentGroup(group);
     }, [])
 
-    return (<p>Hello</p>)
-// current && { current.name }
-        // <div>
-        //     <h1>{current.name}</h1>
-        //     <p>Group: {group.name}</p>
-        //     <Routes>
-        //         <Route path="" element={<GroupDetails />} />
-        //         <Route path="/search" element={<Search />} />
-        //     </Routes>
-        // </div>
-
-
-
+    return (
+    <div>
+        {current && <h1>{current.name}</h1>}
+        <Routes>
+                <Route path="" element={<GroupDetails />} />
+                <Route path="/search" element={<Search />} />
+            </Routes>
+    </div>
+    )
 }
 
 Group.propTypes = {

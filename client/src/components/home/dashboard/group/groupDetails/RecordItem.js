@@ -20,13 +20,13 @@ const RecordItem = ({ record, groupState, setCurrentRecord, getPostsFor, getMark
 
     return (
         <div>
-            <img src={imageUrl} alt="" />
-            <Link
+            {current && <img src={imageUrl} alt="" />}
+            {current && <Link
                 to={`/groups/${current._id}/records/${record._id}`}
                 key={record._id}
                 onClick={() => onClick(record)}
-            >{title}</Link>
-            <p>By {authors.join(", ")}</p>
+            >{title}</Link>}
+            {current && <p>By {authors.join(", ")}</p>}
         </div>
     )
 }

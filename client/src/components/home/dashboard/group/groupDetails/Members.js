@@ -3,17 +3,11 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
 const Members = ({ groupState }) => {
-    const { loading } = groupState
-    const { members } = groupState.current;
-
-    if (loading) {
-        return (<p>Loading...</p>)
-    }
 
     return (
         <div>
             <h5>Members</h5>
-            {members.map(member => (<p key={member._id}>{member.name}</p>))}
+            {groupState.current && groupState.current.members.map(member => (<p key={member._id}>{member.name}</p>))}
             <a href="#">Add members</a>
         </div>
     )
