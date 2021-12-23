@@ -1,26 +1,40 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import AddPostForm from './record/AddPostForm';
 import AddMarkerForm from './record/AddMarkerForm';
 import AddBookmarkForm from './record/AddBookmarkForm';
-import Post from "./record/Post"
+import Post from "./record/Post";
+import { setCurrentRecord } from '../../../actions/recordActions';
+import { getPostsFor } from '../../../actions/postActions';
+import { getMarkersFor } from '../../../actions/markerActions';
+import { getBookmarksFor } from '../../../actions/bookmarkActions';
 
-const Record = ({ recordState, postState, markerState, bookmarkState }) => {
+const Record = ({ recordState, postState, markerState, bookmarkState, setCurrentRecord, getPostsFor, getMarkersFor, getBookmarksFor }) => {
 
-    const { title, authors, imageUrl } = recordState.current.book;
-    const { startedOn, finishedOn } = recordState.current;
+    const {groupId, recordId} = useParams();
+    const { current, records } = recordState;
+    const record = records.find(record => record._id === recordId);
+
+    useEffect(() => {
+        setCurrentRecord(record);
+        getPostsFor(groupId, record);
+        getMarkersFor(groupId, record);
+        getBookmarksFor(groupId, record);
+    }, [record])
+
     const { posts } = postState;
     const { markers } = markerState;
     const { bookmarks } = bookmarkState;
 
     return (
         <div>
-            <h1>{title}</h1>
-            <p>By {authors.join(", ")}</p>
-            <img src={imageUrl} alt="" />
-            {startedOn ? (<p>Started on {startedOn}</p>) : (<p>Not started</p>)}
-            {finishedOn ? (<p>Finished on {finishedOn}</p>) : (<p>Not finished</p>)}
+            {current && <h1>{current.book.title}</h1>}
+            {current && <p>By {current.book.authors.join(", ")}</p>}
+            {current && <img src={current.book.imageUrl} alt="" />}
+            {current && current.startedOn ? (<p>Started on {current.startedOn}</p>) : (<p>Not started</p>)}
+            {current && current.finishedOn ? (<p>Finished on {current.finishedOn}</p>) : (<p>Not finished</p>)}
             <AddMarkerForm />
             {!markers || markers.length === 0 ?
                 (<p>You don't have any markers yet</p>)
@@ -56,6 +70,6 @@ const mapStateToProps = state => ({
     bookmarkState: state.bookmark
 })
 
-const addState = connect(mapStateToProps);
+const addState = connect( mapStateToProps, {setCurrentRecord, getPostsFor, getMarkersFor, getBookmarksFor});
 
 export default addState(Record);
