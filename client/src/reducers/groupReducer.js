@@ -4,6 +4,8 @@ import {
     SET_CURRENT_GROUP,
     CLEAR_GROUPS,
     CLEAR_CURRENT_GROUP,
+    FIND_GROUP,
+    CLEAR_GROUP_SEARCH_RESULTS,
     GROUPS_ERROR,
     SET_LOADING
 } from "../actions/types";
@@ -11,6 +13,7 @@ import {
 const initialState = {
     groups: null,
     current: null,
+    searchResult: null,
     loading: false,
     error: null
 };
@@ -43,6 +46,17 @@ const groupReducer = (state = initialState, action) => {
             return {
                 ...state,
                 current: null
+            }
+        case CLEAR_GROUP_SEARCH_RESULTS:
+            return {
+                ...state,
+                searchResult: null
+            }
+        case FIND_GROUP:
+            return {
+                ...state,
+                searchResult: action.payload,
+                loading: false
             }
         case SET_LOADING:
             return {

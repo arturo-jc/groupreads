@@ -14,6 +14,8 @@ export const GET_GROUPS = 'GET_GROUPS';
 export const ADD_GROUP = 'ADD_GROUP';
 export const CLEAR_GROUPS = 'CLEAR_GROUPS';
 export const CLEAR_CURRENT_GROUP = 'CLEAR_CURRENT_GROUP';
+export const FIND_GROUP = 'FIND_GROUP';
+export const CLEAR_GROUP_SEARCH_RESULTS = 'CLEAR_GROUP_SEARCH_RESULTS';
 export const GROUPS_ERROR = 'GROUPS_ERRORS';
 
 export const SEARCH = 'SEARCH';

@@ -6,6 +6,8 @@ import {
     SET_CURRENT_GROUP,
     CLEAR_GROUPS,
     CLEAR_CURRENT_GROUP,
+    FIND_GROUP,
+    CLEAR_GROUP_SEARCH_RESULTS,
     GROUPS_ERROR,
     SET_LOADING
 } from "./types";
@@ -93,7 +95,42 @@ export const clearCurrentGroup = () => {
     return { type: CLEAR_CURRENT_GROUP }
 }
 
+// Clear group search results
+export const clearGroupSearchResults = () => {
+    return { type: CLEAR_GROUP_SEARCH_RESULTS }
+}
+
+
+
 // Set loading
 export const setLoading = () => {
     return { type: SET_LOADING }
+}
+
+
+export const findGroup = groupId => async dispatch => {
+
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    //Set loading to true while waiting for server response
+    dispatch(setLoading);
+
+    try {
+        // Request group from server
+        const res = await axios.get(`/api/groups/${groupId}`)
+
+        dispatch({
+            type: FIND_GROUP,
+            payload: res.data
+        })
+
+    } catch (err) {
+        dispatch({
+            type: GROUPS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
 }
