@@ -15,10 +15,10 @@ const GroupMenu = ({ groupState, setCurrentGroup, getRecordsFor }) => {
         return (<p>Loading...</p>)
     }
 
-    const onClick = group => {
-        setCurrentGroup(group);
-        getRecordsFor(group);
-    }
+    // const onClick = group => {
+    //     setCurrentGroup(group);
+    //     getRecordsFor(group);
+    // }
 
     return (
         <div>
@@ -30,7 +30,8 @@ const GroupMenu = ({ groupState, setCurrentGroup, getRecordsFor }) => {
                     <Link
                         to={`/groups/${group._id}`}
                         key={group._id}
-                        onClick={() => onClick(group)}>
+                    // onClick={() => onClick(group)}
+                    >
                         {group.name}
                     </Link>))
             }
