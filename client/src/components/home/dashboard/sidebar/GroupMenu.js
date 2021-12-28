@@ -1,35 +1,64 @@
-import React from 'react';
+import React, {useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import AddGroupForm from './AddGroupForm';
-import SearchGroupForm from "./SearchGroupForm";
+import Modal from "../../../Modal";
+import NewGroupForm from './NewGroupForm';
+import FindGroupForm from './FindGroupForm';
 
 const GroupMenu = ({ groupState  }) => {
+    const [newGroupModal, setNewGroupModal] = useState({ show: false });
+    const [findGroupModal, setFindGroupModal] = useState({show: false});
+    
+    const showNewGroupModal = () => {
+        setNewGroupModal({
+            ...newGroupModal,
+            show: true
+        })
+    }
+    const hideNewGroupModal = () => {
+        setNewGroupModal({
+            ...newGroupModal,
+            show: false
+        })
+    }
+    const showFindGroupModal = () => {
+        setFindGroupModal({
+            ...findGroupModal,
+            show: true
+        })
+    }
+    const hideFindGroupModal = () => {
+        setFindGroupModal({
+            ...findGroupModal,
+            show: false
+        })
+    }
 
-    const { groups, loading, searchResult } = groupState;
+    const { groups, loading } = groupState;
+
 
     if (loading) {
         return (<p>Loading...</p>)
     }
 
     return (
-        <div>
-            <h3>Groups</h3>
-            {!groups || groups.length === 0 ?
-                (<p>You don't have any groups yet</p>)
-                :
-                (groups.map(group =>
-                    <Link to={`/groups/${group._id}`} key={group._id}>
-                        {group.name}
-                    </Link>))
-            }
-            <h3>Create group</h3>
-            <AddGroupForm />
-            <h3>Find group by ID</h3>
-            <SearchGroupForm />
-            {searchResult && <p>{searchResult.name}</p>}
-        </div>
+            <div className="card">
+                <h3>Groups</h3>
+                {!groups || groups.length === 0 ?
+                    (<p>You don't have any groups yet</p>)
+                    :
+                    (groups.map(group =>
+                        <Link to={`/groups/${group._id}`} key={group._id}>
+                            {group.name}
+                        </Link>))
+                }
+                <button onClick={showNewGroupModal}>New group</button>
+                <Modal show={newGroupModal.show} handleClose={hideNewGroupModal} Component={NewGroupForm}/>
+                <button onClick={showFindGroupModal}>Find group</button>
+                <Modal show={findGroupModal.show} handleClose={hideFindGroupModal} Component={FindGroupForm}/>
+                
+            </div>
     )
 };
 

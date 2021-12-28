@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addMarker } from '../../../../../actions/markerActions';
 
-const AddMarkerForm = ({ groupState, recordState, addMarker }) => {
+const NewMarkerForm = ({ groupState, recordState, addMarker, handleClose }) => {
 
     const { current: group } = groupState;
     const { current: record } = recordState;
@@ -20,7 +20,8 @@ const AddMarkerForm = ({ groupState, recordState, addMarker }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        addMarker(group._id, record._id, marker)
+        addMarker(group._id, record._id, marker);
+        handleClose();
     }
 
     return (
@@ -32,10 +33,11 @@ const AddMarkerForm = ({ groupState, recordState, addMarker }) => {
     )
 }
 
-AddMarkerForm.propTypes = {
+NewMarkerForm.propTypes = {
     addMarker: PropTypes.func.isRequired,
     groupState: PropTypes.object.isRequired,
-    recordState: PropTypes.object.isRequired
+    recordState: PropTypes.object.isRequired,
+    handleClose: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -45,4 +47,4 @@ const mapStateToProps = state => ({
 
 const addState = connect(mapStateToProps, { addMarker })
 
-export default addState(AddMarkerForm)
+export default addState(NewMarkerForm)

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { connect } from "react-redux";
 import { findGroup } from "../../../../actions/groupActions"
 
-export const SearchGroupForm = ({ findGroup }) => {
+export const FindGroupForm = ({ groupState, findGroup }) => {
 
     const [group, setGroup] = useState({ _id: "" });
 
@@ -18,15 +18,25 @@ export const SearchGroupForm = ({ findGroup }) => {
         findGroup(group._id)
     }
 
+    const { searchResult } = groupState;
+
     return (
+        <Fragment>
+        <h3>Find Group By ID</h3>
         <form onSubmit={onSubmit}>
             <label htmlFor="_id">Group Id</label>
             <input type="text" id="_id" name="_id" value={group._id} onChange={onChange} />
             <input type="submit" value="Search" />
         </form>
+        {searchResult && <p>{searchResult.name}</p>}
+        </Fragment>
     )
 }
 
-const addState = connect(null, { findGroup })
+const mapStateToProps = state => ({
+    groupState: state.group
+});
 
-export default addState(SearchGroupForm);
+const addState = connect(mapStateToProps, { findGroup })
+
+export default addState(FindGroupForm);

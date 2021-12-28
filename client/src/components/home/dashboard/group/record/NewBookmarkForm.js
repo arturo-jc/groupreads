@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addBookmark } from '../../../../../actions/bookmarkActions';
 
-const AddBookmarkForm = ({ groupState, recordState, addBookmark }) => {
+const NewBookmarkForm = ({ groupState, recordState, addBookmark, handleClose }) => {
 
     const { current: group } = groupState;
     const { current: record } = recordState;
@@ -23,7 +23,8 @@ const AddBookmarkForm = ({ groupState, recordState, addBookmark }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        addBookmark(group._id, record._id, bookmark)
+        addBookmark(group._id, record._id, bookmark);
+        handleClose();
     }
 
     return (
@@ -37,10 +38,11 @@ const AddBookmarkForm = ({ groupState, recordState, addBookmark }) => {
     )
 }
 
-AddBookmarkForm.propTypes = {
+NewBookmarkForm.propTypes = {
     addBookmark: PropTypes.func.isRequired,
     groupState: PropTypes.object.isRequired,
-    recordState: PropTypes.object.isRequired
+    recordState: PropTypes.object.isRequired,
+    handleClose: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -50,4 +52,4 @@ const mapStateToProps = state => ({
 
 const addState = connect(mapStateToProps, { addBookmark })
 
-export default addState(AddBookmarkForm);
+export default addState(NewBookmarkForm);

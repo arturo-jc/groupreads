@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addPost } from '../../../../../actions/postActions';
 
-const AddPostForm = ({ groupState, recordState, addPost }) => {
+const NewPostForm = ({ groupState, recordState, addPost, handleClose }) => {
 
     const { current: group } = groupState;
     const { current: record } = recordState;
@@ -24,6 +24,7 @@ const AddPostForm = ({ groupState, recordState, addPost }) => {
     const onSubmit = e => {
         e.preventDefault()
         addPost(group._id, record._id, post);
+        handleClose();
     }
 
 
@@ -38,10 +39,11 @@ const AddPostForm = ({ groupState, recordState, addPost }) => {
     )
 }
 
-AddPostForm.propTypes = {
+NewPostForm.propTypes = {
     groupState: PropTypes.object.isRequired,
     recordState: PropTypes.object.isRequired,
-    addPost: PropTypes.func.isRequired
+    addPost: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -50,4 +52,4 @@ const mapStateToProps = state => ({
 })
 
 const addState = connect(mapStateToProps, { addPost });
-export default addState(AddPostForm);
+export default addState(NewPostForm);
