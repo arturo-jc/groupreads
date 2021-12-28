@@ -15,7 +15,7 @@ const GroupMenu = ({ groupState  }) => {
 
     return (
         <div>
-            <h4>Groups</h4>
+            <h3>Groups</h3>
             {!groups || groups.length === 0 ?
                 (<p>You don't have any groups yet</p>)
                 :
@@ -24,9 +24,9 @@ const GroupMenu = ({ groupState  }) => {
                         {group.name}
                     </Link>))
             }
-            <h5>Create group</h5>
+            <h3>Create group</h3>
             <AddGroupForm />
-            <h5>Find group by ID</h5>
+            <h3>Find group by ID</h3>
             <SearchGroupForm />
             {searchResult && <p>{searchResult.name}</p>}
         </div>

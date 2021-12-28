@@ -3,8 +3,10 @@ import GroupMenu from "./sidebar/GroupMenu";
 
 const Sidebar = () => {
     return (
-        <div>
-            <GroupMenu />
+        <div className='sidebar'>
+            <div className="sidebar-card">
+                <GroupMenu />
+            </div>
         </div>
     )
 }

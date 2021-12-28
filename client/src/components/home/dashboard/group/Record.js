@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, Fragment} from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
@@ -6,10 +6,10 @@ import AddPostForm from './record/AddPostForm';
 import AddMarkerForm from './record/AddMarkerForm';
 import AddBookmarkForm from './record/AddBookmarkForm';
 import Post from "./record/Post";
-import { setCurrentRecord } from '../../../actions/recordActions';
-import { getPostsFor } from '../../../actions/postActions';
-import { getMarkersFor } from '../../../actions/markerActions';
-import { getBookmarksFor } from '../../../actions/bookmarkActions';
+import { setCurrentRecord } from '../../../../actions/recordActions';
+import { getPostsFor } from '../../../../actions/postActions';
+import { getMarkersFor } from '../../../../actions/markerActions';
+import { getBookmarksFor } from '../../../../actions/bookmarkActions';
 
 const Record = ({ recordState, postState, markerState, bookmarkState, setCurrentRecord, getPostsFor, getMarkersFor, getBookmarksFor }) => {
 
@@ -29,12 +29,14 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
     const { bookmarks } = bookmarkState;
 
     return (
-        <div>
-            {current && <h1>{current.book.title}</h1>}
-            {current && <p>By {current.book.authors.join(", ")}</p>}
-            {current && <img src={current.book.imageUrl} alt="" />}
-            {current && current.startedOn ? (<p>Started on {current.startedOn}</p>) : (<p>Not started</p>)}
-            {current && current.finishedOn ? (<p>Finished on {current.finishedOn}</p>) : (<p>Not finished</p>)}
+        <Fragment>
+            <div className="card">
+                {current && <h3>{current.book.title}</h3>}
+                {current && <p>By {current.book.authors.join(", ")}</p>}
+                {current && <img src={current.book.imageUrl} alt="" />}
+                {current && current.startedOn ? (<p>Started on {current.startedOn}</p>) : (<p>Not started</p>)}
+                {current && current.finishedOn ? (<p>Finished on {current.finishedOn}</p>) : (<p>Not finished</p>)}
+            </div>
             <AddMarkerForm />
             {!markers || markers.length === 0 ?
                 (<p>You don't have any markers yet</p>)
@@ -54,7 +56,7 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
                 :
                 (posts.map(post => <Post key={post._id} post={post} />))
             }
-        </div>
+        </Fragment>
     )
 }
 

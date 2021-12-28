@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { addBookmark } from '../../../../actions/bookmarkActions';
-
+import { addBookmark } from '../../../../../actions/bookmarkActions';
 
 const AddBookmarkForm = ({ groupState, recordState, addBookmark }) => {
 

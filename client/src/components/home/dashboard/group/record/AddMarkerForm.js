@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { addMarker } from "../../../../actions/markerActions";
+import { addMarker } from '../../../../../actions/markerActions';
 
 const AddMarkerForm = ({ groupState, recordState, addMarker }) => {
 

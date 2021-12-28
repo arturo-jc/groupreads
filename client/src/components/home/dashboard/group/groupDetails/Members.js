@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 const Members = ({ groupState }) => {
 
     return (
-        <div>
-            <h5>Members</h5>
+        <div className='card'>
+            <h3>Members</h3>
             {groupState.current && groupState.current.members.map(member => (<p key={member._id}>{member.name}</p>))}
             <a href="#">Add members</a>
         </div>

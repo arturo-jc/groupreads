@@ -12,11 +12,14 @@ const Records = ({ recordState }) => {
     }
 
     return (
-        <div>
-            <h5>Books</h5>
+        <div className='card'>
+            <h3>Books</h3>
             {!loading && records ?
-                (records.map(record => (
-                    <RecordItem key={record._id} record={record} />))
+                (
+                    <div className="books">
+                        {records.map(record => (
+                        <RecordItem key={record._id} record={record} />))}
+                    </div>
                 )
                 :
                 (<p>This group has no books yet.</p>)}

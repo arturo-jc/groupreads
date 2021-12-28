@@ -27,18 +27,18 @@ const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup
 
     const guestLinks = (
         <Fragment>
-            <Link to="register">Register</Link>
-            <Link to="login">Login</Link>
+            <Link className='navlink' to="register">Register</Link>
+            <Link className='navlink' to="login">Login</Link>
         </Fragment>
     )
 
     return (
-        <div>
-            <Link to="/"><i className={icon} /> {title}</Link>
+        <nav>
+            <Link className='navlogo' to="/"><i className={icon} /> {title}</Link>
             <ul>
                 {isAuthenticated ? authLinks : guestLinks}
             </ul>
-        </div>
+        </nav>
     )
 }
 
@@ -53,7 +53,7 @@ Navbar.propTypes = {
 }
 
 Navbar.defaultProps = {
-    title: "Reading Group App",
+    title: "groupreads",
     icon: "fas fa-book"
 }
 

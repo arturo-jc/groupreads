@@ -8,12 +8,16 @@ const Search = ({ searchState }) => {
     const { results, loading } = searchState;
 
     return (
-        <div>
-            <h1>Search books</h1>
+        <div className='card'>
+            <h3>Search books</h3>
             <SearchForm />
             {loading && (<p>Loading...</p>)}
             {!loading && results ?
-                (results.map(result => <Result key={result.id} result={result} />))
+                (
+                    <div className='books'>
+                    {results.map(result => <Result key={result.id} result={result} />)}
+                    </div>
+                    )
                 :
                 (<p>No books found</p>)}
         </div>

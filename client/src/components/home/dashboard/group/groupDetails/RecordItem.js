@@ -11,21 +11,12 @@ const RecordItem = ({ record, groupState, setCurrentRecord, getPostsFor, getMark
     const { title, authors, imageUrl } = record.book;
     const { current } = groupState;
 
-    // const onClick = record => {
-    //     setCurrentRecord(record);
-    //     getPostsFor(current._id, record);
-    //     getMarkersFor(current._id, record);
-    //     getBookmarksFor(current._id, record);
-    // }
-
     return (
         <div>
             {current && <img src={imageUrl} alt="" />}
             {current && <Link
                 to={`/groups/${current._id}/records/${record._id}`}
-                key={record._id}
-                // onClick={() => onClick(record)}
-            >{title}</Link>}
+                key={record._id}>{title}</Link>}
             {current && <p>By {authors.join(", ")}</p>}
         </div>
     )
