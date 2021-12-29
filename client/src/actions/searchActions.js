@@ -3,10 +3,18 @@ import setAuthToken from "../utils/setAuthToken";
 import formatBookData from "../utils/formatBookData"
 import {
     SEARCH,
+    SET_CURRENT_RESULT,
     CLEAR_RESULTS,
     SEARCH_ERROR,
     SET_LOADING
 } from "./types";
+
+export const setCurrentResult = result => {
+    return {
+        type: SET_CURRENT_RESULT,
+        payload: result
+    }
+}
 
 export const saveResult = bookData => async dispatch => {
 

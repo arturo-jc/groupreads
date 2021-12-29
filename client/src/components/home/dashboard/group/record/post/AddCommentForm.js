@@ -28,10 +28,10 @@ const AddCommentForm = ({ postId, groupState, recordState, addComment, getPostsF
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <label htmlFor="body">Body</label>
-            <input type="text" id="body" name="body" value={comment.body} onChange={onChange} />
-            <input type="submit" value="Post comment" />
+        <form className='add-comment-form' onSubmit={onSubmit}>
+            <label className='hidden' htmlFor="body">Body</label>
+            <textarea className='form-text-area' type="text" id="body" name="body" value={comment.body} onChange={onChange} placeholder='Write a comment here...' />
+            <input className='btn btn-grey' type="submit" value="Post comment" />
         </form>
     )
 };

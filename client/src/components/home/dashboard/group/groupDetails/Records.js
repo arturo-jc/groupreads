@@ -23,7 +23,7 @@ const Records = ({ recordState }) => {
                 )
                 :
                 (<p>This group has no books yet.</p>)}
-            <Link to="search">Add books</Link>
+            <Link className='btn btn-yellow' to="search">Add books</Link>
         </div>
     )
 };

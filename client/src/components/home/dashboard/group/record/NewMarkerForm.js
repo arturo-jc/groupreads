@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addMarker } from '../../../../../actions/markerActions';
@@ -17,6 +17,10 @@ const NewMarkerForm = ({ groupState, recordState, addMarker, handleClose }) => {
             [e.target.name]: e.target.value
         })
     }
+    let pageCount = 0;
+    if (record.book.pageCount){
+        pageCount = record.book.pageCount;
+    }
 
     const onSubmit = e => {
         e.preventDefault();
@@ -25,11 +29,14 @@ const NewMarkerForm = ({ groupState, recordState, addMarker, handleClose }) => {
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <label htmlFor="page">Enter page number</label>
-            <input type="number" name="page" id="page" onChange={onChange} />
-            <input type="submit" value="Add progress marker" />
-        </form>
+        <Fragment>
+            <h3>Update Status</h3>
+            <form onSubmit={onSubmit}>
+                <label className='hidden' htmlFor="page">Current page</label>
+                <input className='number-input' type="number" name="page" id="page" onChange={onChange} />/{pageCount}
+                <input className='btn btn-yellow' type="submit" value="Update" />
+            </form>
+        </Fragment>
     )
 }
 

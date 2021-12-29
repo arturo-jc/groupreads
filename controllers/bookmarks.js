@@ -3,6 +3,10 @@ const Bookmark = require("../models/Bookmark")
 // GET api/groups/:groupId/records/:recordId/bookmarks
 module.exports.index = async (req, res) => {
     const bookmarks = await Bookmark.find({ record: req.params.recordId })
+    .populate({
+        path: "addedBy",
+        select: "name"
+    })
     return res.json(bookmarks);
 }
 
@@ -14,7 +18,12 @@ module.exports.addBookmark = async (req, res) => {
         body: req.body.body,
         page: req.body.page
     })
-    const bookmark = await newBookmark.save();
+    const {_id} = await newBookmark.save();
+    const bookmark = await Bookmark.findById(_id)
+    .populate({
+        path: "addedBy",
+        select: "name"
+    })
     return res.json(bookmark);
 }
 

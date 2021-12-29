@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addBookmark } from '../../../../../actions/bookmarkActions';
@@ -28,13 +28,16 @@ const NewBookmarkForm = ({ groupState, recordState, addBookmark, handleClose }) 
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <label htmlFor="body">Body</label>
-            <input type="text" name="body" id="body" onChange={onChange} />
-            <label htmlFor="page">Page number</label>
-            <input type="number" name="page" id="page" onChange={onChange} />
-            <input type="submit" value="Add bookmark" />
-        </form>
+        <Fragment>
+            <h3>New Bookmark</h3>
+            <form onSubmit={onSubmit}>
+                <label htmlFor="page">Page number:</label>
+                <input className='form-input' type="number" name="page" id="page" onChange={onChange} />
+                <label htmlFor="body">Content:</label>
+                <input className='form-input' type="text" name="body" id="body" onChange={onChange} placeholder='Write something here...'/>
+                <input className='btn btn-yellow' type="submit" value="Add bookmark" />
+            </form>
+        </Fragment>
     )
 }
 

@@ -1,5 +1,6 @@
 import {
     SEARCH,
+    SET_CURRENT_RESULT,
     CLEAR_RESULTS,
     SEARCH_ERROR,
     SET_LOADING
@@ -18,6 +19,12 @@ const searchReducer = (state = initialState, action) => {
             return {
                 ...state,
                 results: action.payload,
+                loading: false
+            }
+        case SET_CURRENT_RESULT:
+            return {
+                ...state,
+                current: action.payload,
                 loading: false
             }
         case CLEAR_RESULTS:

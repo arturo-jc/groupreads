@@ -35,7 +35,6 @@ export const GetRecordComments = (groupId, record) => async dispatch => {
 
 // Add comment to post
 export const addComment = (groupId, recordId, postId, comment) => async dispatch => {
-    console.log("Hit add comment")
     // Config request headers
     const config = {
         headers: { "Content-Type": "application/json" }

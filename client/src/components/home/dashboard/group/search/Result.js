@@ -1,44 +1,35 @@
 import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { addRecord } from '../../../../../actions/recordActions';
-import { saveResult, clearResults } from '../../../../../actions/searchActions';
-import { useNavigate } from 'react-router-dom';
+import { setCurrentResult } from '../../../../../actions/searchActions';
 
-const Result = ({ result, groupState, addRecord, saveResult, clearResults }) => {
-    const { current } = groupState;
-    const { title, authors, imageLinks } = result.volumeInfo;
-    const navigate = useNavigate();
+const Result = ({ result, setCurrentResult, showBookDetails }) => {
+    const { title, subtitle, authors, imageLinks } = result.volumeInfo;
 
-    const onClick = async () => {
-        const newBook = await saveResult(result)
-        addRecord(newBook._id, current._id);
-        clearResults();
-        navigate(`/groups/${current._id}`);
+    const onClick = result => {
+        setCurrentResult(result);
+        showBookDetails();
     }
 
     return (
-        <div>
+        <div className='book'>
             {imageLinks && (<img src={imageLinks.smallThumbnail} />)}
-            {title ? (<p>{title}</p>) : (<p>Title unkown</p>)}
-            {authors && <p>By {authors.join(", ")}</p>}
-            <button onClick={onClick}>Add to group</button>
+            <div className='book-info'>
+            {title ? (<p className='book-title'>{title}</p>) : (<p className='book-title'>Title unkown</p>)}
+            {subtitle && <p className='book-subtitle'>{subtitle}</p>}
+            {authors? (<p className='authors'>By {authors.join(", ")}</p>):(<p className='authors'>Authors unkown</p>)}
+            </div>
+            <button className='btn btn-grey' onClick={() => onClick(result)}>Details</button>
         </div>
     )
 };
 
 Result.propTypes = {
     result: PropTypes.object.isRequired,
-    groupState: PropTypes.object.isRequired,
-    addRecord: PropTypes.func.isRequired,
-    saveResult: PropTypes.func.isRequired,
-    clearResults: PropTypes.func.isRequired
+    setCurrentResult: PropTypes.func.isRequired,
+    showBookDetails: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
-    groupState: state.group
-});
-
-const addState = connect(mapStateToProps, { addRecord, saveResult, clearResults });
+const addState = connect(null, { setCurrentResult });
 
 export default addState(Result);

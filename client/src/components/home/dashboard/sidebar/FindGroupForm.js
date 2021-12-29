@@ -24,9 +24,9 @@ export const FindGroupForm = ({ groupState, findGroup }) => {
         <Fragment>
         <h3>Find Group By ID</h3>
         <form onSubmit={onSubmit}>
-            <label htmlFor="_id">Group Id</label>
-            <input type="text" id="_id" name="_id" value={group._id} onChange={onChange} />
-            <input type="submit" value="Search" />
+            <label className='hidden' htmlFor="_id">Group Id</label>
+            <input className='form-input' type="text" id="_id" name="_id" value={group._id} onChange={onChange} placeholder='Group ID'/>
+            <input className='btn btn-yellow' type="submit" value="Find" />
         </form>
         {searchResult && <p>{searchResult.name}</p>}
         </Fragment>

@@ -5,6 +5,7 @@ module.exports.addBook = async (req, res) => {
 
     const newBook = new Book({
         title: req.body.title,
+        subtitle: req.body.subtitle,
         authors: req.body.authors,
         publisher: req.body.publisher,
         publishedOn: req.body.publishedOn,

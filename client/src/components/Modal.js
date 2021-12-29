@@ -8,7 +8,7 @@ const NewGroupModal = ({handleClose, show, Component}) => {
         <div className={showHideClassName}>
             <section className='modal-main'>
                 <Component handleClose={handleClose}/>
-                <button type='button' onClick={handleClose}>Close</button>
+                <button className='btn-close' type='button' onClick={handleClose}><i class="fas fa-times fa-2x"></i></button>
             </section>
         </div>
     )

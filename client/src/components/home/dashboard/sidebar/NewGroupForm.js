@@ -35,9 +35,9 @@ const NewGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor, handleClose
         <Fragment>
         <h3>Create New Group</h3>
         <form onSubmit={onSubmit}>
-            <label htmlFor="name">Group's name</label>
-            <input type="text" id="name" name="name" value={group.name} onChange={onChange} />
-            <input type="submit" value="Add group" />
+            <label className='hidden' htmlFor="name">Group's name</label>
+            <input className='form-input' type="text" id="name" name="name" value={group.name} onChange={onChange} placeholder="New group's name" />
+            <input className='btn btn-yellow' type="submit" value="Create" />
         </form>
         </Fragment>
     )

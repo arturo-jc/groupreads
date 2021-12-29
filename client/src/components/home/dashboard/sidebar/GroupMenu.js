@@ -53,9 +53,9 @@ const GroupMenu = ({ groupState  }) => {
                             {group.name}
                         </Link>))
                 }
-                <button onClick={showNewGroupModal}>New group</button>
+                <button className='btn btn-yellow' onClick={showNewGroupModal}>New group</button>
                 <Modal show={newGroupModal.show} handleClose={hideNewGroupModal} Component={NewGroupForm}/>
-                <button onClick={showFindGroupModal}>Find group</button>
+                <button className='btn btn-grey' onClick={showFindGroupModal}>Find group</button>
                 <Modal show={findGroupModal.show} handleClose={hideFindGroupModal} Component={FindGroupForm}/>
                 
             </div>

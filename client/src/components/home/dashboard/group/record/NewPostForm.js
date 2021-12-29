@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addPost } from '../../../../../actions/postActions';
@@ -27,15 +27,17 @@ const NewPostForm = ({ groupState, recordState, addPost, handleClose }) => {
         handleClose();
     }
 
-
     return (
+        <Fragment>
+            <h3>New Post</h3>
         <form onSubmit={onSubmit}>
-            <label htmlFor="title">Title</label>
-            <input type="text" name="title" id="title" value={post.title} onChange={onChange} />
-            <label htmlFor="body">Body</label>
-            <input type="text" name="body" id="body" value={post.body} onChange={onChange} />
-            <input type="submit" value="Post" />
+            <label className='hidden' htmlFor="title">Title</label>
+            <input className='form-input' type="text" name="title" id="title" value={post.title} onChange={onChange} placeholder="New post's title" />
+            <label className='hidden' htmlFor="body">Body</label>
+            <input className='form-input' type="text" name="body" id="body" value={post.body} onChange={onChange} placeholder='Write something here...' />
+            <input className='btn btn-yellow' type="submit" value="Post" />
         </form>
+        </Fragment>
     )
 }
 

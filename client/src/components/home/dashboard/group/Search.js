@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useState, Fragment } from 'react'
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import SearchForm from "./search/SearchForm";
-import Result from "./search/Result"
+import Modal from "../../../Modal"
+import BookDetails from "./search/BookDetails";
+import Result from "./search/Result";
 
 const Search = ({ searchState }) => {
+    const [bookDetailsModal, setBookDetailsModal] = useState({show: false});
+    const showBookDetails = () => {
+        setBookDetailsModal({
+            ...bookDetailsModal,
+            show: true
+        })
+    };
+    const hideBookDetails = () => {
+        setBookDetailsModal({
+            ...bookDetailsModal,
+            show: false
+        })
+    }
     const { results, loading } = searchState;
 
     return (
@@ -14,10 +29,13 @@ const Search = ({ searchState }) => {
             {loading && (<p>Loading...</p>)}
             {!loading && results ?
                 (
-                    <div className='books'>
-                    {results.map(result => <Result key={result.id} result={result} />)}
-                    </div>
-                    )
+                    <Fragment>
+                        <div className='books'>
+                        {results.map(result => <Result key={result.id} result={result} showBookDetails={showBookDetails}/>)}
+                        </div>
+                        <Modal handleClose={hideBookDetails} show={bookDetailsModal.show} Component={BookDetails}/>
+                    </Fragment>
+                )
                 :
                 (<p>No books found</p>)}
         </div>
