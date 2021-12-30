@@ -18,8 +18,10 @@ const Group = ({ groupState, setCurrentGroup, getRecordsFor }) => {
     }
 
     useEffect(() => {
-        setCurrentGroup(group);
-        getRecordsFor(group);
+        if(group){
+            setCurrentGroup(group);
+            getRecordsFor(group);
+        }
     }, [group])
 
     return (

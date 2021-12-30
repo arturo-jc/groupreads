@@ -5,7 +5,7 @@ const Bookmark = ({bookmark}) => {
     return (
         <div className='card bookmark'>
             <p>
-            <i class="fas fa-bookmark fa-lg"></i> {bookmark.addedBy.name} added a bookmark on page {bookmark.page}: {bookmark.body}
+            <i className="fas fa-bookmark fa-lg"></i> {bookmark.addedBy.name} added a bookmark on page {bookmark.page}: {bookmark.body}
             </p>
         </div>
     )

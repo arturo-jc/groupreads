@@ -72,6 +72,23 @@ nav a {
     color: var(--primary-dark);
 }
 
+nav a:hover {
+    text-decoration: none;
+}
+
+nav button {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--primary-dark);
+    padding: 1rem 0;
+    padding-right: .5rem;
+}
+
+nav button:hover {
+    cursor: pointer;
+}
+
 nav .navlogo {
     padding-left: .5rem;
 }
@@ -89,7 +106,7 @@ nav .navlink {
 .sidebar {
     width: 20%;
     min-width: 200px;
-    padding: 1rem;
+    padding: 1rem 0;
     line-height: 1.75;
 }
 
@@ -424,16 +441,18 @@ main {
 
 @media (max-width: 576px){
     .main-container {
-        flex-direction: column;
+        flex-direction: column-reverse;
         padding: 0;
     }
 
     .sidebar {
         width: 100%;
+        padding: 0 1rem;
     }
 
     main {
         width: 100%;
+        padding-bottom: 0;
     }
 
     .sidebar-card {

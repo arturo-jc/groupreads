@@ -80,10 +80,12 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
     const record = records.find(record => record._id === recordId);
 
     useEffect(() => {
-        setCurrentRecord(record);
-        getPostsFor(groupId, record);
-        getMarkersFor(groupId, record);
-        getBookmarksFor(groupId, record);
+        if(record){
+            setCurrentRecord(record);
+            getPostsFor(groupId, record);
+            getMarkersFor(groupId, record);
+            getBookmarksFor(groupId, record);
+        }
     }, [record])
 
     const { markers } = markerState;

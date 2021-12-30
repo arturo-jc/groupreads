@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
@@ -18,26 +18,22 @@ const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup
     const { isAuthenticated } = authState;
 
     const authLinks = (
-        <Fragment>
             <button onClick={onLogout}>
                 Sign out
             </button>
-        </Fragment>
     )
 
     const guestLinks = (
-        <Fragment>
+        <div>
             <Link className='navlink' to="register">Register</Link>
             <Link className='navlink' to="login">Login</Link>
-        </Fragment>
+        </div>
     )
 
     return (
         <nav>
             <Link className='navlogo' to="/"><i className={icon} /> {title}</Link>
-            <ul>
                 {isAuthenticated ? authLinks : guestLinks}
-            </ul>
         </nav>
     )
 }

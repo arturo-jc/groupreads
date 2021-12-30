@@ -11,16 +11,20 @@ const StatusHistory = ({markerState}) => {
         <div className='status-history'>
             <h3>Status History</h3>
             <table>
-                <tr>
-                    <th>Date</th>
-                    <th>Page</th>
-                </tr>
-                {markers && markers.map(marker => (
-                        <tr key={marker._id}>
-                            <td>{marker.date.split("T")[0]}</td>
-                            <td>{marker.page}</td>
-                        </tr>
-                ))}
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Page</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {markers && markers.map(marker => (
+                            <tr key={marker._id}>
+                                <td>{marker.date.split("T")[0]}</td>
+                                <td>{marker.page}</td>
+                            </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
     )
