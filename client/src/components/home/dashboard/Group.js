@@ -12,7 +12,10 @@ const Group = ({ groupState, setCurrentGroup, getRecordsFor }) => {
     
     const { groupId } = useParams();
     const { current, groups } = groupState;
-    const group = groups.find(group => group._id === groupId);
+    let group = null
+    if (groups){
+        group = groups.find(group => group._id === groupId);
+    }
 
     useEffect(() => {
         setCurrentGroup(group);

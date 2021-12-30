@@ -9,16 +9,20 @@ import NewBookmarkForm from './record/NewBookmarkForm';
 import Post from "./record/Post";
 import Bookmark from './record/Bookmark';
 import ProgressBar from "./record/ProgressBar";
+import StatusHistory from './record/StatusHistory';
 import { setCurrentRecord } from '../../../../actions/recordActions';
 import { getPostsFor } from '../../../../actions/postActions';
 import { getMarkersFor } from '../../../../actions/markerActions';
 import { getBookmarksFor } from '../../../../actions/bookmarkActions';
+import { addMarker } from '../../../../actions/markerActions';
 
-const Record = ({ recordState, postState, markerState, bookmarkState, setCurrentRecord, getPostsFor, getMarkersFor, getBookmarksFor }) => {
+const Record = ({ recordState, postState, markerState, bookmarkState, setCurrentRecord, getPostsFor, getMarkersFor, getBookmarksFor, addMarker }) => {
+
 
     const [newMarkerModal, setNewMarkerModal] = useState({show: false})
     const [newBookmarkModal, setNewBookmarkModal] = useState({show: false})
     const [newPostModal, setNewPostModal] = useState({show: false})
+    const [statusHistoryModal, setStatusHistoryModal] = useState({show: false})
 
     const showNewMarkerModal = () => {
         setNewMarkerModal({
@@ -57,6 +61,20 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
         })
     }
 
+    const showStatusHistoryModal = () => {
+        setStatusHistoryModal({
+            ...statusHistoryModal,
+            show: true
+        })
+    }
+
+    const hideStatusHistoryModal = () => {
+        setStatusHistoryModal({
+            ...statusHistoryModal,
+            show: false
+        })
+    }
+
     const {groupId, recordId} = useParams();
     const { current, records } = recordState;
     const record = records.find(record => record._id === recordId);
@@ -79,9 +97,14 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
         });
         currentPage = markers[0].page
     }
+
     let completed = 0;
-    if (current.book.pageCount){
+    if (current && current.book.pageCount){
         completed = Math.round((currentPage / current.book.pageCount) * 100);
+    }
+
+    const markComplete = () => {
+        addMarker(groupId, recordId, {page: current.book.pageCount})
     }
 
     const items = posts.concat(bookmarks);
@@ -104,24 +127,41 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
                      {current && current.book.publisher && <p><span className='volume-info'>Publisher: </span>{current.book.publisher}</p>}
                      {current && current.book.publishedOn && <p><span className='volume-info'>Published on: </span>{current.book.publishedOn.split("T")[0]}</p>}
                      {current && current.book.industryIdentifiers && <p><span className='volume-info'>{current.book.industryIdentifiers[0].type}: </span>{current.book.industryIdentifiers[0].identifier}</p>}
-                     {current && current.book.pageCount && <p><span className='volume-info'>Status: </span><button className='link-style-btn' onClick={showNewMarkerModal}>{currentPage}</button>/{current.book.pageCount} pages. (<button className='link-style-btn'>See full history</button>).</p>}
-                     {current && current.book.pageCount && (<ProgressBar bgcolor={"#6a1b9a"} completed={completed}/>)}
+
+                     {current && current.book.pageCount && <p><span className='volume-info'>Status: </span>
+                     <button className='link-style-btn' onClick={showNewMarkerModal}>{currentPage}</button>/{current.book.pageCount} pages. (<button className='link-style-btn' onClick={showStatusHistoryModal}>See full history</button>).</p>}
+                     {current && current.book.pageCount && (
+                        <div className='progress-bar-container'>
+                            <ProgressBar bgcolor={"#6a1b9a"} completed={completed}/>
+                            <button className='btn btn-green' onClick={markComplete}>Mark complete</button>
+                        </div>
+                     )}
                     </div>
                 </div>
-                <Modal show={newMarkerModal.show} handleClose={hideNewMarkerModal} Component={NewMarkerForm}/>
+                <div className='btn-group'>
                 <button className='btn btn-yellow' onClick={showNewBookmarkModal}>Add bookmark</button>
-                <Modal show={newBookmarkModal.show} handleClose={hideNewBookmarkModal} Component={NewBookmarkForm}/>
                 <button className='btn btn-green' onClick={showNewPostModal}>Write post</button>
-                <Modal show={newPostModal.show} handleClose={hideNewPostModal} Component={NewPostForm}/>
+                </div>
             </div>
             {items && (items.map(item => item.title? (<Post key={item._id} post={item}/>):(<Bookmark key={item._id} bookmark={item}/>)))}
+            <Modal show={statusHistoryModal.show} handleClose={hideStatusHistoryModal} Component={StatusHistory}/>
+            <Modal show={newMarkerModal.show} handleClose={hideNewMarkerModal} Component={NewMarkerForm}/>
+            <Modal show={newBookmarkModal.show} handleClose={hideNewBookmarkModal} Component={NewBookmarkForm}/>
+            <Modal show={newPostModal.show} handleClose={hideNewPostModal} Component={NewPostForm}/>
         </Fragment>
     )
 }
 
 Record.propTypes = {
     recordState: PropTypes.object.isRequired,
-    postState: PropTypes.object.isRequired
+    postState: PropTypes.object.isRequired,
+    markerState: PropTypes.object.isRequired,
+    bookmarkState: PropTypes.object.isRequired,
+    setCurrentRecord: PropTypes.func.isRequired,
+    getPostsFor: PropTypes.func.isRequired,
+    getMarkersFor: PropTypes.func.isRequired,
+    getBookmarksFor: PropTypes.func.isRequired,
+    addMarker: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -131,6 +171,6 @@ const mapStateToProps = state => ({
     bookmarkState: state.bookmark
 })
 
-const addState = connect( mapStateToProps, {setCurrentRecord, getPostsFor, getMarkersFor, getBookmarksFor});
+const addState = connect( mapStateToProps, {setCurrentRecord, getPostsFor, getMarkersFor, getBookmarksFor, addMarker});
 
 export default addState(Record);

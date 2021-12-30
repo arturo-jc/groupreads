@@ -1,12 +1,14 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment } from 'react';
+import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addMarker } from '../../../../../actions/markerActions';
 
-const NewMarkerForm = ({ groupState, recordState, addMarker, handleClose }) => {
+const NewMarkerForm = ({ recordState, addMarker, handleClose }) => {
 
-    const { current: group } = groupState;
     const { current: record } = recordState;
+
+    const {groupId, recordId} = useParams();
 
     const [marker, setmarker] = useState({ page: null })
 
@@ -18,13 +20,13 @@ const NewMarkerForm = ({ groupState, recordState, addMarker, handleClose }) => {
         })
     }
     let pageCount = 0;
-    if (record.book.pageCount){
+    if (record && record.book.pageCount){
         pageCount = record.book.pageCount;
     }
 
     const onSubmit = e => {
         e.preventDefault();
-        addMarker(group._id, record._id, marker);
+        addMarker(groupId, recordId, marker);
         handleClose();
     }
 
@@ -42,13 +44,11 @@ const NewMarkerForm = ({ groupState, recordState, addMarker, handleClose }) => {
 
 NewMarkerForm.propTypes = {
     addMarker: PropTypes.func.isRequired,
-    groupState: PropTypes.object.isRequired,
     recordState: PropTypes.object.isRequired,
     handleClose: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-    groupState: state.group,
     recordState: state.record
 })
 
