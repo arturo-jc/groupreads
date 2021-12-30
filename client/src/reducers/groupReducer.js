@@ -4,6 +4,7 @@ import {
     SET_CURRENT_GROUP,
     CLEAR_GROUPS,
     CLEAR_CURRENT_GROUP,
+    CLEAR_ERRORS,
     FIND_GROUP,
     CLEAR_GROUP_SEARCH_RESULTS,
     GROUPS_ERROR,
@@ -64,11 +65,15 @@ const groupReducer = (state = initialState, action) => {
                 loading: true
             }
         case GROUPS_ERROR:
-            console.error(action.payload);
             return {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
             }
         default:
             return state;

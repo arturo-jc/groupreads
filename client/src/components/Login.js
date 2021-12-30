@@ -3,18 +3,18 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { login } from '../actions/authActions';
 import { useNavigate } from 'react-router-dom';
+import { setAlert } from "../actions/alertActions";
 
-const Login = ({ authState, login }) => {
-    const { isAuthenticated, error } = authState;
+const Login = ({ authState, login, setAlert }) => {
+    const { isAuthenticated } = authState;
     const navigate = useNavigate();
     useEffect(() => {
         if (isAuthenticated) {
             navigate("/");
         }
-        if (error) {
-            console.log(`ALERT: ${error}`)
-        }
-    }, [error, isAuthenticated])
+    }, [
+        isAuthenticated
+    ])
 
     const [user, setUser] = useState({
         email: "",
@@ -33,7 +33,7 @@ const Login = ({ authState, login }) => {
     const onSubmit = e => {
         e.preventDefault();
         if (email === "" || password === "") {
-            console.log("Alert: please enter all fields")
+            setAlert("Please enter all fields", "danger");
         } else {
             const userData = { email, password };
             login(userData);
@@ -55,12 +55,14 @@ const Login = ({ authState, login }) => {
 }
 
 Login.propTypes = {
-    login: PropTypes.func.isRequired
+    authState: PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     authState: state.auth
 })
 
-const addState = connect(mapStateToProps, { login })
+const addState = connect(mapStateToProps, { login, setAlert })
 export default addState(Login);

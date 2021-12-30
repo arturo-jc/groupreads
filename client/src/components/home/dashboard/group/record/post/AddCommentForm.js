@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { addComment } from '../../../../../../actions/commentActions';
 import { getPostsFor } from "../../../../../../actions/postActions";
+import { setAlert } from '../../../../../../actions/alertActions';
 
-const AddCommentForm = ({ postId, groupState, recordState, addComment, getPostsFor }) => {
+const AddCommentForm = ({ postId, groupState, recordState, addComment, getPostsFor, setAlert }) => {
 
     // Form state
     const [comment, setComment] = useState({
@@ -23,8 +24,12 @@ const AddCommentForm = ({ postId, groupState, recordState, addComment, getPostsF
 
     const onSubmit = e => {
         e.preventDefault();
-        addComment(group._id, record._id, postId, comment);
-        getPostsFor(group._id, record)
+        if (comment.body === ""){
+            setAlert("Your comment cannot be empty.", "danger")
+        } else{
+            addComment(group._id, record._id, postId, comment);
+            getPostsFor(group._id, record)
+        }
     }
 
     return (
@@ -39,6 +44,7 @@ const AddCommentForm = ({ postId, groupState, recordState, addComment, getPostsF
 AddCommentForm.propTypes = {
     postId: PropTypes.string.isRequired,
     addComment: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired,
     groupState: PropTypes.object.isRequired,
     recordState: PropTypes.object.isRequired,
     getPostsFor: PropTypes.func.isRequired
@@ -49,5 +55,5 @@ const mapStateToProps = state => ({
     recordState: state.record
 })
 
-const addState = connect(mapStateToProps, { addComment, getPostsFor });
+const addState = connect(mapStateToProps, { addComment, getPostsFor, setAlert });
 export default addState(AddCommentForm);

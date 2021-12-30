@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { createGroup, setCurrentGroup } from '../../../../actions/groupActions';
 import { getRecordsFor } from '../../../../actions/recordActions';
+import { setAlert } from '../../../../actions/alertActions';
 import { useNavigate } from 'react-router-dom';
 
-const NewGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor, handleClose }) => {
+const NewGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor, handleClose, setAlert }) => {
 
     // Form state
     const [group, setGroup] = useState({ name: "" });
@@ -22,13 +23,17 @@ const NewGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor, handleClose
 
     const onSubmit = async e => {
         e.preventDefault();
-        const newGroup = await createGroup(group);
-        if (newGroup) {
-            setCurrentGroup(newGroup);
-            getRecordsFor(newGroup);
-            navigate(`/groups/${newGroup._id}`);
-            handleClose();
+        if (group.name === ""){
+            setAlert("Please enter a name for your group.", "danger")
+        } else{
+            const newGroup = await createGroup(group);
+            if (newGroup) {
+                setCurrentGroup(newGroup);
+                getRecordsFor(newGroup);
+                navigate(`/groups/${newGroup._id}`);
+            }
         }
+        handleClose();
     }
 
     return (
@@ -47,9 +52,10 @@ NewGroupForm.propTypes = {
     createGroup: PropTypes.func.isRequired,
     setCurrentGroup: PropTypes.func.isRequired,
     getRecordsFor: PropTypes.func.isRequired,
-    handleClose: PropTypes.func.isRequired
+    handleClose: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired
 }
 
-const connection = connect(null, { createGroup, setCurrentGroup, getRecordsFor })
+const connection = connect(null, { createGroup, setCurrentGroup, getRecordsFor, setAlert })
 
 export default connection(NewGroupForm);

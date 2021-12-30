@@ -2,8 +2,9 @@ import React, { useState, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addPost } from '../../../../../actions/postActions';
+import { setAlert } from '../../../../../actions/alertActions';
 
-const NewPostForm = ({ groupState, recordState, addPost, handleClose }) => {
+const NewPostForm = ({ groupState, recordState, addPost, setAlert, handleClose }) => {
 
     const { current: group } = groupState;
     const { current: record } = recordState;
@@ -23,7 +24,11 @@ const NewPostForm = ({ groupState, recordState, addPost, handleClose }) => {
 
     const onSubmit = e => {
         e.preventDefault()
-        addPost(group._id, record._id, post);
+        if(post.title === "" || post.body === "" ){
+            setAlert("Please fill out all fields.", "danger")
+        } else{
+            addPost(group._id, record._id, post);
+        }
         handleClose();
     }
 
@@ -50,8 +55,9 @@ NewPostForm.propTypes = {
 
 const mapStateToProps = state => ({
     groupState: state.group,
-    recordState: state.record
+    recordState: state.record,
+    setAlert: PropTypes.func.isRequired
 })
 
-const addState = connect(mapStateToProps, { addPost });
+const addState = connect(mapStateToProps, { addPost, setAlert });
 export default addState(NewPostForm);

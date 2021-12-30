@@ -3,7 +3,8 @@ import {
     ADD_RECORD,
     SET_CURRENT_RECORD,
     SET_LOADING,
-    RECORDS_ERROR
+    RECORDS_ERROR,
+    CLEAR_ERRORS
 } from "../actions/types";
 
 const initialState = {
@@ -42,6 +43,11 @@ const recordReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
             }
         default:
             return state;

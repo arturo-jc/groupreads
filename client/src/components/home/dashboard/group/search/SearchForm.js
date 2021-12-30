@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { search } from '../../../../../actions/searchActions';
+import { setAlert } from "../../../../../actions/alertActions";
 
-const SearchForm = ({ search }) => {
+const SearchForm = ({ search, setAlert }) => {
     const [query, setQuery] = useState({ text: "" });
 
     const onChange = e => {
@@ -15,7 +16,11 @@ const SearchForm = ({ search }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        search(query);
+        if ( query.text === "") {
+            setAlert("Please enter a search term.", "danger");
+        } else{
+            search(query);
+        }
     }
 
     return (
@@ -31,8 +36,9 @@ const SearchForm = ({ search }) => {
 };
 
 SearchForm.propTypes = {
-    search: PropTypes.func.isRequired
+    search: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired
 };
 
-const addState = connect(null, { search });
+const addState = connect(null, { search, setAlert });
 export default addState(SearchForm);

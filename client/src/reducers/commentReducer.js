@@ -2,7 +2,8 @@ import {
     SET_LOADING,
     GET_RECORD_COMMENTS,
     ADD_COMMENT,
-    COMMENT_ERROR
+    COMMENT_ERROR,
+    CLEAR_ERRORS
 } from "../actions/types";
 
 const initialState = {
@@ -24,7 +25,17 @@ const commentReducer = (state = initialState, action) => {
                 loading: false
             }
         case GET_RECORD_COMMENTS:
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
         case ADD_COMMENT:
+            return {
+                ...state,
+                comments: [...state.comments, action.payload],
+                loading: false
+            }
         default:
             return state;
     }

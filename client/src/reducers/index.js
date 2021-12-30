@@ -7,6 +7,7 @@ import postReducer from "./postReducer";
 import commentReducer from "./commentReducer";
 import markerReducer from "./markerReducer";
 import bookmarkReducer from "./bookmarkReducer";
+import alertReducer from "./alertReducer";
 
 export default combineReducers({
     auth: authReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     post: postReducer,
     comment: commentReducer,
     marker: markerReducer,
-    bookmark: bookmarkReducer
+    bookmark: bookmarkReducer,
+    alert: alertReducer
 });

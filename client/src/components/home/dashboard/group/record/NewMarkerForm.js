@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addMarker } from '../../../../../actions/markerActions';
+import { setAlert } from '../../../../../actions/alertActions';
 
-const NewMarkerForm = ({ recordState, addMarker, handleClose }) => {
+const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
 
     const { current: record } = recordState;
 
@@ -26,7 +27,11 @@ const NewMarkerForm = ({ recordState, addMarker, handleClose }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        addMarker(groupId, recordId, marker);
+        if (!marker.page ){
+            setAlert("Please enter a page number.", "danger")
+        }else{
+            addMarker(groupId, recordId, marker);
+        }
         handleClose();
     }
 
@@ -45,6 +50,7 @@ const NewMarkerForm = ({ recordState, addMarker, handleClose }) => {
 NewMarkerForm.propTypes = {
     addMarker: PropTypes.func.isRequired,
     recordState: PropTypes.object.isRequired,
+    setAlert: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired
 }
 
@@ -52,6 +58,6 @@ const mapStateToProps = state => ({
     recordState: state.record
 })
 
-const addState = connect(mapStateToProps, { addMarker })
+const addState = connect(mapStateToProps, { addMarker, setAlert })
 
 export default addState(NewMarkerForm)

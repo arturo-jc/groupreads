@@ -1,9 +1,9 @@
 import {
     GET_POSTS,
     ADD_POST,
-    SET_CURRENT_POST,
     POSTS_ERROR,
-    SET_LOADING
+    SET_LOADING,
+    CLEAR_ERRORS
 } from "../actions/types";
 
 const initialState = {
@@ -37,6 +37,11 @@ const postReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
             }
         default:
             return state;

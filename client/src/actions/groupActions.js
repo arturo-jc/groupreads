@@ -100,14 +100,12 @@ export const clearGroupSearchResults = () => {
     return { type: CLEAR_GROUP_SEARCH_RESULTS }
 }
 
-
-
 // Set loading
 export const setLoading = () => {
     return { type: SET_LOADING }
 }
 
-
+// Find group
 export const findGroup = groupId => async dispatch => {
 
     // Add token to request headers for authentication

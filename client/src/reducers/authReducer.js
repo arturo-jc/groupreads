@@ -59,10 +59,14 @@ const authReducer = (state = initialState, action) => {
                 error: null
             };
         case SET_LOADING:
-            console.log("SET_LOADING called in authReducer")
             return {
                 ...state,
                 loading: true
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
             }
         default:
             return state;

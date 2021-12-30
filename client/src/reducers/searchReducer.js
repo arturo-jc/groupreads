@@ -3,7 +3,8 @@ import {
     SET_CURRENT_RESULT,
     CLEAR_RESULTS,
     SEARCH_ERROR,
-    SET_LOADING
+    SET_LOADING,
+    CLEAR_ERRORS
 } from "./../actions/types";
 
 const initialState = {
@@ -42,6 +43,11 @@ const searchReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
             }
         default:
             return state;

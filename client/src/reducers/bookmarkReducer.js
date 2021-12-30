@@ -2,7 +2,8 @@ import {
     GET_BOOKMARKS,
     ADD_BOOKMARK,
     BOOKMARKS_ERROR,
-    SET_LOADING
+    SET_LOADING,
+    CLEAR_ERRORS
 } from "../actions/types";
 
 const initialState = {
@@ -35,6 +36,11 @@ const bookmarkReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
             }
         default:
             return state;

@@ -75,7 +75,7 @@ export const search = query => async dispatch => {
     } catch (err) {
         dispatch({
             type: SEARCH_ERROR,
-            payload: err.response.data.msg
+            payload: err.response.data.error.message
         })
     }
 }
@@ -84,6 +84,7 @@ export const clearResults = () => {
     return { type: CLEAR_RESULTS }
 }
 
+// Set loading
 export const setLoading = () => {
     return { type: SET_LOADING }
 }

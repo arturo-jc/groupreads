@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { register } from '../actions/authActions';
 import { useNavigate } from 'react-router-dom';
+import { setAlert } from "../actions/alertActions";
 
-const Register = ({ authState, register }) => {
+const Register = ({ authState, register, setAlert }) => {
 
     const { isAuthenticated, error } = authState;
     const navigate = useNavigate();
@@ -12,10 +13,7 @@ const Register = ({ authState, register }) => {
         if (isAuthenticated) {
             navigate("/");
         }
-        if (error) {
-            console.log(`ALERT: ${error}`)
-        }
-    }, [error, isAuthenticated]);
+    }, [isAuthenticated]);
 
     const [user, setUser] = useState({
         name: "",
@@ -36,9 +34,9 @@ const Register = ({ authState, register }) => {
     const onSubmit = e => {
         e.preventDefault();
         if (name === "" || email === "" || password === "") {
-            console.log("Alert: please enter all fields")
+            setAlert("Please enter all fields", "danger");
         } else if (password !== password2) {
-            console.log("Alert: passwords do not match")
+            setAlert("Passwords do not match", "danger");
         } else {
             // See if you can just pass user
             const userData = { name, email, password }
@@ -65,12 +63,14 @@ const Register = ({ authState, register }) => {
 }
 
 Register.propTypes = {
-    register: PropTypes.func.isRequired
+    authState: PropTypes.object.isRequired,
+    register: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     authState: state.auth
 })
 
-const connection = connect(mapStateToProps, { register })
+const connection = connect(mapStateToProps, { register, setAlert })
 export default connection(Register);

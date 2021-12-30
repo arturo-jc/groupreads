@@ -2,8 +2,9 @@ import React, { useState, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addBookmark } from '../../../../../actions/bookmarkActions';
+import { setAlert } from '../../../../../actions/alertActions';
 
-const NewBookmarkForm = ({ groupState, recordState, addBookmark, handleClose }) => {
+const NewBookmarkForm = ({ groupState, recordState, addBookmark, setAlert, handleClose }) => {
 
     const { current: group } = groupState;
     const { current: record } = recordState;
@@ -23,7 +24,11 @@ const NewBookmarkForm = ({ groupState, recordState, addBookmark, handleClose }) 
 
     const onSubmit = e => {
         e.preventDefault();
-        addBookmark(group._id, record._id, bookmark);
+        if(bookmark.body === "" || bookmark.page === null){
+            setAlert("Please fill out all fields.", "danger");
+        } else{
+            addBookmark(group._id, record._id, bookmark);
+        }
         handleClose();
     }
 
@@ -45,6 +50,7 @@ NewBookmarkForm.propTypes = {
     addBookmark: PropTypes.func.isRequired,
     groupState: PropTypes.object.isRequired,
     recordState: PropTypes.object.isRequired,
+    setAlert: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired
 }
 
@@ -53,6 +59,6 @@ const mapStateToProps = state => ({
     recordState: state.record
 })
 
-const addState = connect(mapStateToProps, { addBookmark })
+const addState = connect(mapStateToProps, { addBookmark, setAlert })
 
 export default addState(NewBookmarkForm);

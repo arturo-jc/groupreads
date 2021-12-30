@@ -44,3 +44,6 @@ export const MARKERS_ERROR = 'MARKERS_ERROR';
 export const GET_BOOKMARKS = 'GET_BOOKMARKS';
 export const ADD_BOOKMARK = 'ADD_BOOKMARK';
 export const BOOKMARKS_ERROR = 'BOOKMARKS_ERROR';
+
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';

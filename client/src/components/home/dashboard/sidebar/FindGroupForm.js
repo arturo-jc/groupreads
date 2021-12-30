@@ -1,8 +1,10 @@
 import React, { useState, Fragment } from 'react';
 import { connect } from "react-redux";
-import { findGroup } from "../../../../actions/groupActions"
+import { findGroup } from "../../../../actions/groupActions";
+import { setAlert } from '../../../../actions/alertActions';
+import PropTypes from 'prop-types';
 
-export const FindGroupForm = ({ groupState, findGroup }) => {
+export const FindGroupForm = ({ groupState, findGroup, setAlert, handleClose }) => {
 
     const [group, setGroup] = useState({ _id: "" });
 
@@ -15,7 +17,12 @@ export const FindGroupForm = ({ groupState, findGroup }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        findGroup(group._id)
+        if (group._id === ""){
+            setAlert("Please enter an ID.", "danger");
+            handleClose();
+        } else{
+            findGroup(group._id)
+        }
     }
 
     const { searchResult } = groupState;
@@ -33,10 +40,18 @@ export const FindGroupForm = ({ groupState, findGroup }) => {
     )
 }
 
+FindGroupForm.propTypes = {
+    groupState: PropTypes.object.isRequired,
+    findGroup: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired
+}
+
+
 const mapStateToProps = state => ({
     groupState: state.group
 });
 
-const addState = connect(mapStateToProps, { findGroup })
+const addState = connect(mapStateToProps, { findGroup, setAlert })
 
 export default addState(FindGroupForm);

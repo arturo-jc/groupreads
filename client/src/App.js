@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Home from "./components/Home"
 import Login from "./components/Login";
 import Register from './components/Register';
+import Alerts from "./components/Alerts"
 import store from './store';
 
 const App = () => {
@@ -17,14 +18,13 @@ const App = () => {
         <Fragment>
           <ErrorBoundary>
             <Navbar />
+            <Alerts/>
             <div className='main-container'>
-            {/* Alerts should go here */}
-
-            <Routes>
-              <Route path="login" element={<Login />} />
-              <Route path="register" element={<Register />} />
-              <Route path="/*" element={<Home />} />
-            </Routes>
+              <Routes>
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="/*" element={<Home />} />
+              </Routes>
             </div>
             {/* Footer should go here */}
           </ErrorBoundary>
