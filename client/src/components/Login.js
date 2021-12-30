@@ -41,18 +41,14 @@ const Login = ({ authState, login }) => {
     }
 
     return (
-        <div>
+        <div className='card auth-card'>
             <h1>Login</h1>
             <form onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor="email">Email address</label>
-                    <input type="email" name="email" id="email" value={email} onChange={onChange} />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" id="password" password={password} onChange={onChange} />
-                </div>
-                <input type="submit" value="Login" />
+                <label className='hidden' htmlFor="email">Email address</label>
+                <input className='form-input' type="email" name="email" id="email" value={email} onChange={onChange} placeholder='Email address'/>
+                <label className='hidden' htmlFor="password">Password</label>
+                <input className='form-input' type="password" name="password" id="password" password={password} onChange={onChange} placeholder='Password' />
+                <input className='btn btn-yellow' type="submit" value="Login" />
             </form>
         </div>
     )

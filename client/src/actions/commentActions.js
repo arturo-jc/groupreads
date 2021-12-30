@@ -49,7 +49,6 @@ export const addComment = (groupId, recordId, postId, comment) => async dispatch
     dispatch(setLoading);
 
     const endpoint = `/api/groups/${groupId}/records/${recordId}/posts/${postId}/comments`;
-    console.log(endpoint)
 
     try {
         const res = await axios.post(endpoint, comment, config);

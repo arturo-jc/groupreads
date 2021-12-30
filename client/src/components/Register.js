@@ -10,7 +10,7 @@ const Register = ({ authState, register }) => {
     const navigate = useNavigate();
     useEffect(() => {
         if (isAuthenticated) {
-            navigate("/dashboard");
+            navigate("/");
         }
         if (error) {
             console.log(`ALERT: ${error}`)
@@ -47,26 +47,18 @@ const Register = ({ authState, register }) => {
     }
 
     return (
-        <div>
+        <div className='card auth-card'>
             <h1>Register</h1>
             <form onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name" id="name" value={name} onChange={onChange} />
-                </div>
-                <div>
-                    <label htmlFor="email">Email Adress</label>
-                    <input type="email" name="email" id="email" value={email} onChange={onChange} />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" id="password" value={password} onChange={onChange} />
-                </div>
-                <div>
-                    <label htmlFor="password2">Confirm password</label>
-                    <input type="password" name="password2" id="password2" value={password2} onChange={onChange} />
-                </div>
-                <input type="submit" value="Register" />
+                    <label className='hidden' htmlFor="name">Name</label>
+                    <input className='form-input' type="text" name="name" id="name" value={name} onChange={onChange} placeholder='Name'/>
+                    <label className='hidden' htmlFor="email">Email Adress</label>
+                    <input className='form-input' type="email" name="email" id="email" value={email} onChange={onChange} placeholder='Email address'/>
+                    <label className='hidden' htmlFor="password">Password</label>
+                    <input className='form-input' type="password" name="password" id="password" value={password} onChange={onChange} placeholder='Password'/>
+                    <label className='hidden' htmlFor="password2">Confirm password</label>
+                    <input className='form-input' type="password" name="password2" id="password2" value={password2} onChange={onChange} placeholder='Confirm password'/>
+                <input className='btn btn-yellow' type="submit" value="Register" />
             </form>
         </div>
     )

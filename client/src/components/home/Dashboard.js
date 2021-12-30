@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from "react-redux";
 import Sidebar from './dashboard/Sidebar';
 import Group from './dashboard/Group';
@@ -12,7 +12,7 @@ const Dashboard = ({ getGroups }) => {
     }, [])
 
     return (
-        <div className="main-container">
+        <Fragment>
             <Sidebar/>
             <main>
                     <Routes>
@@ -21,7 +21,7 @@ const Dashboard = ({ getGroups }) => {
                         <Route path="/*" element={<p>Sorry, that page does not exist</p>} />
                     </Routes>
             </main>
-        </div>
+        </Fragment>
     )
 }
 

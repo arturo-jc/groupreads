@@ -35,22 +35,6 @@ module.exports.showRecord = async (req, res) => {
     return res.json(record);
 }
 
-// PUT api/groups/:groupId/records/:recordId
-module.exports.updateRecord = async (req, res) => {
-    const record = await Record.findByIdAndUpdate(
-        req.params.recordId,
-        {
-            $set:
-            {
-                startedOn: req.body.startedOn,
-                finishedOn: req.body.finishedOn
-            }
-        },
-        { new: true }
-    );
-    return res.json(record);
-}
-
 // DELETE api/groups/:groupId/records/:recordId
 module.exports.deleteRecord = async (req, res) => {
     const { groupId, recordId } = req.params;

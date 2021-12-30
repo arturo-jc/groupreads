@@ -131,9 +131,7 @@ module.exports.validateGroup = (req, res, next) => {
 
 module.exports.validateRecord = (req, res, next) => {
     const recordSchema = joi.object({
-        bookId: joi.string().required(),
-        startedOn: joi.date(),
-        finishedOn: joi.date()
+        bookId: joi.string().required()
     });
 
     const { error } = recordSchema.validate(req.body);

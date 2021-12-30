@@ -12,7 +12,6 @@ router.route("/")
 
 router.route("/:recordId")
     .get(authenticate, catchAsync(isGroupMember), catchAsync(showRecord))
-    .put(authenticate, validateRecord, catchAsync(isGroupMember), catchAsync(updateRecord))
     .delete(authenticate, catchAsync(isGroupMember), catchAsync(deleteRecord))
 
 module.exports = router;

@@ -17,6 +17,7 @@ const App = () => {
         <Fragment>
           <ErrorBoundary>
             <Navbar />
+            <div className='main-container'>
             {/* Alerts should go here */}
 
             <Routes>
@@ -24,7 +25,7 @@ const App = () => {
               <Route path="register" element={<Register />} />
               <Route path="/*" element={<Home />} />
             </Routes>
-
+            </div>
             {/* Footer should go here */}
           </ErrorBoundary>
         </Fragment>
