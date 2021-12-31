@@ -4,6 +4,7 @@ import { saveResult, clearResults } from '../../../../../actions/searchActions';
 import { addRecord } from "../../../../../actions/recordActions";
 import { useParams, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import nocover from "./nocover.gif"
 
 const BookDetails = ({searchState, saveResult, clearResults, addRecord, handleClose}) => {
     const { groupId } = useParams();
@@ -26,7 +27,7 @@ const BookDetails = ({searchState, saveResult, clearResults, addRecord, handleCl
             {current && current.volumeInfo.authors? (<p className='authors'>By {current.volumeInfo.authors.join(", ")}</p>):(<p className='authors'>Authors unkown</p>)}
             <div className='details-row'>
                 <div className="cover-col">
-                    {current && current.volumeInfo.imageLinks && (<img src={current.volumeInfo.imageLinks.smallThumbnail} />)}
+                    {current && current.volumeInfo.imageLinks ? (<img src={current.volumeInfo.imageLinks.smallThumbnail} />) : (<img style={{width: 128}} src={nocover}/>)}
                 </div>
                 <div className="details-col">
                     {current && current.volumeInfo.description && <p className='book-description'>{current.volumeInfo.description}</p>}

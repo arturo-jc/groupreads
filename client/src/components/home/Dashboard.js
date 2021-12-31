@@ -12,7 +12,7 @@ const Dashboard = ({ getGroups }) => {
     }, [])
 
     return (
-        <Fragment>
+        <div className='dashboard'>
             <Sidebar/>
             <main>
                     <Routes>
@@ -21,7 +21,7 @@ const Dashboard = ({ getGroups }) => {
                         <Route path="/*" element={<p>Sorry, that page does not exist</p>} />
                     </Routes>
             </main>
-        </Fragment>
+        </div>
     )
 }
 

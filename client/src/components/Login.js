@@ -41,15 +41,17 @@ const Login = ({ authState, login, setAlert }) => {
     }
 
     return (
-        <div className='card auth-card'>
-            <h1>Login</h1>
-            <form onSubmit={onSubmit}>
-                <label className='hidden' htmlFor="email">Email address</label>
-                <input className='form-input' type="email" name="email" id="email" value={email} onChange={onChange} placeholder='Email address'/>
-                <label className='hidden' htmlFor="password">Password</label>
-                <input className='form-input' type="password" name="password" id="password" password={password} onChange={onChange} placeholder='Password' />
-                <input className='btn btn-yellow' type="submit" value="Login" />
-            </form>
+        <div className="auth-container">
+            <div className='card auth-card'>
+                <h1>Login</h1>
+                <form onSubmit={onSubmit}>
+                    <label className='hidden' htmlFor="email">Email address</label>
+                    <input className='form-input' type="email" name="email" id="email" value={email} onChange={onChange} placeholder='Email address'/>
+                    <label className='hidden' htmlFor="password">Password</label>
+                    <input className='form-input' type="password" name="password" id="password" password={password} onChange={onChange} placeholder='Password' />
+                    <input className='btn btn-yellow' type="submit" value="Login" />
+                </form>
+            </div>
         </div>
     )
 }

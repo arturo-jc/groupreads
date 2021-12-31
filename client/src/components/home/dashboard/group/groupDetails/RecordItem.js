@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import nocover from "../search/nocover.gif"
 
 const RecordItem = ({ record, groupState }) => {
     const { title, subtitle, authors, imageUrl } = record.book;
@@ -9,7 +10,7 @@ const RecordItem = ({ record, groupState }) => {
 
     return (
         <div className='book'>
-            {current && <img src={imageUrl} alt="" />}
+            {current && imageUrl ? (<img src={imageUrl} alt="" />): (<img style={{width: 128}} src={nocover}/>)}
             {current && <Link
                 className='book-title'
                 to={`/groups/${current._id}/records/${record._id}`}

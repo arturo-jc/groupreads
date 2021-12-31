@@ -1,5 +1,5 @@
 const formatBookData = bookData => {
-    return {
+    const book = {
         title: bookData.volumeInfo.title || "untitled",
         subtitle: bookData.volumeInfo.subtitle,
         authors: bookData.volumeInfo.authors || ["unknown author"],
@@ -8,9 +8,14 @@ const formatBookData = bookData => {
         description: bookData.volumeInfo.description,
         industryIdentifiers: bookData.volumeInfo.industryIdentifiers,
         pageCount: bookData.volumeInfo.pageCount,
-        imageUrl: bookData.volumeInfo.imageLinks.smallThumbnail,
         googleBooksUrl: bookData.selfLink
-    };
+    }
+
+    if (bookData.volumeInfo.imageLinks){
+        book.imageUrl = bookData.volumeInfo.imageLinks.smallThumbnail
+    }
+
+    return book;
 }
 
 export default formatBookData;

@@ -15,15 +15,10 @@ const Records = ({ recordState }) => {
     return (
         <Fragment>
             <h3>Books</h3>
-            {!loading && records ?
-                (
-                    <div className="books">
-                        {records.map(record => (
-                        <RecordItem key={record._id} record={record} />))}
-                    </div>
-                )
-                :
-                (<p>This group has no books yet.</p>)}
+            <div className="books">
+                {records.map(record => (
+                <RecordItem key={record._id} record={record} />))}
+            </div>
             <Link className='btn btn-yellow' to="search">Add books</Link>
         </Fragment>
     )

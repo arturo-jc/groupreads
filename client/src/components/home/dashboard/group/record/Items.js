@@ -2,7 +2,6 @@ import React, {useEffect, Fragment} from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import Spinner from "../../../../Spinner";
 import Post from './Post';
 import Bookmark from './Bookmark';
 import { getPostsFor } from '../../../../../actions/postActions';
@@ -22,21 +21,13 @@ const Items = ({recordState, postState, bookmarkState, getPostsFor, getBookmarks
         }
     }, [record])
 
-    const { posts, loading: postsLoading } = postState;
-    const { bookmarks, loading: bookmarksLoading } = bookmarkState;
+    const { posts } = postState;
+    const { bookmarks } = bookmarkState;
 
     const items = posts.concat(bookmarks);
     items.sort(function(a, b){
         return new Date(b.date) - new Date(a.date)
     });
-
-    if (postsLoading || bookmarksLoading){
-        return (
-            <div className="card">
-                <Spinner/>
-            </div>
-        )
-    }
 
     return (
         <Fragment>

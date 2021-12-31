@@ -8,6 +8,7 @@ import NewBookmarkForm from './record/NewBookmarkForm';
 import Items from './record/Items';
 import Progress from './record/Progress';
 import { setCurrentRecord } from '../../../../actions/recordActions';
+import nocover from "./search/nocover.gif"
 
 const Record = ({ recordState, setCurrentRecord }) => {
 
@@ -57,7 +58,7 @@ const Record = ({ recordState, setCurrentRecord }) => {
                 {current && <p className='authors'>By {current.book.authors.join(", ")}</p>}
                 <div className="details-row">
                     <div className="cover-col">
-                        {current && <img src={current.book.imageUrl} alt="" />}
+                        {current && current.book.imageUrl? (<img src={current.book.imageUrl} alt="" />):(<img style={{width: 128}} src={nocover}/>)}
                     </div>
                     <div className="details-col">
                      {current && current.book.description && <p className='book-description'>{current.book.description}</p>}
