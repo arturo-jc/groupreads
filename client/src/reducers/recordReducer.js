@@ -2,8 +2,10 @@ import {
     GET_RECORDS,
     ADD_RECORD,
     SET_CURRENT_RECORD,
-    SET_LOADING,
+    LOADING_RECORDS,
     RECORDS_ERROR,
+    CLEAR_RECORDS,
+    CLEAR_CURRENT_RECORD,
     CLEAR_ERRORS
 } from "../actions/types";
 
@@ -33,7 +35,7 @@ const recordReducer = (state = initialState, action) => {
                 ...state,
                 current: action.payload
             }
-        case SET_LOADING:
+        case LOADING_RECORDS:
             return {
                 ...state,
                 loading: true
@@ -43,6 +45,16 @@ const recordReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case CLEAR_RECORDS:
+            return {
+                ...state,
+                records: []
+            }
+        case CLEAR_CURRENT_RECORD:
+            return {
+                ...state,
+                current: null
             }
         case CLEAR_ERRORS:
             return {

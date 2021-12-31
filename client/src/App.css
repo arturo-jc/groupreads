@@ -442,6 +442,13 @@ main {
       color: #fff;
   }
 
+  .spinner {
+      /* width: 100%; */
+      max-width: 200px;
+      margin: auto;
+      display: block;
+  }
+
 @media (max-width: 1400px){
     .books {
         grid-template-columns: repeat(3, 1fr);

@@ -4,8 +4,10 @@ import {
     GET_RECORDS,
     ADD_RECORD,
     SET_CURRENT_RECORD,
+    CLEAR_RECORDS,
+    CLEAR_CURRENT_RECORD,
     RECORDS_ERROR,
-    SET_LOADING
+    LOADING_RECORDS
 } from "./types"
 
 // Get records for group
@@ -22,7 +24,7 @@ export const getRecordsFor = (group) => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading);
+    dispatch(loadingRecords());
 
     try {
         const res = await axios.get(`/api/groups/${group._id}/records`, config);
@@ -62,7 +64,7 @@ export const addRecord = (bookId, groupId) => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading);
+    dispatch(loadingRecords());
 
     try {
         // Send book id to backend to create new record
@@ -83,5 +85,15 @@ export const addRecord = (bookId, groupId) => async dispatch => {
     };
 }
 
+// Clear records
+export const clearRecords = () => {
+    return { type: CLEAR_RECORDS }
+}
+
+// Clear current record
+export const clearCurrentRecord = () => {
+    return {type: CLEAR_CURRENT_RECORD}
+}
+
 // Set loading
-export const setLoading = () => { return { type: SET_LOADING } }
+export const loadingRecords = () => { return { type: LOADING_RECORDS } }

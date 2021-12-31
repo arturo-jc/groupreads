@@ -2,8 +2,9 @@ import {
     SEARCH,
     SET_CURRENT_RESULT,
     CLEAR_RESULTS,
+    CLEAR_CURRENT_RESULT,
     SEARCH_ERROR,
-    SET_LOADING,
+    RESULTS_LOADING,
     CLEAR_ERRORS
 } from "./../actions/types";
 
@@ -33,13 +34,18 @@ const searchReducer = (state = initialState, action) => {
                 ...state,
                 results: []
             }
+        case CLEAR_CURRENT_RESULT:
+            return {
+                ...state,
+                current: null
+            }
         case SEARCH_ERROR:
             return {
                 ...state,
                 error: action.payload,
                 loading: false
             }
-        case SET_LOADING:
+        case RESULTS_LOADING:
             return {
                 ...state,
                 loading: true

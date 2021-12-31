@@ -5,8 +5,9 @@ import {
     SEARCH,
     SET_CURRENT_RESULT,
     CLEAR_RESULTS,
+    CLEAR_CURRENT_RESULT,
     SEARCH_ERROR,
-    SET_LOADING
+    RESULTS_LOADING
 } from "./types";
 
 export const setCurrentResult = result => {
@@ -30,9 +31,6 @@ export const saveResult = bookData => async dispatch => {
 
     // Format book data to comply with backend validation
     const book = formatBookData(bookData)
-
-    //Set loading to true while waiting for server response
-    dispatch(setLoading);
 
     try {
         // Send book data to backend
@@ -60,7 +58,7 @@ export const search = query => async dispatch => {
     setAuthToken();
 
     // Set loading to true while waiting for response
-    dispatch(setLoading)
+    dispatch(resultsLoading())
 
     try {
         // Get books from Google Books API
@@ -80,11 +78,17 @@ export const search = query => async dispatch => {
     }
 }
 
+// Clear results
 export const clearResults = () => {
     return { type: CLEAR_RESULTS }
 }
 
+// Clear current result
+export const clearCurrentResult = () => {
+    return {type: CLEAR_CURRENT_RESULT}
+}
+
 // Set loading
-export const setLoading = () => {
-    return { type: SET_LOADING }
+export const resultsLoading = () => {
+    return { type: RESULTS_LOADING }
 }

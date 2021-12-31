@@ -5,8 +5,12 @@ import Records from './groupDetails/Records';
 const GroupDetails = () => {
     return (
         <div>
-            <Members />
-            <Records />
+            <div className="card">
+                <Members />
+            </div>
+            <div className="card">
+                <Records />
+            </div>
         </div>
     )
 }

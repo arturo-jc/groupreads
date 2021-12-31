@@ -6,8 +6,7 @@ import Modal from "../../../Modal";
 import NewPostForm from './record/NewPostForm';
 import NewMarkerForm from './record/NewMarkerForm';
 import NewBookmarkForm from './record/NewBookmarkForm';
-import Post from "./record/Post";
-import Bookmark from './record/Bookmark';
+import Items from './record/Items';
 import ProgressBar from "./record/ProgressBar";
 import StatusHistory from './record/StatusHistory';
 import { setCurrentRecord } from '../../../../actions/recordActions';
@@ -16,8 +15,7 @@ import { getMarkersFor } from '../../../../actions/markerActions';
 import { getBookmarksFor } from '../../../../actions/bookmarkActions';
 import { addMarker } from '../../../../actions/markerActions';
 
-const Record = ({ recordState, postState, markerState, bookmarkState, setCurrentRecord, getPostsFor, getMarkersFor, getBookmarksFor, addMarker }) => {
-
+const Record = ({ recordState, markerState, setCurrentRecord, getMarkersFor, addMarker }) => {
 
     const [newMarkerModal, setNewMarkerModal] = useState({show: false})
     const [newBookmarkModal, setNewBookmarkModal] = useState({show: false})
@@ -82,15 +80,11 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
     useEffect(() => {
         if(record){
             setCurrentRecord(record);
-            getPostsFor(groupId, record);
             getMarkersFor(groupId, record);
-            getBookmarksFor(groupId, record);
         }
     }, [record])
 
     const { markers } = markerState;
-    const { posts } = postState;
-    const { bookmarks } = bookmarkState;
 
     let currentPage = 0;
     if (markers.length > 0){
@@ -109,15 +103,10 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
         addMarker(groupId, recordId, {page: current.book.pageCount})
     }
 
-    const items = posts.concat(bookmarks);
-    items.sort(function(a, b){
-        return new Date(b.date) - new Date(a.date)
-    });
-
     return (
         <Fragment>
             <div className="card book-card">
-                {current && <h3 className='book-title'>{current.book.title}</h3>}
+                {current && <h3>{current.book.title}</h3>}
                 {current && current.book.subtitle && <p>{current.book.title}</p>}
                 {current && <p className='authors'>By {current.book.authors.join(", ")}</p>}
                 <div className="details-row">
@@ -129,7 +118,6 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
                      {current && current.book.publisher && <p><span className='volume-info'>Publisher: </span>{current.book.publisher}</p>}
                      {current && current.book.publishedOn && <p><span className='volume-info'>Published on: </span>{current.book.publishedOn.split("T")[0]}</p>}
                      {current && current.book.industryIdentifiers && <p><span className='volume-info'>{current.book.industryIdentifiers[0].type}: </span>{current.book.industryIdentifiers[0].identifier}</p>}
-
                      {current && current.book.pageCount && <p><span className='volume-info'>Status: </span>
                      <button className='link-style-btn' onClick={showNewMarkerModal}>{currentPage}</button>/{current.book.pageCount} pages. (<button className='link-style-btn' onClick={showStatusHistoryModal}>See full history</button>).</p>}
                      {current && current.book.pageCount && (
@@ -141,11 +129,11 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
                     </div>
                 </div>
                 <div className='btn-group'>
-                <button className='btn btn-yellow' onClick={showNewBookmarkModal}>Add bookmark</button>
-                <button className='btn btn-green' onClick={showNewPostModal}>Write post</button>
+                    <button className='btn btn-yellow' onClick={showNewBookmarkModal}>Add bookmark</button>
+                    <button className='btn btn-green' onClick={showNewPostModal}>Write post</button>
                 </div>
             </div>
-            {items && (items.map(item => item.title? (<Post key={item._id} post={item}/>):(<Bookmark key={item._id} bookmark={item}/>)))}
+            <Items/>
             <Modal show={statusHistoryModal.show} handleClose={hideStatusHistoryModal} Component={StatusHistory}/>
             <Modal show={newMarkerModal.show} handleClose={hideNewMarkerModal} Component={NewMarkerForm}/>
             <Modal show={newBookmarkModal.show} handleClose={hideNewBookmarkModal} Component={NewBookmarkForm}/>
@@ -156,9 +144,7 @@ const Record = ({ recordState, postState, markerState, bookmarkState, setCurrent
 
 Record.propTypes = {
     recordState: PropTypes.object.isRequired,
-    postState: PropTypes.object.isRequired,
     markerState: PropTypes.object.isRequired,
-    bookmarkState: PropTypes.object.isRequired,
     setCurrentRecord: PropTypes.func.isRequired,
     getPostsFor: PropTypes.func.isRequired,
     getMarkersFor: PropTypes.func.isRequired,
@@ -168,9 +154,7 @@ Record.propTypes = {
 
 const mapStateToProps = state => ({
     recordState: state.record,
-    postState: state.post,
-    markerState: state.marker,
-    bookmarkState: state.bookmark
+    markerState: state.marker
 })
 
 const addState = connect( mapStateToProps, {setCurrentRecord, getPostsFor, getMarkersFor, getBookmarksFor, addMarker});

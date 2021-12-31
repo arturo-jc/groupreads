@@ -1,10 +1,11 @@
-import React, {useState } from 'react';
+import React, {useState, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import Modal from "../../../Modal";
 import NewGroupForm from './NewGroupForm';
 import FindGroupForm from './FindGroupForm';
+import Spinner from '../../../Spinner';
 
 const GroupMenu = ({ groupState  }) => {
     const [newGroupModal, setNewGroupModal] = useState({ show: false });
@@ -37,28 +38,23 @@ const GroupMenu = ({ groupState  }) => {
 
     const { groups, loading } = groupState;
 
-
     if (loading) {
-        return (<p>Loading...</p>)
+        return <Spinner/>
     }
 
     return (
-            <div className="card">
+            <Fragment>
                 <h3>Groups</h3>
-                {!groups || groups.length === 0 ?
-                    (<p>You don't have any groups yet</p>)
-                    :
-                    (groups.map(group =>
+                {groups && groups.map(group =>
                         <Link to={`/groups/${group._id}`} key={group._id}>
                             {group.name}
-                        </Link>))
+                        </Link>)
                 }
                 <button className='btn btn-yellow' onClick={showNewGroupModal}>New group</button>
                 <Modal show={newGroupModal.show} handleClose={hideNewGroupModal} Component={NewGroupForm}/>
                 <button className='btn btn-grey' onClick={showFindGroupModal}>Find group</button>
                 <Modal show={findGroupModal.show} handleClose={hideFindGroupModal} Component={FindGroupForm}/>
-                
-            </div>
+            </Fragment>
     )
 };
 

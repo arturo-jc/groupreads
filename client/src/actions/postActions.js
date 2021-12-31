@@ -3,9 +3,9 @@ import setAuthToken from "../utils/setAuthToken";
 import {
     GET_POSTS,
     ADD_POST,
-    SET_CURRENT_POST,
+    CLEAR_POSTS,
     POSTS_ERROR,
-    SET_LOADING
+    LOADING_POSTS
 } from "./types";
 
 // get posts for given record
@@ -17,7 +17,7 @@ export const getPostsFor = (groupId, record) => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading);
+    dispatch(loadingPosts());
 
     try {
         // Request posts from server
@@ -48,9 +48,6 @@ export const addPost = (groupId, recordId, post) => async dispatch => {
         setAuthToken(localStorage.token)
     }
 
-    //Set loading to true while waiting for server response
-    dispatch(setLoading);
-
     try {
         // Send post data to server for storage
         // Expect post in return
@@ -70,8 +67,8 @@ export const addPost = (groupId, recordId, post) => async dispatch => {
     }
 }
 
-
-// set current post
+// Clear posts
+export const clearPosts = () => { return {type: CLEAR_POSTS}}
 
 // Set loading
-export const setLoading = () => { return { type: SET_LOADING } }
+export const loadingPosts = () => { return { type: LOADING_POSTS } }

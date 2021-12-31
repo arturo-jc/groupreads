@@ -1,8 +1,9 @@
 import {
     GET_BOOKMARKS,
     ADD_BOOKMARK,
+    CLEAR_BOOKMARKS,
     BOOKMARKS_ERROR,
-    SET_LOADING,
+    LOADING_BOOKMARKS,
     CLEAR_ERRORS
 } from "../actions/types";
 
@@ -26,7 +27,7 @@ const bookmarkReducer = (state = initialState, action) => {
                 bookmarks: action.payload,
                 loading: false
             }
-        case SET_LOADING:
+        case LOADING_BOOKMARKS:
             return {
                 ...state,
                 loading: true
@@ -36,6 +37,11 @@ const bookmarkReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case CLEAR_BOOKMARKS:
+            return {
+                ...state,
+                bookmarks: []
             }
         case CLEAR_ERRORS:
             return {

@@ -8,7 +8,7 @@ import {
     FIND_GROUP,
     CLEAR_GROUP_SEARCH_RESULTS,
     GROUPS_ERROR,
-    SET_LOADING
+    LOADING_GROUPS
 } from "../actions/types";
 
 const initialState = {
@@ -59,7 +59,7 @@ const groupReducer = (state = initialState, action) => {
                 searchResult: action.payload,
                 loading: false
             }
-        case SET_LOADING:
+        case LOADING_GROUPS:
             return {
                 ...state,
                 loading: true

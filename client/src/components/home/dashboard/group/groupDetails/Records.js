@@ -1,18 +1,19 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import RecordItem from './RecordItem';
+import Spinner from '../../../../Spinner';
 
 const Records = ({ recordState }) => {
     const { records, loading } = recordState;
 
     if (loading) {
-        return (<p>Loading...</p>)
+        return <Spinner/>
     }
 
     return (
-        <div className='card'>
+        <Fragment>
             <h3>Books</h3>
             {!loading && records ?
                 (
@@ -24,7 +25,7 @@ const Records = ({ recordState }) => {
                 :
                 (<p>This group has no books yet.</p>)}
             <Link className='btn btn-yellow' to="search">Add books</Link>
-        </div>
+        </Fragment>
     )
 };
 

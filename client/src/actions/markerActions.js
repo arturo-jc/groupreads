@@ -4,7 +4,8 @@ import {
     GET_MARKERS,
     ADD_MARKER,
     MARKERS_ERROR,
-    SET_LOADING
+    CLEAR_MARKERS,
+    LOADING_MARKERS
 } from "./types";
 
 // get markers for given record
@@ -16,7 +17,7 @@ export const getMarkersFor = (groupId, record) => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading);
+    dispatch(loadingMarkers());
 
     try {
         // Request markers from server
@@ -46,9 +47,6 @@ export const addMarker = (groupId, recordId, marker) => async dispatch => {
         setAuthToken(localStorage.token)
     }
 
-    //Set loading to true while waiting for server response
-    dispatch(setLoading);
-
     try {
         // Send marker data to server
         // Expect marker in return
@@ -67,5 +65,8 @@ export const addMarker = (groupId, recordId, marker) => async dispatch => {
     }
 }
 
+// Clear markers
+export const clearMarkers = () => { return { type: CLEAR_MARKERS }}
+
 // Set loading
-export const setLoading = () => { return { type: SET_LOADING } }
+export const loadingMarkers = () => { return { type: LOADING_MARKERS } }

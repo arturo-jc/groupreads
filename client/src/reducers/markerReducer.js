@@ -2,7 +2,8 @@ import {
     GET_MARKERS,
     ADD_MARKER,
     MARKERS_ERROR,
-    SET_LOADING,
+    LOADING_MARKERS,
+    CLEAR_MARKERS,
     CLEAR_ERRORS
 } from "../actions/types";
 
@@ -26,7 +27,7 @@ const markerReducer = (state = initialState, action) => {
                 markers: action.payload,
                 loading: false
             }
-        case SET_LOADING:
+        case LOADING_MARKERS:
             return {
                 ...state,
                 loading: true
@@ -36,6 +37,11 @@ const markerReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case CLEAR_MARKERS:
+            return {
+                ...state,
+                markers: []
             }
         case CLEAR_ERRORS:
             return {

@@ -9,7 +9,7 @@ import {
     FIND_GROUP,
     CLEAR_GROUP_SEARCH_RESULTS,
     GROUPS_ERROR,
-    SET_LOADING
+    LOADING_GROUPS
 } from "./types";
 
 // Set current
@@ -26,7 +26,7 @@ export const getGroups = () => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading)
+    dispatch(loadingGroups());
 
     try {
 
@@ -59,9 +59,6 @@ export const createGroup = (group) => async dispatch => {
     if (localStorage.token) {
         setAuthToken(localStorage.token)
     }
-
-    //Set loading to true while waiting for server response
-    dispatch(setLoading)
 
     try {
 
@@ -101,8 +98,8 @@ export const clearGroupSearchResults = () => {
 }
 
 // Set loading
-export const setLoading = () => {
-    return { type: SET_LOADING }
+export const loadingGroups = () => {
+    return { type: LOADING_GROUPS }
 }
 
 // Find group
@@ -112,9 +109,6 @@ export const findGroup = groupId => async dispatch => {
     if (localStorage.token) {
         setAuthToken(localStorage.token)
     }
-
-    //Set loading to true while waiting for server response
-    dispatch(setLoading);
 
     try {
         // Request group from server

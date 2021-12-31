@@ -1,18 +1,32 @@
 import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../actions/authActions";
-import { clearGroups, clearCurrentGroup } from '../actions/groupActions';
-import { clearResults } from "../actions/searchActions";
+import { clearGroups, clearCurrentGroup, clearGroupSearchResults } from '../actions/groupActions';
+import { clearResults, clearCurrentResult } from "../actions/searchActions";
+import { clearRecords, clearCurrentRecord } from '../actions/recordActions';
+import { clearPosts } from '../actions/postActions';
+import { clearMarkers } from '../actions/markerActions';
+import { clearBookmarks } from '../actions/bookmarkActions';
 
-const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup, clearResults }) => {
+const Navbar = ({ authState, title, icon, logout, clearGroups, clearCurrentGroup, clearGroupSearchResults, clearResults, clearCurrentResult, clearRecords, clearCurrentRecord, clearPosts, clearMarkers, clearBookmarks }) => {
+
+    const navigate = useNavigate();
 
     const onLogout = () => {
         logout();
+        navigate("/");
         clearGroups();
         clearCurrentGroup();
+        clearGroupSearchResults();
         clearResults();
+        clearCurrentResult();
+        clearRecords();
+        clearCurrentRecord();
+        clearPosts();
+        clearMarkers();
+        clearBookmarks();
     };
 
     const { isAuthenticated } = authState;
@@ -45,7 +59,14 @@ Navbar.propTypes = {
     logout: PropTypes.func.isRequired,
     clearGroups: PropTypes.func.isRequired,
     clearCurrentGroup: PropTypes.func.isRequired,
-    clearResults: PropTypes.func.isRequired
+    clearGroupSearchResults: PropTypes.func.isRequired,
+    clearResults: PropTypes.func.isRequired,
+    clearCurrentResult: PropTypes.func.isRequired,
+    clearRecords: PropTypes.func.isRequired,
+    clearCurrentRecord: PropTypes.func.isRequired,
+    clearPosts: PropTypes.func.isRequired,
+    clearMarkers: PropTypes.func.isRequired,
+    clearBookmarks: PropTypes.func.isRequired
 }
 
 Navbar.defaultProps = {
@@ -57,6 +78,19 @@ const mapStateToProps = state => ({
     authState: state.auth
 })
 
-const connection = connect(mapStateToProps, { logout, clearGroups, clearCurrentGroup, clearResults })
+const connection = connect(mapStateToProps,
+    { 
+        logout, 
+        clearGroups, 
+        clearCurrentGroup,
+        clearGroupSearchResults,
+        clearResults,
+        clearCurrentResult,
+        clearRecords,
+        clearCurrentRecord,
+        clearPosts,
+        clearMarkers,
+        clearBookmarks
+    })
 
 export default connection(Navbar);

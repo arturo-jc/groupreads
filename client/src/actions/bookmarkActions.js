@@ -3,8 +3,9 @@ import setAuthToken from "../utils/setAuthToken";
 import {
     GET_BOOKMARKS,
     ADD_BOOKMARK,
+    CLEAR_BOOKMARKS,
     BOOKMARKS_ERROR,
-    SET_LOADING
+    LOADING_BOOKMARKS
 } from "./types";
 
 // get bookmarks for given record
@@ -16,7 +17,7 @@ export const getBookmarksFor = (groupId, record) => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading);
+    dispatch(loadingBookmarks());
 
     try {
         // Request bookmarks from server
@@ -47,7 +48,7 @@ export const addBookmark = (groupId, recordId, bookmark) => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading);
+    dispatch(loadingBookmarks());
 
     try {
         // Send bookmark data to server
@@ -67,5 +68,8 @@ export const addBookmark = (groupId, recordId, bookmark) => async dispatch => {
     }
 }
 
+// Clear bookmarks
+export const clearBookmarks = () => { return { type: CLEAR_BOOKMARKS }}
+
 // Set loading
-export const setLoading = () => { return { type: SET_LOADING } }
+export const loadingBookmarks = () => { return { type: LOADING_BOOKMARKS } }
