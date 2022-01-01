@@ -1,6 +1,7 @@
 import {
     GET_GROUPS,
     ADD_GROUP,
+    DELETE_GROUP,
     SET_CURRENT_GROUP,
     CLEAR_GROUPS,
     CLEAR_CURRENT_GROUP,
@@ -37,6 +38,11 @@ const groupReducer = (state = initialState, action) => {
                 ...state,
                 groups: [...state.groups, action.payload],
                 loading: false
+            }
+        case DELETE_GROUP:
+            return {
+                ...state,
+                groups: state.groups.filter(group => group._id !== action.payload)
             }
         case CLEAR_GROUPS:
             return {

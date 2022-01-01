@@ -48,9 +48,9 @@ module.exports.deleteRecord = async (req, res) => {
         groupId,
         {
             $pull: {
-                records: recordId
+                records: { _id: recordId}
             }
         })
-
+        
     return res.json({ msg: "Record deleted" })
 }

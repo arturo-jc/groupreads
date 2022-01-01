@@ -13,6 +13,7 @@ export const SET_LOADING = 'SET_LOADING';
 export const SET_CURRENT_GROUP = 'SET_CURRENT_GROUP';
 export const GET_GROUPS = 'GET_GROUPS';
 export const ADD_GROUP = 'ADD_GROUP';
+export const DELETE_GROUP = 'DELETE_GROUP';
 export const CLEAR_GROUPS = 'CLEAR_GROUPS';
 export const CLEAR_CURRENT_GROUP = 'CLEAR_CURRENT_GROUP';
 export const FIND_GROUP = 'FIND_GROUP';

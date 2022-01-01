@@ -6,6 +6,7 @@ import Modal from "../../../Modal";
 import NewGroupForm from './NewGroupForm';
 import FindGroupForm from './FindGroupForm';
 import Spinner from '../../../Spinner';
+import Group from './Group';
 
 const GroupMenu = ({ groupState  }) => {
     const [newGroupModal, setNewGroupModal] = useState({ show: false });
@@ -46,13 +47,13 @@ const GroupMenu = ({ groupState  }) => {
             <Fragment>
                 <h3>Groups</h3>
                 {groups && groups.map(group =>
-                        <Link to={`/groups/${group._id}`} key={group._id}>
-                            {group.name}
-                        </Link>)
+                        <Group key={group._id} group={group}/>)
                 }
+
                 <button className='btn btn-yellow' onClick={showNewGroupModal}>New group</button>
-                <Modal show={newGroupModal.show} handleClose={hideNewGroupModal} Component={NewGroupForm}/>
                 <button className='btn btn-grey' onClick={showFindGroupModal}>Find group</button>
+
+                <Modal show={newGroupModal.show} handleClose={hideNewGroupModal} Component={NewGroupForm}/>
                 <Modal show={findGroupModal.show} handleClose={hideFindGroupModal} Component={FindGroupForm}/>
             </Fragment>
     )

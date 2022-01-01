@@ -29,3 +29,9 @@ module.exports.findGroup = async (req, res) => {
         .populate({ path: "members", select: "name" })
     return res.json(group);
 }
+
+// DELETE api/groups/groupId
+module.exports.deleteGroup = async (req, res) => {
+    await Group.findByIdAndDelete(req.params.groupId);
+    return res.json({ msg: "Group deleted." })
+}

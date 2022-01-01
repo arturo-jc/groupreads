@@ -8,7 +8,6 @@ const Members = ({ groupState }) => {
         <Fragment>
             <h3>Members</h3>
             {groupState.current && groupState.current.members.map(member => (<p key={member._id}>{member.name}</p>))}
-            <button className="btn btn-yellow">Add members</button>
         </Fragment>
     )
 }

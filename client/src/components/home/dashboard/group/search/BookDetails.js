@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getGroups } from "../../../../../actions/groupActions"
 import { saveResult, clearResults } from '../../../../../actions/searchActions';
 import { addRecord } from "../../../../../actions/recordActions";
 import { useParams, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import nocover from "./nocover.gif"
+import nocover from "./nocover.gif";
 
-const BookDetails = ({searchState, saveResult, clearResults, addRecord, handleClose}) => {
+const BookDetails = ({searchState, saveResult, clearResults, addRecord, handleClose, getGroups }) => {
     const { groupId } = useParams();
     const { current } = searchState;
 
@@ -14,9 +15,10 @@ const BookDetails = ({searchState, saveResult, clearResults, addRecord, handleCl
 
     const onClick = async result => {
         const newBook = await saveResult(result);
-        addRecord(newBook._id, groupId);
+        await addRecord(newBook._id, groupId);
         clearResults();
         handleClose();
+        getGroups();
         navigate(`/groups/${groupId}`);
     }
 
@@ -47,13 +49,14 @@ BookDetails.propTypes = {
     saveResult: PropTypes.func.isRequired,
     clearResults: PropTypes.func.isRequired,
     addRecord: PropTypes.func.isRequired,
-    handleClose: PropTypes.func.isRequired
+    handleClose: PropTypes.func.isRequired,
+    getGroups: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     searchState: state.search
 });
 
-const addState = connect(mapStateToProps, {saveResult, clearResults, addRecord});
+const addState = connect(mapStateToProps, {saveResult, clearResults, addRecord, getGroups});
 
 export default addState(BookDetails)

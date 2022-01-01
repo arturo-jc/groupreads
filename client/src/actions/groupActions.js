@@ -3,6 +3,7 @@ import setAuthToken from "../utils/setAuthToken";
 import {
     GET_GROUPS,
     ADD_GROUP,
+    DELETE_GROUP,
     SET_CURRENT_GROUP,
     CLEAR_GROUPS,
     CLEAR_CURRENT_GROUP,
@@ -45,6 +46,33 @@ export const getGroups = () => async dispatch => {
             payload: err.response.data.msg
         })
     };
+}
+
+// Delete group
+export const deleteGroup = groupId => async dispatch => {
+
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    try {
+
+        // Send group id to server for deletion
+        await axios.delete(`/api/groups/${groupId}`)
+
+        // If successful, add new group to state
+        dispatch({
+            type: DELETE_GROUP,
+            payload: groupId
+        });
+        
+    } catch (err) {
+        dispatch({
+            type: GROUPS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
 }
 
 // Create group

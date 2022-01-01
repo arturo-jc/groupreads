@@ -1,5 +1,4 @@
 import React, {Fragment} from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import RecordItem from './RecordItem';
@@ -19,7 +18,6 @@ const Records = ({ recordState }) => {
                 {records.map(record => (
                 <RecordItem key={record._id} record={record} />))}
             </div>
-            <Link className='btn btn-yellow' to="search">Add books</Link>
         </Fragment>
     )
 };
