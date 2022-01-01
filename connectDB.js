@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/reading-group-app'
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/groupreads'
 
 const connectDB = () => {
     mongoose.connect(dbUrl)

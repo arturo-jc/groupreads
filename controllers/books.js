@@ -3,6 +3,11 @@ const Book = require("../models/Book")
 // POST api/books
 module.exports.addBook = async (req, res) => {
 
+    const existingBook = await Book.findOne({googleBooksUrl: req.body.googleBooksUrl});
+    if (existingBook){
+        return res.json(existingBook);
+    }
+
     const newBook = new Book({
         title: req.body.title,
         subtitle: req.body.subtitle,
