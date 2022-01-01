@@ -11,7 +11,7 @@ import Progress from './record/Progress';
 import { setCurrentRecord } from '../../../../actions/recordActions';
 import nocover from "./search/nocover.gif"
 
-const Record = ({ recordState, setCurrentRecord }) => {
+const Record = ({ groupState, recordState, setCurrentRecord }) => {
 
     const [newBookmarkModal, setNewBookmarkModal] = useState({show: false})
     const showNewBookmarkModal = () => {
@@ -55,8 +55,9 @@ const Record = ({ recordState, setCurrentRecord }) => {
         })
     }
 
-    const {recordId} = useParams();
-    const { current, records } = recordState;
+    const { current: group } = groupState;
+    const records = group.records;
+    const { recordId } = useParams();
     const record = records.find(record => record._id === recordId);
 
     useEffect(() => {
@@ -65,6 +66,8 @@ const Record = ({ recordState, setCurrentRecord }) => {
         }
     }, [record])
     
+    const { current } = recordState;
+
     return (
         <Fragment>
             <div className="card book-card">
@@ -79,7 +82,7 @@ const Record = ({ recordState, setCurrentRecord }) => {
                      {current && current.book.description && <p className='book-description'>{current.book.description}</p>}
                      {current && current.book.publisher && <p><span className='volume-info'>Publisher: </span>{current.book.publisher}</p>}
                      {current && current.book.publishedOn && <p><span className='volume-info'>Published on: </span>{current.book.publishedOn.split("T")[0]}</p>}
-                     {current && current.book.industryIdentifiers.length > 0 && <p><span className='volume-info'>{current.book.industryIdentifiers[0].type}: </span>{current.book.industryIdentifiers[0].identifier}</p>}
+                     {current && current.book.industryIdentifiers && current.book.industryIdentifiers.length > 0 && <p><span className='volume-info'>{current.book.industryIdentifiers[0].type}: </span>{current.book.industryIdentifiers[0].identifier}</p>}
                     </div>
                 </div>
                 <div className='btn-group'>
@@ -105,7 +108,8 @@ Record.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    recordState: state.record
+    recordState: state.record,
+    groupState: state.group
 })
 
 const addState = connect( mapStateToProps, {setCurrentRecord });

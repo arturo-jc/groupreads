@@ -12,7 +12,7 @@ import {
 } from "./types"
 
 // Get records for group
-export const getRecordsFor = (group) => async dispatch => {
+export const getRecords = (group) => async dispatch => {
 
     // Config request headers
     const config = {

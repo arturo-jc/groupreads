@@ -8,7 +8,7 @@ import Record from './group/Record';
 import { setCurrentGroup } from '../../../actions/groupActions';
 import { getRecordsFor } from '../../../actions/recordActions';
 
-const Group = ({ groupState, setCurrentGroup, getRecordsFor }) => {
+const Group = ({ groupState, setCurrentGroup }) => {
     
     const { groupId } = useParams();
     const { current, groups } = groupState;
@@ -20,7 +20,6 @@ const Group = ({ groupState, setCurrentGroup, getRecordsFor }) => {
     useEffect(() => {
         if(group){
             setCurrentGroup(group);
-            getRecordsFor(group);
         }
     }, [group])
 
@@ -37,13 +36,14 @@ const Group = ({ groupState, setCurrentGroup, getRecordsFor }) => {
 }
 
 Group.propTypes = {
-    groupState: PropTypes.object.isRequired
+    groupState: PropTypes.object.isRequired,
+    setCurrentGroup: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     groupState: state.group,
 });
 
-const addState = connect(mapStateToProps, { setCurrentGroup, getRecordsFor });
+const addState = connect(mapStateToProps, { setCurrentGroup });
 
 export default addState(Group);

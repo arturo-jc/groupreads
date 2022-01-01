@@ -2,11 +2,10 @@ import React, { useState, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { createGroup, setCurrentGroup } from '../../../../actions/groupActions';
-import { getRecordsFor } from '../../../../actions/recordActions';
 import { setAlert } from '../../../../actions/alertActions';
 import { useNavigate } from 'react-router-dom';
 
-const NewGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor, handleClose, setAlert }) => {
+const NewGroupForm = ({ createGroup, setCurrentGroup, handleClose, setAlert }) => {
 
     // Form state
     const [group, setGroup] = useState({ name: "" });
@@ -30,7 +29,6 @@ const NewGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor, handleClose
             if (newGroup) {
                 setGroup({name: ""});
                 setCurrentGroup(newGroup);
-                getRecordsFor(newGroup);
                 navigate(`/groups/${newGroup._id}`);
             }
         }
@@ -52,11 +50,10 @@ const NewGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor, handleClose
 NewGroupForm.propTypes = {
     createGroup: PropTypes.func.isRequired,
     setCurrentGroup: PropTypes.func.isRequired,
-    getRecordsFor: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
     setAlert: PropTypes.func.isRequired
 }
 
-const connection = connect(null, { createGroup, setCurrentGroup, getRecordsFor, setAlert })
+const connection = connect(null, { createGroup, setCurrentGroup, setAlert })
 
 export default connection(NewGroupForm);

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import RecordItem from './RecordItem';
 import Spinner from '../../../../Spinner';
 
-const Records = ({ recordState }) => {
-    const { records, loading } = recordState;
+const Records = ({ groupState }) => {
+    const { current, loading  } = groupState;
 
     if (loading) {
         return <Spinner/>
@@ -15,7 +15,7 @@ const Records = ({ recordState }) => {
         <Fragment>
             <h3>Books</h3>
             <div className="books">
-                {records.map(record => (
+                {current && current.records.map(record => (
                 <RecordItem key={record._id} record={record} />))}
             </div>
         </Fragment>
@@ -23,11 +23,11 @@ const Records = ({ recordState }) => {
 };
 
 Records.propTypes = {
-    recordState: PropTypes.object.isRequired
+    groupState: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    recordState: state.record
+    groupState: state.group
 });
 
 const addState = connect(mapStateToProps)
