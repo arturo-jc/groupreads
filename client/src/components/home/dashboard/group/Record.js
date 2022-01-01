@@ -9,17 +9,17 @@ import DeleteRecord from './record/DeleteRecord';
 import BookDetails from './record/BookDetails';
 import Items from './record/Items';
 import Progress from './record/Progress';
-import { getRecord } from '../../../../actions/recordActions';
 import nocover from "./search/nocover.gif"
 
-const Record = ({ groupState }) => {
+const Record = ({ groupState, recordState }) => {
 
-    const { current } = groupState;
+    const { current: group } = groupState;
+    const { current: recordDetails } = recordState;
     const { recordId } = useParams();
 
     let record = null;
-    if (current){
-        record = current.records.find(record => record._id === recordId)
+    if (group){
+        record = group.records.find(record => record._id === recordId)
     }
 
     const [newBookmarkModal, setNewBookmarkModal] = useState({show: false})
@@ -85,7 +85,7 @@ const Record = ({ groupState }) => {
                 </div>
             </div>
             <div className='card'>
-                <Progress/>
+                {recordDetails && recordDetails.book.pageCount && <Progress/>}
             </div>
             <Items/>
             <Modal show={newBookmarkModal.show} handleClose={hideNewBookmarkModal} Component={NewBookmarkForm}/>
@@ -96,12 +96,13 @@ const Record = ({ groupState }) => {
 }
 
 Record.propTypes = {
-    groupState: PropTypes.object.isRequired
+    groupState: PropTypes.object.isRequired,
+    recordState: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
     groupState: state.group,
-    getRecord: PropTypes.func.isRequired
+    recordState: state.record
 })
 
 const addState = connect(mapStateToProps);

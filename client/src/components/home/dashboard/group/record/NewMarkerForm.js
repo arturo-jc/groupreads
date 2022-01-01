@@ -1,17 +1,31 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { addMarker } from '../../../../../actions/markerActions';
 import { setAlert } from '../../../../../actions/alertActions';
 
-const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
+const NewMarkerForm = ({ recordState, markerState, addMarker, setAlert, handleClose }) => {
 
     const { current: record } = recordState;
-
+    
     const {groupId, recordId} = useParams();
 
-    const [marker, setMarker] = useState({ page: "" })
+    const { markers } = markerState;
+
+    let currentPage = 0;
+
+    useEffect(() => {
+        if (markers.length > 0){
+            markers.sort(function(a, b){
+                return new Date(b.date) - new Date(a.date)
+            });
+            currentPage = markers[0].page
+        }
+        setMarker({page: currentPage});
+    }, [markers])
+
+    const [marker, setMarker] = useState({ page: currentPage })
 
     const onChange = e => {
         setMarker({
@@ -19,10 +33,8 @@ const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
             [e.target.name]: e.target.value
         })
     }
-    let pageCount = 0;
-    if (record && record.book.pageCount){
-        pageCount = record.book.pageCount;
-    }
+
+    const pageCount = record.book.pageCount;
 
     const onSubmit = e => {
         e.preventDefault();
@@ -30,7 +42,6 @@ const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
             setAlert("Please enter a page number.", "danger")
         }else{
             addMarker(groupId, recordId, marker);
-            setMarker({page: ""});
         }
         handleClose();
     }
@@ -40,7 +51,7 @@ const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
             <h3>Update Status</h3>
             <form onSubmit={onSubmit}>
                 <label className='hidden' htmlFor="page">Current page</label>
-                <input className='number-input' type="number" name="page" id="page" value={marker.page} onChange={onChange} placeholder='0' />/{pageCount}
+                <input className='number-input' type="number" name="page" id="page" value={marker.page} onChange={onChange} />/{pageCount}
                 <input className='btn btn-yellow' type="submit" value="Update" />
             </form>
         </Fragment>
@@ -49,13 +60,15 @@ const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
 
 NewMarkerForm.propTypes = {
     addMarker: PropTypes.func.isRequired,
+    markerState: PropTypes.object.isRequired,
     recordState: PropTypes.object.isRequired,
     setAlert: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-    recordState: state.record
+    recordState: state.record,
+    markerState: state.marker
 })
 
 const addState = connect(mapStateToProps, { addMarker, setAlert })

@@ -60,10 +60,7 @@ const Progress = ({recordState, markerState, getMarkersFor, addMarker}) => {
         currentPage = markers[0].page
     }
 
-    let completed = 0;
-    if (current && current.book.pageCount){
-        completed = Math.round((currentPage / current.book.pageCount) * 100);
-    }
+    const completed = Math.round((currentPage / current.book.pageCount) * 100);
 
     const markComplete = () => {
         addMarker(groupId, recordId, {page: current.book.pageCount})
@@ -76,14 +73,15 @@ const Progress = ({recordState, markerState, getMarkersFor, addMarker}) => {
     return (
         <Fragment>
             <h3>Progress</h3>
-            {current && current.book.pageCount && <p><span className='volume-info'>Status: </span>
-            <button className='link-style-btn' onClick={showNewMarkerModal}>{currentPage}</button>/{current.book.pageCount} pages. (<button className='link-style-btn' onClick={showStatusHistoryModal}>See full history</button>).</p>}
-            {current && current.book.pageCount && (
-            <div className='progress-bar-container'>
+            <p>{currentPage}/{current.book.pageCount} pages completed.</p>
+            <div>
                 <ProgressBar bgcolor={"#6a1b9a"} completed={completed}/>
+                <div className="btn-group">
+                <button className='btn btn-yellow' onClick={showNewMarkerModal}>Update</button>
                 <button className='btn btn-green' onClick={markComplete}>Mark complete</button>
+                <button className='btn btn-grey' onClick={showStatusHistoryModal}>Edit</button>
+                </div>
             </div>
-            )}
             <Modal show={statusHistoryModal.show} handleClose={hideStatusHistoryModal} Component={StatusHistory}/>
             <Modal show={newMarkerModal.show} handleClose={hideNewMarkerModal} Component={NewMarkerForm}/>
         </Fragment>

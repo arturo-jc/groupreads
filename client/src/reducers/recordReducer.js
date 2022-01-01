@@ -1,8 +1,9 @@
 import {
-    SET_CURRENT_RECORD,
     LOADING_RECORDS,
-    RECORDS_ERROR,
+    ADD_RECORD,
+    SET_CURRENT_RECORD,
     CLEAR_CURRENT_RECORD,
+    RECORDS_ERROR,
     CLEAR_ERRORS
 } from "../actions/types";
 
@@ -14,6 +15,11 @@ const initialState = {
 
 const recordReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_RECORD:
+            return {
+                ...state,
+                loading: false
+            }
         case SET_CURRENT_RECORD:
             return {
                 ...state,
