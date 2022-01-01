@@ -13,7 +13,10 @@ module.exports.index = async (req, res) => {
 
 // POST api/groups/:groupId/records
 module.exports.addRecord = async (req, res) => {
-    const newRecord = new Record({ book: req.body.bookId })
+    const newRecord = new Record({ 
+        book: req.body.bookId,
+        owner: req.user.id
+     })
 
     await Group.findByIdAndUpdate(
         req.params.groupId,

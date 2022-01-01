@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Modal from "../../../Modal";
 import NewPostForm from './record/NewPostForm';
 import NewBookmarkForm from './record/NewBookmarkForm';
+import DeleteRecord from './record/DeleteRecord';
 import Items from './record/Items';
 import Progress from './record/Progress';
 import { setCurrentRecord } from '../../../../actions/recordActions';
@@ -13,8 +14,6 @@ import nocover from "./search/nocover.gif"
 const Record = ({ recordState, setCurrentRecord }) => {
 
     const [newBookmarkModal, setNewBookmarkModal] = useState({show: false})
-    const [newPostModal, setNewPostModal] = useState({show: false})
-
     const showNewBookmarkModal = () => {
         setNewBookmarkModal({
             ...newBookmarkModal,
@@ -27,6 +26,8 @@ const Record = ({ recordState, setCurrentRecord }) => {
             show: false
         })
     }
+
+    const [newPostModal, setNewPostModal] = useState({show: false})
     const showNewPostModal = () => {
         setNewPostModal({
             ...newPostModal,
@@ -36,6 +37,20 @@ const Record = ({ recordState, setCurrentRecord }) => {
     const hideNewPostModal = () => {
         setNewPostModal({
             ...newPostModal,
+            show: false
+        })
+    }
+
+    const [deleteRecordModal, setDeleteRecordModal] = useState({show: false})
+    const showDeleteRecordModal = () => {
+        setDeleteRecordModal({
+            ...deleteRecordModal,
+            show: true
+        })
+    }
+    const hideDeleteRecordModal = () => {
+        setDeleteRecordModal({
+            ...deleteRecordModal,
             show: false
         })
     }
@@ -70,6 +85,7 @@ const Record = ({ recordState, setCurrentRecord }) => {
                 <div className='btn-group'>
                     <button className='btn btn-yellow' onClick={showNewBookmarkModal}>Add bookmark</button>
                     <button className='btn btn-green' onClick={showNewPostModal}>Write post</button>
+                    <button className='btn btn-red' onClick={showDeleteRecordModal}>Delete book</button>
                 </div>
             </div>
             <div className='card'>
@@ -78,6 +94,7 @@ const Record = ({ recordState, setCurrentRecord }) => {
             <Items/>
             <Modal show={newBookmarkModal.show} handleClose={hideNewBookmarkModal} Component={NewBookmarkForm}/>
             <Modal show={newPostModal.show} handleClose={hideNewPostModal} Component={NewPostForm}/>
+            <Modal show={deleteRecordModal.show} handleClose={hideDeleteRecordModal} Component={DeleteRecord}/>
         </Fragment>
     )
 }

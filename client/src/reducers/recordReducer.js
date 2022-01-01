@@ -1,6 +1,7 @@
 import {
     GET_RECORDS,
     ADD_RECORD,
+    DELETE_RECORD,
     SET_CURRENT_RECORD,
     LOADING_RECORDS,
     RECORDS_ERROR,
@@ -29,6 +30,11 @@ const recordReducer = (state = initialState, action) => {
                 ...state,
                 records: [...state.records, action.payload],
                 loading: false
+            }
+        case DELETE_RECORD:
+            return {
+                ...state,
+                records: state.records.filter(record => record._id !== action.payload)
             }
         case SET_CURRENT_RECORD:
             return {

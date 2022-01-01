@@ -12,7 +12,7 @@ const Bookmark = ({bookmark, deleteBookmark, authState}) => {
     return (
         <div className='card bookmark'>
             <p>
-            <i className="fas fa-bookmark fa-lg"></i> {bookmark.addedBy.name} added a bookmark on page {bookmark.page}: {bookmark.body}
+            <i className="fas fa-bookmark fa-lg"></i> {bookmark.addedBy.name} added a bookmark on page {bookmark.page}: &quot;{bookmark.body}&quot;
             </p>
             {user._id === bookmark.addedBy._id && <button type='button' className='btn-delete' onClick={() => deleteBookmark(groupId, recordId, bookmark._id)}><i className="fas fa-trash-alt fa-lg"></i></button>}
         </div>

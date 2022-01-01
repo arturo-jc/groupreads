@@ -3,6 +3,7 @@
     --font-color: #69665f;
     --font-color-dark: #333332;
     --primary: #96C7C1;
+    --primary-darker: #6f8f8b;
     --primary-dark: #425a5f;
     --lightest-grey: #f8f8ef;
     --lighter-grey: #e5e5e2;
@@ -25,6 +26,11 @@
         to bottom,
         #18793c,
         #166d36
+    );
+    --red-gradient: linear-gradient(
+        to bottom,
+        #f84632,
+        #db3f2e
     );
 }
 
@@ -154,8 +160,11 @@ main {
 .bookmark {
     display: flex;
     justify-content: space-between;
-    background-color: var(--lighter-grey);
+    background-color: var(--primary);
+    color: var(--primary-dark);
+    border-color: var(--primary-darker);
     align-items: center;
+    border-radius: 5px;
 }
 
 .btn-delete {
@@ -262,6 +271,15 @@ main {
 
   .btn-green:hover{
     background-color: var(--green);
+  }
+
+  .btn-red {
+      background-image: var(--red-gradient);
+      color: #fff;
+  }
+
+  .btn-red:hover{
+      background-color: var(--red);
   }
 
   button.btn-close {
