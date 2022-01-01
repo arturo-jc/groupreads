@@ -18,7 +18,6 @@ const DeleteRecord = ({getGroups, deleteRecord, clearPosts, clearMarkers, clearB
         clearPosts();
         clearMarkers();
         clearBookmarks();
-        getGroups();
         navigate(`/groups/${groupId}`);
     }
 

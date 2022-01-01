@@ -15,10 +15,9 @@ const BookDetails = ({searchState, saveResult, clearResults, addRecord, handleCl
 
     const onClick = async result => {
         const newBook = await saveResult(result);
-        await addRecord(newBook._id, groupId);
+        addRecord(newBook._id, groupId);
         clearResults();
         handleClose();
-        getGroups();
         navigate(`/groups/${groupId}`);
     }
 

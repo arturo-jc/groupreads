@@ -10,14 +10,6 @@ import {
     LOADING_RECORDS
 } from "./types"
 
-// Set current record
-// export const setCurrentRecor = record => {
-//     return {
-//         type: SET_CURRENT_RECORD,
-//         payload: record
-//     }
-// }
-
 // Get record
 export const getRecord = (groupId, recordId) => async dispatch => {
     
@@ -44,6 +36,7 @@ export const getRecord = (groupId, recordId) => async dispatch => {
         })
     };
 }
+
 // Modify so that it modifies groupState instead of recordState
 // Add a record
 export const addRecord = (bookId, groupId) => async dispatch => {
@@ -66,10 +59,15 @@ export const addRecord = (bookId, groupId) => async dispatch => {
         // Expect record back
         const res = await axios.post(`/api/groups/${groupId}/records`, { bookId }, config);
 
-        // If successful, add resulting record to state
+        // If successful, update group state
+        const payload = {
+            groupId,
+            record: res.data
+        }
+
         dispatch({
             type: ADD_RECORD,
-            payload: res.data
+            payload
         })
 
     } catch (err) {
@@ -91,10 +89,12 @@ export const deleteRecord = (groupId, recordId) => async dispatch => {
         // Send record id to server for deletion
         await axios.delete(`/api/groups/${groupId}/records/${recordId}`);
 
-        // If successful, add resulting record to state
+        // If successful, update group state
+        const payload = { groupId, recordId }
+        
         dispatch({
             type: DELETE_RECORD,
-            payload: recordId
+            payload
         })
 
         dispatch(clearCurrentRecord());

@@ -9,7 +9,9 @@ import {
     FIND_GROUP,
     CLEAR_GROUP_SEARCH_RESULTS,
     GROUPS_ERROR,
-    LOADING_GROUPS
+    LOADING_GROUPS,
+    ADD_RECORD,
+    DELETE_RECORD
 } from "../actions/types";
 
 const initialState = {
@@ -80,6 +82,17 @@ const groupReducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null
+            }
+        case ADD_RECORD:
+            return {
+                ...state,
+                groups: state.groups.map(group => group._id === action.payload.groupId ? {...group, records: [...group.records, action.payload.record]} : group ),
+                loading: false
+            }
+        case DELETE_RECORD:
+            return {
+                ...state,
+                groups: state.groups.map(group => group._id === action.payload.groupId? {...group, records: group.records.filter(record => record._id !== action.payload.recordId)} : group)
             }
         default:
             return state;
