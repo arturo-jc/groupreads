@@ -39,7 +39,8 @@ const recordReducer = (state = initialState, action) => {
         case SET_CURRENT_RECORD:
             return {
                 ...state,
-                current: action.payload
+                current: action.payload,
+                loading: false
             }
         case LOADING_RECORDS:
             return {

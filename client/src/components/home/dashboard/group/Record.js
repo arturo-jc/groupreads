@@ -1,4 +1,4 @@
-import React, {useEffect, Fragment, useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
@@ -6,12 +6,21 @@ import Modal from "../../../Modal";
 import NewPostForm from './record/NewPostForm';
 import NewBookmarkForm from './record/NewBookmarkForm';
 import DeleteRecord from './record/DeleteRecord';
+import BookDetails from './record/BookDetails';
 import Items from './record/Items';
 import Progress from './record/Progress';
-import { setCurrentRecord } from '../../../../actions/recordActions';
+import { getRecord } from '../../../../actions/recordActions';
 import nocover from "./search/nocover.gif"
 
-const Record = ({ groupState, recordState, setCurrentRecord }) => {
+const Record = ({ groupState }) => {
+
+    const { current } = groupState;
+    const { recordId } = useParams();
+
+    let record = null;
+    if (current){
+        record = current.records.find(record => record._id === recordId)
+    }
 
     const [newBookmarkModal, setNewBookmarkModal] = useState({show: false})
     const showNewBookmarkModal = () => {
@@ -55,34 +64,18 @@ const Record = ({ groupState, recordState, setCurrentRecord }) => {
         })
     }
 
-    const { current: group } = groupState;
-    const records = group.records;
-    const { recordId } = useParams();
-    const record = records.find(record => record._id === recordId);
-
-    useEffect(() => {
-        if(record){
-            setCurrentRecord(record);
-        }
-    }, [record])
-    
-    const { current } = recordState;
-
     return (
         <Fragment>
             <div className="card book-card">
-                {current && <h3>{current.book.title}</h3>}
-                {current && current.book.subtitle && <p>{current.book.title}</p>}
-                {current && <p className='authors'>By {current.book.authors.join(", ")}</p>}
+                {record && <h3>{record.book.title}</h3>}
+                {record && record.book.subtitle && <p>{record.book.title}</p>}
+                {record && <p className='authors'>By {record.book.authors.join(", ")}</p>}
                 <div className="details-row">
                     <div className="cover-col">
-                        {current && current.book.imageUrl? (<img src={current.book.imageUrl} alt="" />):(<img style={{width: 128}} src={nocover}/>)}
+                        {record && record.book.imageUrl? (<img src={record.book.imageUrl} alt="" />):(<img style={{width: 128}} src={nocover}/>)}
                     </div>
                     <div className="details-col">
-                     {current && current.book.description && <p className='book-description'>{current.book.description}</p>}
-                     {current && current.book.publisher && <p><span className='volume-info'>Publisher: </span>{current.book.publisher}</p>}
-                     {current && current.book.publishedOn && <p><span className='volume-info'>Published on: </span>{current.book.publishedOn.split("T")[0]}</p>}
-                     {current && current.book.industryIdentifiers && current.book.industryIdentifiers.length > 0 && <p><span className='volume-info'>{current.book.industryIdentifiers[0].type}: </span>{current.book.industryIdentifiers[0].identifier}</p>}
+                        <BookDetails/>
                     </div>
                 </div>
                 <div className='btn-group'>
@@ -103,15 +96,14 @@ const Record = ({ groupState, recordState, setCurrentRecord }) => {
 }
 
 Record.propTypes = {
-    recordState: PropTypes.object.isRequired,
-    setCurrentRecord: PropTypes.func.isRequired
+    groupState: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    recordState: state.record,
-    groupState: state.group
+    groupState: state.group,
+    getRecord: PropTypes.func.isRequired
 })
 
-const addState = connect( mapStateToProps, {setCurrentRecord });
+const addState = connect(mapStateToProps);
 
 export default addState(Record);

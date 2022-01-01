@@ -10,7 +10,7 @@ import {
 } from "./types";
 
 // get markers for given record
-export const getMarkersFor = (groupId, record) => async dispatch => {
+export const getMarkersFor = (groupId, recordId) => async dispatch => {
 
     // Add token to request headers for authentication
     if (localStorage.token) {
@@ -22,7 +22,7 @@ export const getMarkersFor = (groupId, record) => async dispatch => {
 
     try {
         // Request markers from server
-        const res = await axios.get(`/api/groups/${groupId}/records/${record._id}/markers`)
+        const res = await axios.get(`/api/groups/${groupId}/records/${recordId}/markers`)
         dispatch({
             type: GET_MARKERS,
             payload: res.data

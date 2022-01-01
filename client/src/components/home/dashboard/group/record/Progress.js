@@ -42,15 +42,12 @@ const Progress = ({recordState, markerState, getMarkersFor, addMarker}) => {
         })
     }
 
-    const {groupId, recordId} = useParams();
-    const { records, current } = recordState;
-    const record = records.find(record => record._id === recordId);
+    const {groupId, recordId } = useParams();
+    const { current } = recordState;
 
     useEffect(() => {
-        if(record){
-            getMarkersFor(groupId, record);
-        }
-    }, [record])
+        getMarkersFor(groupId, recordId);
+    }, [recordId])
 
     
     const { markers, loading } = markerState;

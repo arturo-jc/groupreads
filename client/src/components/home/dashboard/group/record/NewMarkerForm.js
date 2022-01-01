@@ -31,7 +31,6 @@ const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
         }else{
             addMarker(groupId, recordId, marker);
             setMarker({page: ""});
-            console.log(marker);
         }
         handleClose();
     }

@@ -1,7 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import {
-    GET_RECORDS,
     ADD_RECORD,
     DELETE_RECORD,
     SET_CURRENT_RECORD,
@@ -11,46 +10,41 @@ import {
     LOADING_RECORDS
 } from "./types"
 
-// Get records for group
-export const getRecords = (group) => async dispatch => {
+// Set current record
+// export const setCurrentRecor = record => {
+//     return {
+//         type: SET_CURRENT_RECORD,
+//         payload: record
+//     }
+// }
 
-    // Config request headers
-    const config = {
-        headers: { "Content-Type": "application/json" }
-    }
-
+// Get record
+export const getRecord = (groupId, recordId) => async dispatch => {
+    
     // Add token to request headers for authentication
     if (localStorage.token) {
         setAuthToken(localStorage.token)
     }
 
-    //Set loading to true while waiting for server response
     dispatch(loadingRecords());
 
     try {
-        const res = await axios.get(`/api/groups/${group._id}/records`, config);
+        // Request record details from backend
+        const res = await axios.get(`/api/groups/${groupId}/records/${recordId}`);
 
+        // If successful, set as current record
         dispatch({
-            type: GET_RECORDS,
+            type: SET_CURRENT_RECORD,
             payload: res.data
         })
-
     } catch (err) {
         dispatch({
             type: RECORDS_ERROR,
             payload: err.response.data.msg
         })
-    }
+    };
 }
-
-// Set current record
-export const setCurrentRecord = record => {
-    return {
-        type: SET_CURRENT_RECORD,
-        payload: record
-    }
-}
-
+// Modify so that it modifies groupState instead of recordState
 // Add a record
 export const addRecord = (bookId, groupId) => async dispatch => {
 

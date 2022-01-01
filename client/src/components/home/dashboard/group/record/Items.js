@@ -7,19 +7,14 @@ import Bookmark from './Bookmark';
 import { getPostsFor } from '../../../../../actions/postActions';
 import { getBookmarksFor } from '../../../../../actions/bookmarkActions';
 
-const Items = ({recordState, postState, bookmarkState, getPostsFor, getBookmarksFor }) => {
+const Items = ({ postState, bookmarkState, getPostsFor, getBookmarksFor }) => {
 
     const {groupId, recordId} = useParams();
 
-    const { records } = recordState;
-    const record = records.find(record => record._id === recordId);
-
     useEffect(() => {
-        if(record){
-            getPostsFor(groupId, recordId);
-            getBookmarksFor(groupId, recordId);
-        }
-    }, [record])
+        getPostsFor(groupId, recordId);
+        getBookmarksFor(groupId, recordId);
+    }, [recordId])
 
     const { posts } = postState;
     const { bookmarks } = bookmarkState;
@@ -37,7 +32,6 @@ const Items = ({recordState, postState, bookmarkState, getPostsFor, getBookmarks
 }
 
 Items.propTypes = {
-    recordState: PropTypes.object.isRequired,
     postState: PropTypes.object.isRequired,
     bookmarkState: PropTypes.object.isRequired,
     getPostsFor: PropTypes.func.isRequired,
@@ -45,7 +39,6 @@ Items.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    recordState: state.record,
     postState: state.post,
     bookmarkState: state.bookmark
 })
