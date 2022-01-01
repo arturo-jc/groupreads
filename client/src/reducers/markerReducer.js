@@ -1,6 +1,7 @@
 import {
     GET_MARKERS,
     ADD_MARKER,
+    DELETE_MARKER,
     MARKERS_ERROR,
     LOADING_MARKERS,
     CLEAR_MARKERS,
@@ -37,6 +38,11 @@ const markerReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case DELETE_MARKER:
+            return {
+                ...state,
+                markers: state.markers.filter(marker => marker._id !== action.payload)
             }
         case CLEAR_MARKERS:
             return {

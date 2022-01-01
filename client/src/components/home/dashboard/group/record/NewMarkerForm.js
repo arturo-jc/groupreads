@@ -11,11 +11,10 @@ const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
 
     const {groupId, recordId} = useParams();
 
-    const [marker, setmarker] = useState({ page: null })
+    const [marker, setMarker] = useState({ page: "" })
 
     const onChange = e => {
-        e.preventDefault();
-        setmarker({
+        setMarker({
             ...marker,
             [e.target.name]: e.target.value
         })
@@ -31,6 +30,8 @@ const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
             setAlert("Please enter a page number.", "danger")
         }else{
             addMarker(groupId, recordId, marker);
+            setMarker({page: ""});
+            console.log(marker);
         }
         handleClose();
     }
@@ -40,7 +41,7 @@ const NewMarkerForm = ({ recordState, addMarker, setAlert, handleClose }) => {
             <h3>Update Status</h3>
             <form onSubmit={onSubmit}>
                 <label className='hidden' htmlFor="page">Current page</label>
-                <input className='number-input' type="number" name="page" id="page" onChange={onChange} />/{pageCount}
+                <input className='number-input' type="number" name="page" id="page" value={marker.page} onChange={onChange} placeholder='0' />/{pageCount}
                 <input className='btn btn-yellow' type="submit" value="Update" />
             </form>
         </Fragment>

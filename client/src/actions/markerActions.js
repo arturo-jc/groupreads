@@ -5,7 +5,8 @@ import {
     ADD_MARKER,
     MARKERS_ERROR,
     CLEAR_MARKERS,
-    LOADING_MARKERS
+    LOADING_MARKERS,
+    DELETE_MARKER
 } from "./types";
 
 // get markers for given record
@@ -56,6 +57,32 @@ export const addMarker = (groupId, recordId, marker) => async dispatch => {
         dispatch({
             type: ADD_MARKER,
             payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: MARKERS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
+}
+
+
+// delete marker
+export const deleteMarker = (groupId, recordId, markerId) => async dispatch => {
+
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    try {
+        // Send marker id to server for deletion
+        await axios.delete(`/api/groups/${groupId}/records/${recordId}/markers/${markerId}`);
+
+        // If successful, add marker to state
+        dispatch({
+            type: DELETE_MARKER,
+            payload: markerId
         });
     } catch (err) {
         dispatch({

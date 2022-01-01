@@ -11,11 +11,10 @@ const NewBookmarkForm = ({ groupState, recordState, addBookmark, setAlert, handl
 
     const [bookmark, setBookmark] = useState({
         body: "",
-        page: null
+        page: ""
     })
 
     const onChange = e => {
-        e.preventDefault();
         setBookmark({
             ...bookmark,
             [e.target.name]: e.target.value
@@ -24,22 +23,31 @@ const NewBookmarkForm = ({ groupState, recordState, addBookmark, setAlert, handl
 
     const onSubmit = e => {
         e.preventDefault();
-        if(bookmark.body === "" || bookmark.page === null){
+        if(bookmark.body === "" || bookmark.page === ""){
             setAlert("Please fill out all fields.", "danger");
         } else{
             addBookmark(group._id, record._id, bookmark);
+            setBookmark({
+                body: "",
+                page: ""
+            });
         }
         handleClose();
+    }
+
+    let pageCount = 0;
+    if (record && record.book.pageCount){
+        pageCount = record.book.pageCount;
     }
 
     return (
         <Fragment>
             <h3>New Bookmark</h3>
             <form onSubmit={onSubmit}>
-                <label htmlFor="page">Page number:</label>
-                <input className='form-input' type="number" name="page" id="page" onChange={onChange} />
-                <label htmlFor="body">Content:</label>
-                <input className='form-input' type="text" name="body" id="body" onChange={onChange} placeholder='Write something here...'/>
+                <label className='hidden' htmlFor="page">Page number:</label>
+                <input className='number-input' type="number" name="page" id="page" value={bookmark.page} onChange={onChange} placeholder='0' />/{pageCount}
+                <label className='hidden' htmlFor="body">Content:</label>
+                <input className='form-input' type="text" name="body" id="body" onChange={onChange} value={bookmark.body} placeholder='Write something here...'/>
                 <input className='btn btn-yellow' type="submit" value="Add bookmark" />
             </form>
         </Fragment>

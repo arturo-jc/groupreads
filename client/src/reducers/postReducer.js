@@ -1,6 +1,7 @@
 import {
     GET_POSTS,
     ADD_POST,
+    DELETE_POST,
     POSTS_ERROR,
     LOADING_POSTS,
     CLEAR_POSTS,
@@ -37,6 +38,11 @@ const postReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case DELETE_POST:
+            return {
+                ...state,
+                posts: state.posts.filter(post => post._id !== action.payload)
             }
         case CLEAR_POSTS:
             return {

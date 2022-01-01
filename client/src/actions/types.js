@@ -42,6 +42,7 @@ export const GET_POSTS = 'GET_POSTS';
 export const ADD_POST = 'ADD_POST';
 export const CLEAR_POSTS = 'CLEAR_POSTS';
 export const POSTS_ERROR = 'POSTS_ERROR';
+export const DELETE_POST = 'DELETE_POST';
 export const LOADING_POSTS = 'LOADING_POSTS';
 
 // Comments
@@ -53,6 +54,7 @@ export const ADD_MARKER = 'ADD_MARKER';
 export const CLEAR_MARKERS = 'CLEAR_MARKERS';
 export const MARKERS_ERROR = 'MARKERS_ERROR';
 export const LOADING_MARKERS = 'LOADING_MARKERS'
+export const DELETE_MARKER = 'DELETE_MARKER';
 
 // Bookmarks
 export const GET_BOOKMARKS = 'GET_BOOKMARKS';
@@ -60,6 +62,7 @@ export const ADD_BOOKMARK = 'ADD_BOOKMARK';
 export const CLEAR_BOOKMARKS = 'CLEAR_BOOKMARKS';
 export const BOOKMARKS_ERROR = 'BOOKMARKS_ERROR';
 export const LOADING_BOOKMARKS = 'LOADING_BOOKMARKS';
+export const DELETE_BOOKMARK = 'DELETE_BOOKMARK';
 
 // Alerts
 export const SET_ALERT = 'SET_ALERT';

@@ -4,7 +4,8 @@ import {
     CLEAR_BOOKMARKS,
     BOOKMARKS_ERROR,
     LOADING_BOOKMARKS,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    DELETE_BOOKMARK
 } from "../actions/types";
 
 const initialState = {
@@ -37,6 +38,11 @@ const bookmarkReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case DELETE_BOOKMARK:
+            return {
+                ...state,
+                bookmarks: state.bookmarks.filter(bookmark => bookmark._id !== action.payload)
             }
         case CLEAR_BOOKMARKS:
             return {

@@ -16,8 +16,8 @@ const Items = ({recordState, postState, bookmarkState, getPostsFor, getBookmarks
 
     useEffect(() => {
         if(record){
-            getPostsFor(groupId, record);
-            getBookmarksFor(groupId, record);
+            getPostsFor(groupId, recordId);
+            getBookmarksFor(groupId, recordId);
         }
     }, [record])
 

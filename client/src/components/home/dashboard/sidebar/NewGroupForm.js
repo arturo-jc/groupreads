@@ -28,6 +28,7 @@ const NewGroupForm = ({ createGroup, setCurrentGroup, getRecordsFor, handleClose
         } else{
             const newGroup = await createGroup(group);
             if (newGroup) {
+                setGroup({name: ""});
                 setCurrentGroup(newGroup);
                 getRecordsFor(newGroup);
                 navigate(`/groups/${newGroup._id}`);

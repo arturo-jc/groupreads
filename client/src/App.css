@@ -152,10 +152,23 @@ main {
 }
 
 .bookmark {
+    display: flex;
+    justify-content: space-between;
     background-color: var(--lighter-grey);
+    align-items: center;
 }
 
-.bookmark i {
+.btn-delete {
+    background: none;
+    border: none;
+    color: inherit;
+}
+
+.btn-delete:hover{
+    cursor: pointer;
+}
+
+.bookmark .fa-bookmark {
     margin-right: 1rem;
 }
 
@@ -385,10 +398,15 @@ main {
       padding: .25rem 0;
   }
 
+  .author-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
   .link-style-btn{
       background: none;
       border: none;
-      color: inherit;
       font-size: inherit;
       font-family: inherit;
       color: var(--red);

@@ -28,6 +28,10 @@ const NewPostForm = ({ groupState, recordState, addPost, setAlert, handleClose }
             setAlert("Please fill out all fields.", "danger")
         } else{
             addPost(group._id, record._id, post);
+            setPost({
+                title: "",
+                body: ""
+            })
         }
         handleClose();
     }

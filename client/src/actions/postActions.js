@@ -3,13 +3,14 @@ import setAuthToken from "../utils/setAuthToken";
 import {
     GET_POSTS,
     ADD_POST,
+    DELETE_POST,
     CLEAR_POSTS,
     POSTS_ERROR,
     LOADING_POSTS
 } from "./types";
 
 // get posts for given record
-export const getPostsFor = (groupId, record) => async dispatch => {
+export const getPostsFor = (groupId, recordId) => async dispatch => {
 
     // Add token to request headers for authentication
     if (localStorage.token) {
@@ -21,7 +22,7 @@ export const getPostsFor = (groupId, record) => async dispatch => {
 
     try {
         // Request posts from server
-        const res = await axios.get(`/api/groups/${groupId}/records/${record._id}/posts`);
+        const res = await axios.get(`/api/groups/${groupId}/records/${recordId}/posts`);
         dispatch({
             type: GET_POSTS,
             payload: res.data
@@ -66,6 +67,35 @@ export const addPost = (groupId, recordId, post) => async dispatch => {
         })
     }
 }
+
+// delete post
+export const deletePost = (groupId, recordId, postId) => async dispatch => {
+
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    try {
+        // Send post id to server for deletion
+        const res = await axios.delete(`/api/groups/${groupId}/records/${recordId}/posts/${postId}`)
+
+        // If successful, add post to state
+        dispatch({
+            type: DELETE_POST,
+            payload: postId
+        });
+
+    } catch (err) {
+        dispatch({
+            type: POSTS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
+}
+
+
+
 
 // Clear posts
 export const clearPosts = () => { return {type: CLEAR_POSTS}}

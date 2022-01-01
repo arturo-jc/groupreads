@@ -50,6 +50,5 @@ module.exports.updatePost = async (req, res) => {
 // DELETE api/groups/:groupId/records/:recordId/posts/:postId
 module.exports.deletePost = async (req, res) => {
     await Post.findByIdAndDelete(req.params.postId);
-    // todo: delete embedded comments
     return res.json({ msg: "Post deleted." })
 }
