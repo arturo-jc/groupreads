@@ -6,12 +6,15 @@ const { authenticate, ownsBookmark, isGroupMember, validateBookmark } = require(
 
 // api/groups/:groupId/books/:bookId/bookmarks
 
+router.use(authenticate, catchAsync(isGroupMember))
+
 router.route("/")
-    .get(authenticate, catchAsync(isGroupMember), catchAsync(index))
-    .post(authenticate, catchAsync(validateBookmark), catchAsync(isGroupMember), catchAsync(addBookmark))
+    .get(catchAsync(index))
+    .post(catchAsync(validateBookmark), catchAsync(addBookmark))
 
 router.route("/:bookmarkId")
-    .put(authenticate, catchAsync(validateBookmark), catchAsync(isGroupMember), catchAsync(ownsBookmark), catchAsync(updateBookmark))
-    .delete(authenticate, catchAsync(isGroupMember), catchAsync(ownsBookmark), catchAsync(deleteBookmark))
+    .all(catchAsync(ownsBookmark))
+    .put(catchAsync(validateBookmark), catchAsync(updateBookmark))
+    .delete(catchAsync(deleteBookmark))
 
 module.exports = router;

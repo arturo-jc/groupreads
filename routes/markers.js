@@ -6,12 +6,14 @@ const { authenticate, isGroupMember, validateMarker } = require("../middleware")
 
 // api/groups/:groupId/records/:recordId/markers
 
+router.use(authenticate, catchAsync(isGroupMember))
+
 router.route("/")
-    .get(authenticate, catchAsync(isGroupMember), catchAsync(index))
-    .post(authenticate, catchAsync(validateMarker), catchAsync(isGroupMember), catchAsync(addMarker))
+    .get(catchAsync(index))
+    .post(catchAsync(validateMarker), catchAsync(addMarker))
 
 router.route("/:markerId")
-    .put(authenticate, catchAsync(validateMarker), catchAsync(isGroupMember), catchAsync(updateMarker))
-    .delete(authenticate, catchAsync(isGroupMember), catchAsync(deleteMarker))
+    .put(catchAsync(validateMarker), catchAsync(updateMarker))
+    .delete(catchAsync(deleteMarker))
 
 module.exports = router;

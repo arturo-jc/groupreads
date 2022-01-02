@@ -33,6 +33,14 @@ module.exports.isGroupMember = async (req, res, next) => {
     next();
 };
 
+module.exports.isOnlyGroupMember = async (req, res, next) => {
+    const group = await Group.findById(req.params.groupId);
+    if (group.members.length > 1) {
+        return res.status(401).json({ msg: "Group has more than one member, authorization denied." });
+    };
+    next();
+};
+
 module.exports.ownsBook = async (req, res, next) => {
     const book = await Book.findById(req.params.bookId);
     if (book.addedBy.toString() !== req.user.id) {

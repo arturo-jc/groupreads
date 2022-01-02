@@ -6,12 +6,15 @@ const { authenticate, isCommentAuthor, isGroupMember, validateComment } = requir
 
 // api/groups/:groupId/books/:bookId/posts/:postId/comments
 
+router.use(authenticate, catchAsync(isGroupMember))
+
 router.route("/")
-    .get(authenticate, catchAsync(isGroupMember), catchAsync(index))
-    .post(authenticate, validateComment, catchAsync(isGroupMember), catchAsync(addComment))
+    .get(catchAsync(index))
+    .post(validateComment, catchAsync(addComment))
 
 router.route("/:commentId")
-    .put(authenticate, validateComment, catchAsync(isGroupMember), catchAsync(isCommentAuthor), catchAsync(updateComment))
-    .delete(authenticate, catchAsync(isGroupMember), catchAsync(isCommentAuthor), catchAsync(deleteComment))
+    .all(catchAsync(isCommentAuthor))
+    .put(validateComment, catchAsync(updateComment))
+    .delete(catchAsync(deleteComment))
 
 module.exports = router;

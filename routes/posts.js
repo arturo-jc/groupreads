@@ -6,12 +6,15 @@ const { authenticate, isPostAuthor, isGroupMember, validatePost } = require("../
 
 // api/groups/:groupId/books/:bookId/posts
 
+router.use(authenticate, catchAsync(isGroupMember))
+
 router.route("/")
-    .get(authenticate, catchAsync(isGroupMember), catchAsync(index))
-    .post(authenticate, validatePost, catchAsync(isGroupMember), catchAsync(addPost))
+    .get(catchAsync(index))
+    .post(validatePost, catchAsync(addPost))
 
 router.route("/:postId")
-    .put(authenticate, validatePost, catchAsync(isGroupMember), catchAsync(isPostAuthor), catchAsync(updatePost))
-    .delete(authenticate, catchAsync(isGroupMember), catchAsync(isPostAuthor), catchAsync(deletePost))
+    .all(catchAsync(isPostAuthor))
+    .put(validatePost, catchAsync(updatePost))
+    .delete(catchAsync(deletePost))
 
 module.exports = router;
