@@ -8,7 +8,9 @@ const User = ({user, showButtons , acceptRequest, declineRequest, handleClose })
     const { groupId } = useParams();
     const accept = () => {
         acceptRequest(groupId, user._id);
-        handleClose();
+        if (handleClose){
+            handleClose();
+        }
     }
     const decline = () => {
         declineRequest(groupId, user._id)

@@ -22,6 +22,7 @@ export const GROUPS_ERROR = 'GROUPS_ERRORS';
 export const LOADING_GROUPS = 'LOADING_GROUPS';
 export const ADD_MEMBER = 'ADD_MEMBER';
 export const DECLINE_REQUEST = 'DECLINE_REQUEST';
+export const LEAVE_GROUP = 'LEAVE_GROUP';
 
 // Search
 export const SEARCH = 'SEARCH';

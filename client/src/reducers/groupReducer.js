@@ -13,7 +13,8 @@ import {
     ADD_RECORD,
     DELETE_RECORD,
     ADD_MEMBER,
-    DECLINE_REQUEST
+    DECLINE_REQUEST,
+    LEAVE_GROUP
 } from "../actions/types";
 
 const initialState = {
@@ -44,9 +45,10 @@ const groupReducer = (state = initialState, action) => {
                 loading: false
             }
         case DELETE_GROUP:
+        case LEAVE_GROUP:
             return {
                 ...state,
-                groups: state.groups.filter(group => group._id !== action.payload)
+                groups: state.groups.filter(group => group._id !== action.payload._id)
             }
         case CLEAR_GROUPS:
             return {

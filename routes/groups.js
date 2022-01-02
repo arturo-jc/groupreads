@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const catchAsync = require("../utils/catchAsync");
-const { index, createGroup, findGroup, deleteGroup, sendRequest, handleRequest } = require("../controllers/groups");
+const { index, createGroup, findGroup, deleteGroup, sendRequest, handleRequest, leaveGroup } = require("../controllers/groups");
 const { authenticate, validateGroup, isGroupMember } = require("../middleware");
 
 // api/groups
@@ -18,6 +18,9 @@ router.route("/:groupId")
 
 // api/groups/:groupId/send-request
 router.put("/:groupId/request", authenticate, catchAsync(sendRequest))
+
+// api/groups/:groupId/leave
+router.put("/:groupId/leave", authenticate, catchAsync(leaveGroup))
 
 // api/groups/:groupId/:action
 router.put("/:groupId/:action", authenticate, catchAsync(isGroupMember), catchAsync(handleRequest))

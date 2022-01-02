@@ -44,6 +44,17 @@ module.exports.sendRequest = async (req, res) => {
     return res.json({msg: "Request sent."})
 }
 
+// PUT api/groups/:groupId/leave
+module.exports.leaveGroup = async (req, res) => {
+    const group = await Group.findByIdAndUpdate(
+        req.params.groupId,
+        {
+            $pull: {members: req.user.id }
+        }
+    )
+    return res.json(group)
+}
+
 // PUT api/groups/:groupId/:action
 module.exports.handleRequest = async (req, res) => {
     const {groupId, action } = req.params;
@@ -54,8 +65,7 @@ module.exports.handleRequest = async (req, res) => {
             group = await Group.findByIdAndUpdate(
                 groupId,
                 {
-                    $pull: {pendingRequests: userId },
-                    $pull: {declinedRequests: userId },
+                    $pull: {pendingRequests: userId, declinedRequests: userId },
                     $addToSet: { members: userId }
                 },
                 {new: true}
@@ -66,6 +76,7 @@ module.exports.handleRequest = async (req, res) => {
             .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
             return res.json(group)
         case "decline":
+            console.log("hit decline")
             group = await Group.findByIdAndUpdate(
                 groupId,
                 {
@@ -78,6 +89,7 @@ module.exports.handleRequest = async (req, res) => {
             .populate({ path: "pendingRequests", select: "name"})
             .populate({ path: "declinedRequests", select: "name"})
             .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
+            console.log(group)
             return res.json(group)
         default:
             return res.status(400).json({msg: "Failed to specify action in params. Possible actions: accept, decline"})
@@ -87,6 +99,6 @@ module.exports.handleRequest = async (req, res) => {
 
 // DELETE api/groups/groupId
 module.exports.deleteGroup = async (req, res) => {
-    await Group.findByIdAndDelete(req.params.groupId);
-    return res.json({ msg: "Group deleted." })
+    const group = await Group.findByIdAndDelete(req.params.groupId);
+    return res.json(group)
 }

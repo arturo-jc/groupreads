@@ -3,16 +3,15 @@ import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteGroup, clearCurrentGroup } from "../../../../../actions/groupActions";
-import { clearRecords } from '../../../../../actions/recordActions';
 import PropTypes from 'prop-types'
 
-const DeleteGroup = ({deleteGroup, clearCurrentGroup, clearRecords}) => {
+const DeleteGroup = ({deleteGroup, clearCurrentGroup }) => {
     const navigate = useNavigate();
     const { groupId } = useParams();
     const onClick = () => {
+        console.log(groupId)
         deleteGroup(groupId);
         clearCurrentGroup();
-        clearRecords();
         navigate("/")
     }
     return (
@@ -26,10 +25,9 @@ const DeleteGroup = ({deleteGroup, clearCurrentGroup, clearRecords}) => {
 
 DeleteGroup.propTypes = {
     deleteGroup: PropTypes.func.isRequired,
-    clearCurrentGroup: PropTypes.func.isRequired,
-    clearRecords: PropTypes.func.isRequired
+    clearCurrentGroup: PropTypes.func.isRequired
 }
 
-const addState = connect(null, {deleteGroup, clearCurrentGroup, clearRecords})
+const addState = connect(null, {deleteGroup, clearCurrentGroup })
 
 export default addState(DeleteGroup);

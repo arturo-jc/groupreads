@@ -8,7 +8,7 @@ import Modal from "../../../Modal";
 import PropTypes from 'prop-types';
 import DeleteGroup from './groupDetails/DeleteGroup';
 import DeclinedRequests from './groupDetails/DeclinedRequests';
-import { declineRequest } from '../../../../actions/groupActions';
+import LeaveGroup from './groupDetails/LeaveGroup';
 
 const GroupDetails = ({authState, groupState}) => {
     const [deleteGroupModal, setDeleteGroupModal] = useState({show: false});
@@ -33,6 +33,17 @@ const GroupDetails = ({authState, groupState}) => {
             show: false
         })
     }
+    const [leaveGroupModal, setLeaveGroupModal] = useState({show: false})
+    const showLeaveGroupModal = () => {
+        setLeaveGroupModal({
+            show: true
+        })
+    }
+    const hideLeaveGroupModal = () => {
+        setLeaveGroupModal({
+            show: false
+        })
+    }
 
     const { user } = authState;
     const { current } = groupState
@@ -43,8 +54,9 @@ const GroupDetails = ({authState, groupState}) => {
                 {current && <Members members={current.members} /> }
                 {current && current.pendingRequests.length > 0 && <Requests title='Pending Requests' requests={current.pendingRequests} showButtons={"all"} /> }
                 <div className='btn-group'>
-                    <button className="btn btn-yellow">Add members</button>
+                    <button className="btn btn-yellow">Invite</button>
                     {current && current.members.length === 1 && current.members.map(member => member._id).includes(user._id) && <button className='btn btn-red' onClick={showDeleteGroupModal}>Delete group</button>}
+                    {current && current.members.length > 1 && <button className='btn btn-red' onClick={showLeaveGroupModal}>Leave group</button> }
                     {current && current.declinedRequests.length > 0 && <button className='btn btn-grey' onClick={showDeclinedRequestsModal}>More</button> }
                 </div>
             </div>
@@ -56,6 +68,7 @@ const GroupDetails = ({authState, groupState}) => {
             </div>
             <Modal show={deleteGroupModal.show} handleClose={hideDeleteGroupModal} Component={DeleteGroup}/>
             <Modal show={declinedRequestsModal.show} handleClose={hideDeclinedRequestsModal} Component={DeclinedRequests}/>
+            <Modal show={leaveGroupModal.show} handleClose={hideLeaveGroupModal} Component={LeaveGroup}/>
         </div>
     )
 }

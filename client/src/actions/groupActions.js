@@ -12,7 +12,8 @@ import {
     CLEAR_GROUP_SEARCH_RESULTS,
     GROUPS_ERROR,
     LOADING_GROUPS,
-    DECLINE_REQUEST
+    DECLINE_REQUEST,
+    LEAVE_GROUP
 } from "./types";
 
 // Set current
@@ -61,12 +62,13 @@ export const deleteGroup = groupId => async dispatch => {
     try {
 
         // Send group id to server for deletion
-        await axios.delete(`/api/groups/${groupId}`)
+        // Expect deleted group back
+        const res = await axios.delete(`/api/groups/${groupId}`)
 
         // If successful, delete group from state
         dispatch({
             type: DELETE_GROUP,
-            payload: groupId
+            payload: res.data
         });
         
     } catch (err) {
@@ -233,6 +235,33 @@ export const declineRequest = (groupId, userId) => async dispatch => {
             payload: res.data
         });
 
+
+    } catch (err) {
+        dispatch({
+            type: GROUPS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
+}
+
+// leave group
+export const leaveGroup = params => async dispatch => {
+
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    try{
+        // Request user to remove user from group
+        // Expect updated group in return
+        const res = await axios.put(`/api/groups/${params.groupId}/leave`)
+
+        // Remove group from state
+        dispatch({
+            type: LEAVE_GROUP,
+            payload: res.data
+        })
 
     } catch (err) {
         dispatch({
