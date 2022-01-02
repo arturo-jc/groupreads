@@ -1,7 +1,8 @@
 import {
     SET_LOADING,
     COMMENT_ERROR,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    LOGOUT
 } from "../actions/types";
 
 const initialState = {
@@ -27,6 +28,8 @@ const commentReducer = (state = initialState, action) => {
                 ...state,
                 error: null
             }
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }

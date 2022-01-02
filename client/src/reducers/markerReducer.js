@@ -5,7 +5,8 @@ import {
     MARKERS_ERROR,
     LOADING_MARKERS,
     CLEAR_MARKERS,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    LOGOUT
 } from "../actions/types";
 
 const initialState = {
@@ -54,6 +55,8 @@ const markerReducer = (state = initialState, action) => {
                 ...state,
                 error: null
             }
+        case LOGOUT:
+            return initialState
         default:
             return state;
     }

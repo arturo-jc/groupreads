@@ -27,7 +27,7 @@ const SearchForm = ({ search, setAlert }) => {
         <div>
             <form onSubmit={onSubmit}>
                 <label className='hidden' htmlFor="text">Search books</label>
-                <input className='form-input' type="text" name="text" id="text" onChange={onChange} value={query.text} placeholder='Enter a search term...'/>
+                <input className='form-input' type="text" name="text" id="text" onChange={onChange} value={query.text} placeholder='Enter title or author...'/>
                 <input className='btn btn-yellow' type="submit" value="Search" />
             </form>
 

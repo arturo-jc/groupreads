@@ -6,7 +6,7 @@ module.exports.index = async (req, res) => {
         .populate({ path: "members", select: "name" })
         .populate({ path: "pendingRequests", select: "name"})
         .populate({ path: "declinedRequests", select: "name"})
-        .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } })
+        .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } })
     return res.json(groups);
 }
 
@@ -24,7 +24,7 @@ module.exports.createGroup = async (req, res) => {
         .populate({ path: "members", select: "name" })
         .populate({ path: "pendingRequests", select: "name"})
         .populate({ path: "declinedRequests", select: "name"})
-        .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
+        .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } });
     return res.json(group);
 }
 
@@ -73,7 +73,7 @@ module.exports.handleRequest = async (req, res) => {
             .populate({ path: "members", select: "name" })
             .populate({ path: "pendingRequests", select: "name"})
             .populate({ path: "declinedRequests", select: "name"})
-            .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
+            .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } });
             return res.json(group)
         case "decline":
             console.log("hit decline")
@@ -88,7 +88,7 @@ module.exports.handleRequest = async (req, res) => {
             .populate({ path: "members", select: "name" })
             .populate({ path: "pendingRequests", select: "name"})
             .populate({ path: "declinedRequests", select: "name"})
-            .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
+            .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } });
             console.log(group)
             return res.json(group)
         default:

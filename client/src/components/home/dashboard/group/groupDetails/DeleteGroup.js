@@ -9,7 +9,6 @@ const DeleteGroup = ({deleteGroup, clearCurrentGroup }) => {
     const navigate = useNavigate();
     const { groupId } = useParams();
     const onClick = () => {
-        console.log(groupId)
         deleteGroup(groupId);
         clearCurrentGroup();
         navigate("/")

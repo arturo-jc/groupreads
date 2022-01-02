@@ -100,10 +100,6 @@ export const deleteRecord = (groupId, recordId) => async dispatch => {
     };
 }
 
-// Clear records
-export const clearRecords = () => {
-    return { type: CLEAR_RECORDS }
-}
 
 // Clear current record
 export const clearCurrentRecord = () => {

@@ -51,10 +51,11 @@ const GroupDetails = ({authState, groupState}) => {
     return (
         <div>
             <div className="card">
+                {current && <h2>{current.name}</h2>}
                 {current && <Members members={current.members} /> }
                 {current && current.pendingRequests.length > 0 && <Requests title='Pending Requests' requests={current.pendingRequests} showButtons={"all"} /> }
                 <div className='btn-group'>
-                    <button className="btn btn-yellow">Invite</button>
+                    <button className="btn btn-yellow">Invite friends</button>
                     {current && current.members.length === 1 && current.members.map(member => member._id).includes(user._id) && <button className='btn btn-red' onClick={showDeleteGroupModal}>Delete group</button>}
                     {current && current.members.length > 1 && <button className='btn btn-red' onClick={showLeaveGroupModal}>Leave group</button> }
                     {current && current.declinedRequests.length > 0 && <button className='btn btn-grey' onClick={showDeclinedRequestsModal}>More</button> }

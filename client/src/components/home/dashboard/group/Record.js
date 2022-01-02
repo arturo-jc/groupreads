@@ -68,8 +68,8 @@ const Record = ({ groupState, recordState, authState }) => {
     return (
         <Fragment>
             <div className="card book-card">
-                {record && <h3>{record.book.title}</h3>}
-                {record && record.book.subtitle && <p>{record.book.title}</p>}
+                {record && <h2>{record.book.title}</h2>}
+                {record && record.book.subtitle && <p className='book-subtitle'>{record.book.subtitle}</p>}
                 {record && <p className='authors'>By {record.book.authors.join(", ")}</p>}
                 <div className="details-row">
                     <div className="cover-col">
@@ -80,8 +80,8 @@ const Record = ({ groupState, recordState, authState }) => {
                     </div>
                 </div>
                 <div className='btn-group'>
-                    <button className='btn btn-yellow' onClick={showNewBookmarkModal}>Add bookmark</button>
-                    <button className='btn btn-green' onClick={showNewPostModal}>Write post</button>
+                    <button className='btn btn-yellow' onClick={showNewPostModal}>Write post</button>
+                    <button className='btn btn-grey' onClick={showNewBookmarkModal}>Add bookmark</button>
                     {recordDetails && recordDetails.owner === user._id && <button className='btn btn-red' onClick={showDeleteRecordModal}>Delete book</button>}
                 </div>
             </div>

@@ -4,7 +4,8 @@ import {
     SET_CURRENT_RECORD,
     CLEAR_CURRENT_RECORD,
     RECORDS_ERROR,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    LOGOUT
 } from "../actions/types";
 
 const initialState = {
@@ -47,6 +48,8 @@ const recordReducer = (state = initialState, action) => {
                 ...state,
                 error: null
             }
+        case LOGOUT:
+            return initialState
         default:
             return state;
     }

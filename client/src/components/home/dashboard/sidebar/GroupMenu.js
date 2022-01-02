@@ -45,7 +45,7 @@ const GroupMenu = ({ groupState  }) => {
 
     return (
             <Fragment>
-                <h3>Groups</h3>
+                <h3>Groups & Books</h3>
                 {groups && groups.map(group =>
                         <Group key={group._id} group={group}/>)
                 }

@@ -14,7 +14,8 @@ import {
     DELETE_RECORD,
     ADD_MEMBER,
     DECLINE_REQUEST,
-    LEAVE_GROUP
+    LEAVE_GROUP,
+    LOGOUT
 } from "../actions/types";
 
 const initialState = {
@@ -96,6 +97,8 @@ const groupReducer = (state = initialState, action) => {
                 groups: state.groups.map(group => group._id === action.payload._id ? action.payload : group),
                 loading: false
             }
+        case LOGOUT:
+            return initialState
         default:
             return state;
     }

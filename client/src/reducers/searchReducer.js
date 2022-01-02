@@ -5,7 +5,8 @@ import {
     CLEAR_CURRENT_RESULT,
     SEARCH_ERROR,
     RESULTS_LOADING,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    LOGOUT
 } from "./../actions/types";
 
 const initialState = {
@@ -55,6 +56,8 @@ const searchReducer = (state = initialState, action) => {
                 ...state,
                 error: null
             }
+        case LOGOUT:
+            return initialState
         default:
             return state;
     }

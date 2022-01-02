@@ -1,5 +1,6 @@
 :root {
     --bg-color: #f7f6f3;
+    --bg-color-darker: #D0CAB2;
     --font-color: #69665f;
     --font-color-dark: #333332;
     --primary: #96C7C1;
@@ -188,25 +189,33 @@ nav a:hover {
     text-decoration: none;
 }
 
-nav button {
+
+nav ul {
+    list-style: none;
+}
+
+.navlink {
+    width: fit-content;
     background: none;
     border: none;
     font-size: 1.25rem;
     color: var(--primary-dark);
-    padding: 1rem 0;
-    padding-right: .5rem;
+    padding: 1rem;
 }
 
-nav button:hover {
+.navlink:hover {
     cursor: pointer;
 }
 
-nav .navlogo {
-    padding-left: .5rem;
+.dropdown {
+    background-color: var(--primary);
+    position: absolute;
+    right: 0;
+    display: none;
 }
 
-nav .navlink {
-    padding-right: .5rem;
+.dropdown.active {
+    display: block;
 }
 
 .main-container{
@@ -223,6 +232,10 @@ nav .navlink {
     min-width: 200px;
     padding: 1rem 0;
     line-height: 2;
+}
+
+.sidebar .btn {
+    margin: .5rem auto;
 }
 
 .sidebar a {
@@ -298,6 +311,14 @@ main {
     margin: 1rem 0;
 }
 
+.get-started {
+    line-height: 1.5;
+}
+
+.get-started p {
+    margin-bottom: 1rem;
+}
+
 .modal {
     position: fixed;
     top: 0;
@@ -312,7 +333,7 @@ main {
     background: white;
     width: fit-content;
     max-width: 50%;
-    padding: 3rem;
+    padding: 2rem 3rem;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
@@ -327,7 +348,7 @@ main {
   }
 
   .modal .modal-main .btn {
-      margin: auto;
+      margin: 1rem auto 0;
   }
   
   .display-block {
@@ -502,8 +523,12 @@ main {
       font-weight: 500;
   }
 
-  .book-card h3 {
+  .book-card h2 {
       margin-bottom: 0;
+  }
+
+  .book-card .book-subtitle{
+      font-size: 1.25rem;
   }
 
   .book-card .authors {
@@ -552,6 +577,7 @@ main {
   .btn-group{
       display: flex;
       justify-content: center;
+      margin: 2rem 0 1rem;
   }
 
   .btn-group .btn{
@@ -653,8 +679,8 @@ main {
   }
 
   footer {
-      text-align: center;
-      padding: 2rem;
+    text-align: center;
+    padding: 2rem;
   }
 
 @media (max-width: 1400px){

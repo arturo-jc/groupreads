@@ -18,8 +18,8 @@ const User = ({user, showButtons , acceptRequest, declineRequest, handleClose })
     return (
         <div className='user-sm'>
             <p>{user.name}</p>
-            { (showButtons === "all" || showButtons === "accept") && <button className='btn btn-green' onClick={accept}>Accept</button>}
-            { (showButtons === "all" || showButtons === "decline") && <button className='btn btn-red' onClick={decline}>Decline</button>}
+            { (showButtons === "all" || showButtons === "accept") && <button className='btn btn-yellow' onClick={accept}>Accept</button>}
+            { (showButtons === "all" || showButtons === "decline") && <button className='btn btn-grey' onClick={decline}>Decline</button>}
         </div>
     )
 }

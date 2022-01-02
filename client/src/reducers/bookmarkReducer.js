@@ -5,7 +5,8 @@ import {
     BOOKMARKS_ERROR,
     LOADING_BOOKMARKS,
     CLEAR_ERRORS,
-    DELETE_BOOKMARK
+    DELETE_BOOKMARK,
+    LOGOUT
 } from "../actions/types";
 
 const initialState = {
@@ -54,6 +55,8 @@ const bookmarkReducer = (state = initialState, action) => {
                 ...state,
                 error: null
             }
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }

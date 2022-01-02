@@ -5,7 +5,8 @@ import {
     POSTS_ERROR,
     LOADING_POSTS,
     CLEAR_POSTS,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    LOGOUT
 } from "../actions/types";
 
 const initialState = {
@@ -54,6 +55,8 @@ const postReducer = (state = initialState, action) => {
                 ...state,
                 error: null
             }
+        case LOGOUT:
+            return initialState
         default:
             return state;
     }
