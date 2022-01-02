@@ -12,7 +12,8 @@ import {
     LOADING_GROUPS,
     ADD_RECORD,
     DELETE_RECORD,
-    ADD_MEMBER
+    ADD_MEMBER,
+    DECLINE_REQUEST
 } from "../actions/types";
 
 const initialState = {
@@ -85,19 +86,13 @@ const groupReducer = (state = initialState, action) => {
                 error: null
             }
         case ADD_RECORD:
+        case DELETE_RECORD:
+        case ADD_MEMBER:
+        case DECLINE_REQUEST:
             return {
                 ...state,
                 groups: state.groups.map(group => group._id === action.payload._id ? action.payload : group),
                 loading: false
-            }
-        case DELETE_RECORD:
-            return {
-                ...state,
-                groups: state.groups.map(group => group._id === action.payload._id ? action.payload : group),            }
-        case ADD_MEMBER:
-            return {
-                ...state,
-                groups: state.groups.map(group => group._id === action.payload._id ? action.payload : group)
             }
         default:
             return state;

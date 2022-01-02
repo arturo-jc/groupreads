@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const catchAsync = require("../utils/catchAsync");
-const { index, addRecord, showRecord, updateRecord, deleteRecord } = require("../controllers/records");
-const { authenticate, isGroupMember, validateRecord } = require("../middleware");
+const { index, addRecord, showRecord, deleteRecord } = require("../controllers/records");
+const { authenticate, isGroupMember, validateRecord, ownsRecord } = require("../middleware");
 
 // api/groups/:groupId/records
 
@@ -12,6 +12,6 @@ router.route("/")
 
 router.route("/:recordId")
     .get(authenticate, catchAsync(isGroupMember), catchAsync(showRecord))
-    .delete(authenticate, catchAsync(isGroupMember), catchAsync(deleteRecord))
+    .delete(authenticate, catchAsync(isGroupMember), catchAsync(ownsRecord), catchAsync(deleteRecord))
 
 module.exports = router;

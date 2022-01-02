@@ -11,7 +11,8 @@ import {
     FIND_GROUP,
     CLEAR_GROUP_SEARCH_RESULTS,
     GROUPS_ERROR,
-    LOADING_GROUPS
+    LOADING_GROUPS,
+    DECLINE_REQUEST
 } from "./types";
 
 // Set current
@@ -177,6 +178,7 @@ export const sendRequest = groupId => async dispatch => {
 
 // Accept request
 export const acceptRequest = (groupId, userId) => async dispatch => {
+
     // Config request headers
     const config = {
         headers: { "Content-Type": "application/json" }
@@ -199,7 +201,38 @@ export const acceptRequest = (groupId, userId) => async dispatch => {
             payload: res.data
         });
 
-        return res.data;
+    } catch (err) {
+        dispatch({
+            type: GROUPS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
+}
+
+// Decline request
+export const declineRequest = (groupId, userId) => async dispatch => {
+    // Config request headers
+    const config = {
+        headers: { "Content-Type": "application/json" }
+    }
+
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    try{
+        
+        // Send user Id to server
+        // Expect updated group in return
+        const res = await axios.put(`/api/groups/${groupId}/decline`, {userId}, config)
+
+        // If successful, add updated group to state
+        dispatch({
+            type: DECLINE_REQUEST,
+            payload: res.data
+        });
+
 
     } catch (err) {
         dispatch({

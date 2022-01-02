@@ -21,6 +21,7 @@ export const CLEAR_GROUP_SEARCH_RESULTS = 'CLEAR_GROUP_SEARCH_RESULTS';
 export const GROUPS_ERROR = 'GROUPS_ERRORS';
 export const LOADING_GROUPS = 'LOADING_GROUPS';
 export const ADD_MEMBER = 'ADD_MEMBER';
+export const DECLINE_REQUEST = 'DECLINE_REQUEST';
 
 // Search
 export const SEARCH = 'SEARCH';

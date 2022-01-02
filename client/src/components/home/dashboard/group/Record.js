@@ -11,8 +11,9 @@ import Items from './record/Items';
 import Progress from './record/Progress';
 import nocover from "./search/nocover.gif"
 
-const Record = ({ groupState, recordState }) => {
+const Record = ({ groupState, recordState, authState }) => {
 
+    const { user } = authState
     const { current: group } = groupState;
     const { current: recordDetails } = recordState;
     const { recordId } = useParams();
@@ -81,7 +82,7 @@ const Record = ({ groupState, recordState }) => {
                 <div className='btn-group'>
                     <button className='btn btn-yellow' onClick={showNewBookmarkModal}>Add bookmark</button>
                     <button className='btn btn-green' onClick={showNewPostModal}>Write post</button>
-                    <button className='btn btn-red' onClick={showDeleteRecordModal}>Delete book</button>
+                    {recordDetails && recordDetails.owner === user._id && <button className='btn btn-red' onClick={showDeleteRecordModal}>Delete book</button>}
                 </div>
             </div>
             <div className='card'>
@@ -97,12 +98,14 @@ const Record = ({ groupState, recordState }) => {
 
 Record.propTypes = {
     groupState: PropTypes.object.isRequired,
-    recordState: PropTypes.object.isRequired
+    recordState: PropTypes.object.isRequired,
+    authState: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
     groupState: state.group,
-    recordState: state.record
+    recordState: state.record,
+    authState: state.auth
 })
 
 const addState = connect(mapStateToProps);

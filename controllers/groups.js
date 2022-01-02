@@ -55,6 +55,7 @@ module.exports.handleRequest = async (req, res) => {
                 groupId,
                 {
                     $pull: {pendingRequests: userId },
+                    $pull: {declinedRequests: userId },
                     $addToSet: { members: userId }
                 },
                 {new: true}

@@ -1,25 +1,33 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { acceptRequest } from '../../../../../actions/groupActions';
+import { acceptRequest, declineRequest } from '../../../../../actions/groupActions';
+import PropTypes from 'prop-types';
 
-const User = ({user, showButtons = false, acceptRequest }) => {
+const User = ({user, showButtons , acceptRequest, declineRequest, handleClose }) => {
     const { groupId } = useParams();
     const accept = () => {
-        acceptRequest(groupId, user._id)
+        acceptRequest(groupId, user._id);
+        handleClose();
+    }
+    const decline = () => {
+        declineRequest(groupId, user._id)
     }
     return (
         <div className='user-sm'>
             <p>{user.name}</p>
-            {showButtons && 
-            <div>
-                <button className='btn btn-green' onClick={accept}>Accept</button>
-                <button className='btn btn-red'>Decline</button>                
-            </div>}
+            { (showButtons === "all" || showButtons === "accept") && <button className='btn btn-green' onClick={accept}>Accept</button>}
+            { (showButtons === "all" || showButtons === "decline") && <button className='btn btn-red' onClick={decline}>Decline</button>}
         </div>
     )
 }
 
-const addState = connect(null, {acceptRequest})
+User.propTypes = {
+    user: PropTypes.object.isRequired,
+    acceptRequest: PropTypes.func.isRequired,
+    declineRequest: PropTypes.func.isRequired
+}
+
+const addState = connect(null, {acceptRequest, declineRequest})
 
 export default addState(User);

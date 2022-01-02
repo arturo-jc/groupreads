@@ -49,6 +49,14 @@ module.exports.ownsBookmark = async (req, res, next) => {
     next();
 };
 
+module.exports.ownsRecord = async (req, res, next) => {
+    const record = await Record.findById(req.params.recordId);
+    if (record.owner.toString() !== req.user.id) {
+        return res.status(401).json({msg: "Does not own record, authorization denied."})
+    };
+    next();
+}
+
 module.exports.isPostAuthor = async (req, res, next) => {
     const post = await Post.findById(req.params.postId);
     if (post.author.toString() !== req.user.id) {
