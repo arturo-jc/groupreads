@@ -29,7 +29,6 @@ module.exports.addComment = async (req, res) => {
             populate:
                 { path: "author", select: "name" }
         });
-
     await newComment.save();
     return res.json(post);
 }

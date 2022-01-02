@@ -7,7 +7,7 @@ import { setAlert } from "../actions/alertActions";
 
 const Register = ({ authState, register, setAlert }) => {
 
-    const { isAuthenticated, error } = authState;
+    const { isAuthenticated } = authState;
     const navigate = useNavigate();
     useEffect(() => {
         if (isAuthenticated) {

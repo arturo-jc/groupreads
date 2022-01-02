@@ -8,9 +8,9 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERRORS,
     SET_LOADING
 } from "./types";
+import { setAlert } from "./alertActions"
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -21,7 +21,7 @@ export const loadUser = () => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading)
+    dispatch(setLoading())
 
     try {
         // Request user data from backend
@@ -51,7 +51,7 @@ export const register = (user) => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading)
+    dispatch(setLoading())
 
     try {
         // Send user to backend for registration
@@ -77,6 +77,31 @@ export const register = (user) => async dispatch => {
 
 }
 
+// Change password
+export const changePasswords = (userId, passwords) => async dispatch => {
+
+    // Config request headers
+    const config = {
+        headers: { "Content-Type": "application/json" }
+    }
+
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+    try {
+        await axios.put(`/api/users/${userId}`, passwords, config);
+
+        dispatch(setAlert("Password successfully changed.", "success"));
+
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.msg
+        })
+    }
+}
+
 // Login User
 export const login = (user) => async dispatch => {
 
@@ -86,7 +111,7 @@ export const login = (user) => async dispatch => {
     }
 
     //Set loading to true while waiting for server response
-    dispatch(setLoading)
+    dispatch(setLoading())
 
     try {
 
