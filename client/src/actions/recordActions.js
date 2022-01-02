@@ -37,7 +37,6 @@ export const getRecord = (groupId, recordId) => async dispatch => {
     };
 }
 
-// Modify so that it modifies groupState instead of recordState
 // Add a record
 export const addRecord = (bookId, groupId) => async dispatch => {
 
@@ -55,19 +54,14 @@ export const addRecord = (bookId, groupId) => async dispatch => {
     dispatch(loadingRecords());
 
     try {
-        // Send book id to backend to create new record
-        // Expect record back
+        // Send book id to backend to create new record and add to group
+        // Expect group back
         const res = await axios.post(`/api/groups/${groupId}/records`, { bookId }, config);
 
-        // If successful, update group state
-        const payload = {
-            groupId,
-            record: res.data
-        }
-
+        // Update group state
         dispatch({
             type: ADD_RECORD,
-            payload
+            payload: res.data
         })
 
     } catch (err) {
@@ -87,14 +81,13 @@ export const deleteRecord = (groupId, recordId) => async dispatch => {
 
     try {
         // Send record id to server for deletion
-        await axios.delete(`/api/groups/${groupId}/records/${recordId}`);
+        // Expect parent group in return
+        const res = await axios.delete(`/api/groups/${groupId}/records/${recordId}`);
 
         // If successful, update group state
-        const payload = { groupId, recordId }
-        
         dispatch({
             type: DELETE_RECORD,
-            payload
+            payload: res.data
         })
 
         dispatch(clearCurrentRecord());

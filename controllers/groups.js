@@ -48,9 +48,10 @@ module.exports.sendRequest = async (req, res) => {
 module.exports.handleRequest = async (req, res) => {
     const {groupId, action } = req.params;
     const { userId } = req.body;
+    let group = null;
     switch(action){
         case "accept":
-            const group = await Group.findByIdAndUpdate(
+            group = await Group.findByIdAndUpdate(
                 groupId,
                 {
                     $pull: {pendingRequests: userId },
@@ -64,14 +65,19 @@ module.exports.handleRequest = async (req, res) => {
             .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
             return res.json(group)
         case "decline":
-            await Group.findByIdAndUpdate(
+            group = await Group.findByIdAndUpdate(
                 groupId,
                 {
                     $pull: {pendingRequests: userId },
                     $addToSet: { declinedRequests: userId }
-                }
+                },
+                { new: true }
             )
-            return res.json({msg: "Request declined"})
+            .populate({ path: "members", select: "name" })
+            .populate({ path: "pendingRequests", select: "name"})
+            .populate({ path: "declinedRequests", select: "name"})
+            .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
+            return res.json(group)
         default:
             return res.status(400).json({msg: "Failed to specify action in params. Possible actions: accept, decline"})
     }

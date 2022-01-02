@@ -18,17 +18,21 @@ module.exports.addRecord = async (req, res) => {
         owner: req.user.id
      })
 
-    await Group.findByIdAndUpdate(
+    const group = await Group.findByIdAndUpdate(
         req.params.groupId,
         {
             $addToSet: {
                 records: newRecord
             }
-        })
-
-    const { _id } = await newRecord.save();
-    const record = await Record.findById(_id).populate("book");
-    return res.json(record);
+        },
+        { new: true })
+        .populate({ path: "members", select: "name" })
+        .populate({ path: "pendingRequests", select: "name"})
+        .populate({ path: "declinedRequests", select: "name"})
+        .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
+        
+        newRecord.save();
+    return res.json(group);
 }
 
 // GET api/groups/:groupId/records/:recordId
@@ -44,13 +48,18 @@ module.exports.deleteRecord = async (req, res) => {
 
     await Record.findByIdAndDelete(req.params.recordId)
 
-    await Group.findByIdAndUpdate(
+    const group = await Group.findByIdAndUpdate(
         groupId,
         {
             $pull: {
                 records: { _id: recordId}
             }
-        })
+        },
+        { new: true })
+        .populate({ path: "members", select: "name" })
+        .populate({ path: "pendingRequests", select: "name"})
+        .populate({ path: "declinedRequests", select: "name"})
+        .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
         
-    return res.json({ msg: "Record deleted" })
+    return res.json(group);
 }
