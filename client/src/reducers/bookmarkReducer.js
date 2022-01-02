@@ -43,7 +43,7 @@ const bookmarkReducer = (state = initialState, action) => {
         case DELETE_BOOKMARK:
             return {
                 ...state,
-                bookmarks: state.bookmarks.filter(bookmark => bookmark._id !== action.payload)
+                bookmarks: state.bookmarks.filter(bookmark => bookmark._id !== action.payload._id)
             }
         case CLEAR_BOOKMARKS:
             return {

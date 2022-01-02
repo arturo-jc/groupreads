@@ -80,12 +80,13 @@ export const deleteBookmark = (groupId, recordId, bookmarkId) => async dispatch 
     try {
 
         // Send bookmark id to server for deletion
-        await axios.delete(`/api/groups/${groupId}/records/${recordId}/bookmarks/${bookmarkId}`);
+        // Expect deleted bookmark back
+        const res = await axios.delete(`/api/groups/${groupId}/records/${recordId}/bookmarks/${bookmarkId}`);
 
         // If successful, delete bookmark from state
         dispatch({
             type: DELETE_BOOKMARK,
-            payload: bookmarkId
+            payload: res.data
         });
     } catch (err) {
         dispatch({

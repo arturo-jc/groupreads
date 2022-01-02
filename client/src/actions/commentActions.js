@@ -1,6 +1,8 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import {
+    ADD_COMMENT,
+    DELETE_COMMENT,
     SET_LOADING,
     COMMENT_ERROR
 } from "./types"
@@ -23,7 +25,12 @@ export const addComment = (groupId, recordId, postId, comment) => async dispatch
     const endpoint = `/api/groups/${groupId}/records/${recordId}/posts/${postId}/comments`;
 
     try {
-        await axios.post(endpoint, comment, config);
+        const res = await axios.post(endpoint, comment, config);
+
+        dispatch({
+            type: ADD_COMMENT,
+            payload: res.data
+        })
 
     } catch (err) {
         dispatch({
@@ -42,7 +49,13 @@ export const deleteComment = (groupId, recordId, postId, commentId) => async dis
     }
 
     try {
-        await axios.delete(`/api/groups/${groupId}/records/${recordId}/posts/${postId}/comments/${commentId}`);
+
+        const res = await axios.delete(`/api/groups/${groupId}/records/${recordId}/posts/${postId}/comments/${commentId}`);
+   
+        dispatch({
+            type: DELETE_COMMENT,
+            payload: res.data
+        })
     } catch (err) {
         dispatch({
             type: COMMENT_ERROR,

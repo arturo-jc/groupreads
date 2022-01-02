@@ -44,6 +44,6 @@ module.exports.updateBookmark = async (req, res) => {
 
 // DELETE api/groups/:groupId/records/:recordId/bookmarks/:bookmarkId
 module.exports.deleteBookmark = async (req, res) => {
-    await Bookmark.findByIdAndDelete(req.params.bookmarkId);
-    return res.json({ msg: "Bookmark deleted." })
+    const bookmark = await Bookmark.findByIdAndDelete(req.params.bookmarkId);
+    return res.json(bookmark)
 }

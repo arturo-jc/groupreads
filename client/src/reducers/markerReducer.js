@@ -43,7 +43,7 @@ const markerReducer = (state = initialState, action) => {
         case DELETE_MARKER:
             return {
                 ...state,
-                markers: state.markers.filter(marker => marker._id !== action.payload)
+                markers: state.markers.filter(marker => marker._id !== action.payload._id)
             }
         case CLEAR_MARKERS:
             return {

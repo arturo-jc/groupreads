@@ -10,7 +10,6 @@ module.exports.index = async (req, res) => {
 module.exports.addMarker = async (req, res) => {
     const newMarker = new Marker({
         record: req.params.recordId,
-        // AddedBy...
         page: req.body.page
     })
     const marker = await newMarker.save();
@@ -33,6 +32,6 @@ module.exports.updateMarker = async (req, res) => {
 
 // DELETE api/groups/:groupId/records/:recordId/markers/:markerId
 module.exports.deleteMarker = async (req, res) => {
-    await Marker.findByIdAndDelete(req.params.markerId);
-    return res.json({ msg: "Progress marker deleted." })
+    const marker = await Marker.findByIdAndDelete(req.params.markerId);
+    return res.json(marker)
 }

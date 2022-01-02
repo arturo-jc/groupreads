@@ -6,6 +6,8 @@ import {
     LOADING_POSTS,
     CLEAR_POSTS,
     CLEAR_ERRORS,
+    ADD_COMMENT,
+    DELETE_COMMENT,
     LOGOUT
 } from "../actions/types";
 
@@ -28,6 +30,12 @@ const postReducer = (state = initialState, action) => {
                 ...state,
                 posts: action.payload,
                 loading: false
+            }
+        case ADD_COMMENT:
+        case DELETE_COMMENT:
+            return {
+                ...state,
+                posts: state.posts.map(post => post._id === action.payload._id ? action.payload : post),
             }
         case LOADING_POSTS:
             return {

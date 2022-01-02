@@ -77,12 +77,13 @@ export const deleteMarker = (groupId, recordId, markerId) => async dispatch => {
 
     try {
         // Send marker id to server for deletion
-        await axios.delete(`/api/groups/${groupId}/records/${recordId}/markers/${markerId}`);
+        // Expected deleted marker back
+        const res = await axios.delete(`/api/groups/${groupId}/records/${recordId}/markers/${markerId}`);
 
-        // If successful, add marker to state
+        // If successful, delete from state
         dispatch({
             type: DELETE_MARKER,
-            payload: markerId
+            payload: res.data
         });
     } catch (err) {
         dispatch({

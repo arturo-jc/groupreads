@@ -11,13 +11,18 @@ const Navbar = ({ authState, title, icon, logout }) => {
             show: !dropdown.show
         })
     }
+    const closeDropdown = () => {
+        setDropdown({
+            show: false
+        })
+    }
 
     const navigate = useNavigate();
 
     const onLogout = () => {
         logout();
         navigate("/");
-        setDropdown({show: false})
+        closeDropdown();
     };
 
     const { isAuthenticated, user } = authState;
@@ -26,7 +31,7 @@ const Navbar = ({ authState, title, icon, logout }) => {
             <ul>
                 {user && <li className='navlink' onClick={toggleDropdown}>{user.name}</li>}
                 <ul className={`dropdown ${dropdown.show && "active"}`}>
-                    <li className='navlink'>Account</li>
+                    <Link to="account" className='navlink' onClick={closeDropdown}>Account</Link>
                     <li className='navlink' onClick={onLogout}>
                         Sign out
                     </li>

@@ -52,6 +52,8 @@ export const LOADING_POSTS = 'LOADING_POSTS';
 
 // Comments
 export const COMMENT_ERROR = 'COMMENT_ERROR';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 // Markers
 export const GET_MARKERS = 'GET_MARKERS';

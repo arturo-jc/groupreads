@@ -15,16 +15,23 @@ module.exports.addComment = async (req, res) => {
         body: req.body.body
     });
 
-    await Post.findByIdAndUpdate(
+    const post = await Post.findByIdAndUpdate(
         req.params.postId,
         {
             $addToSet: {
                 comments: newComment
             }
+        },
+        {new: true})
+        .populate({ path: "author", select: "name" })
+        .populate({
+            path: "comments",
+            populate:
+                { path: "author", select: "name" }
         });
 
-    const comment = await newComment.save();
-    return res.json(comment);
+    await newComment.save();
+    return res.json(post);
 }
 
 // PUT api/groups/:groupId/records/:recordId/posts/:postId/comments/:commentId
@@ -46,7 +53,17 @@ module.exports.deleteComment = async (req, res) => {
 
     await Comment.findByIdAndDelete(commentId);
 
-    await Post.findByIdAndUpdate(postId, { $pull: { comments: commentId } });
+    const post = await Post.findByIdAndUpdate(
+        postId,
+        { $pull: { comments: commentId } },
+        {new: true}
+        )
+        .populate({ path: "author", select: "name" })
+        .populate({
+            path: "comments",
+            populate:
+                { path: "author", select: "name" }
+        });
 
-    return res.json({ msg: "Comment deleted." })
+    return res.json(post)
 }
