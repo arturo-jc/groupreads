@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import Members from './groupDetails/Members';
+import Requests from './groupDetails/Requests';
 import Records from './groupDetails/Records';
 import Modal from "../../../Modal";
 import PropTypes from 'prop-types';
@@ -26,7 +27,8 @@ const GroupDetails = ({authState, groupState}) => {
     return (
         <div>
             <div className="card">
-                <Members />
+                {current && <Members members={current.members} /> }
+                {current && current.pendingRequests.length > 0 && <Requests title='Pending Requests' requests={current.pendingRequests} /> }
                 <div className='btn-group'>
                     <button className="btn btn-yellow">Add members</button>
                     {current && current.members.length === 1 && current.members.map(member => member._id).includes(user._id) && <button className='btn btn-red' onClick={showDeleteGroupModal}>Delete group</button>}

@@ -11,7 +11,8 @@ import {
     GROUPS_ERROR,
     LOADING_GROUPS,
     ADD_RECORD,
-    DELETE_RECORD
+    DELETE_RECORD,
+    ADD_MEMBER
 } from "../actions/types";
 
 const initialState = {
@@ -93,6 +94,11 @@ const groupReducer = (state = initialState, action) => {
             return {
                 ...state,
                 groups: state.groups.map(group => group._id === action.payload.groupId? {...group, records: group.records.filter(record => record._id !== action.payload.recordId)} : group)
+            }
+        case ADD_MEMBER:
+            return {
+                ...state,
+                groups: state.groups.map(group => group._id === action.payload._id ? action.payload : group)
             }
         default:
             return state;

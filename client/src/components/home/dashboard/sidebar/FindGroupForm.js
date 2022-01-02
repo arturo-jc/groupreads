@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { findGroup } from "../../../../actions/groupActions";
 import { setAlert } from '../../../../actions/alertActions';
 import PropTypes from 'prop-types';
+import Result from "./Result";
 
 export const FindGroupForm = ({ groupState, findGroup, setAlert, handleClose }) => {
 
@@ -15,6 +16,8 @@ export const FindGroupForm = ({ groupState, findGroup, setAlert, handleClose }) 
         })
     }
 
+    const { searchResult } = groupState;
+
     const onSubmit = e => {
         e.preventDefault();
         if (group._id === ""){
@@ -25,19 +28,19 @@ export const FindGroupForm = ({ groupState, findGroup, setAlert, handleClose }) 
         }
     }
 
-    const { searchResult } = groupState;
+    if (searchResult){
+        return <Result result={searchResult} handleClose={handleClose}/>
+    }
 
-    return (
-        <Fragment>
-        <h3>Find Group By ID</h3>
-        <form onSubmit={onSubmit}>
-            <label className='hidden' htmlFor="_id">Group Id</label>
-            <input className='form-input' type="text" id="_id" name="_id" value={group._id} onChange={onChange} placeholder='Group ID'/>
-            <input className='btn btn-yellow' type="submit" value="Find" />
-        </form>
-        {searchResult && <p>{searchResult.name}</p>}
-        </Fragment>
-    )
+    return (<Fragment>
+            <h3>Find Group By ID</h3>
+            <form onSubmit={onSubmit}>
+                <label className='hidden' htmlFor="_id">Group Id</label>
+                <input className='form-input' type="text" id="_id" name="_id" value={group._id} onChange={onChange} placeholder='Group ID'/>
+                <input className='btn btn-yellow' type="submit" value="Find" />
+            </form>
+            </Fragment>)
+
 }
 
 FindGroupForm.propTypes = {

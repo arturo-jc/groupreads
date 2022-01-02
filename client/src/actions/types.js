@@ -20,6 +20,7 @@ export const FIND_GROUP = 'FIND_GROUP';
 export const CLEAR_GROUP_SEARCH_RESULTS = 'CLEAR_GROUP_SEARCH_RESULTS';
 export const GROUPS_ERROR = 'GROUPS_ERRORS';
 export const LOADING_GROUPS = 'LOADING_GROUPS';
+export const ADD_MEMBER = 'ADD_MEMBER';
 
 // Search
 export const SEARCH = 'SEARCH';

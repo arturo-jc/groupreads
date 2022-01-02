@@ -6,7 +6,6 @@ import GroupDetails from './group/GroupDetails';
 import Search from './group/Search';
 import Record from './group/Record';
 import { setCurrentGroup } from '../../../actions/groupActions';
-import { getRecordsFor } from '../../../actions/recordActions';
 
 const Group = ({ groupState, setCurrentGroup }) => {
     

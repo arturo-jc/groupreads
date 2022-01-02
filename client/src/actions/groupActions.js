@@ -5,6 +5,7 @@ import {
     ADD_GROUP,
     DELETE_GROUP,
     SET_CURRENT_GROUP,
+    ADD_MEMBER,
     CLEAR_GROUPS,
     CLEAR_CURRENT_GROUP,
     FIND_GROUP,
@@ -61,7 +62,7 @@ export const deleteGroup = groupId => async dispatch => {
         // Send group id to server for deletion
         await axios.delete(`/api/groups/${groupId}`)
 
-        // If successful, add new group to state
+        // If successful, delete group from state
         dispatch({
             type: DELETE_GROUP,
             payload: groupId
@@ -146,6 +147,59 @@ export const findGroup = groupId => async dispatch => {
             type: FIND_GROUP,
             payload: res.data
         })
+
+    } catch (err) {
+        dispatch({
+            type: GROUPS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
+}
+
+// Request to join a group
+export const sendRequest = groupId => async dispatch => {
+  
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    try {
+        await axios.put(`/api/groups/${groupId}/request`)
+
+    } catch (err) {
+        dispatch({
+            type: GROUPS_ERROR,
+            payload: err.response.data.msg
+        })
+    }
+}
+
+// Accept request
+export const acceptRequest = (groupId, userId) => async dispatch => {
+    // Config request headers
+    const config = {
+        headers: { "Content-Type": "application/json" }
+    }
+
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+
+    try {
+
+        // Send user Id to server
+        // Expect updated group in return
+        const res = await axios.put(`/api/groups/${groupId}/accept`, {userId}, config)
+
+        // If successful, add updated group to state
+        dispatch({
+            type: ADD_MEMBER,
+            payload: res.data
+        });
+
+        return res.data;
 
     } catch (err) {
         dispatch({

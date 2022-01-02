@@ -149,6 +149,10 @@ main {
     border: 1px solid var(--grey)
 }
 
+.requests {
+    margin-top: 1rem;
+}
+
 .post {
     line-height: 1.5;
 }

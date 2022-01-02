@@ -24,6 +24,14 @@ const GroupSchema = new Schema({
         },
         startedOn: Date,
         finishedOn: Date
+    }],
+    pendingRequests: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }],
+    declinedRequests: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
     }]
 })
 
