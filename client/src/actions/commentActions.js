@@ -9,6 +9,8 @@ import {
 
 // Add comment to post
 export const addComment = (groupId, recordId, postId, comment) => async dispatch => {
+    console.log(comment)
+    
     // Config request headers
     const config = {
         headers: { "Content-Type": "application/json" }
@@ -19,17 +21,18 @@ export const addComment = (groupId, recordId, postId, comment) => async dispatch
         setAuthToken(localStorage.token)
     }
 
-    //Set loading to true while waiting for server response
-    dispatch(setLoading);
-
     const endpoint = `/api/groups/${groupId}/records/${recordId}/posts/${postId}/comments`;
 
     try {
         const res = await axios.post(endpoint, comment, config);
 
+        const { post, comment: newComment } = res.data;
+        post.comments.push(newComment);
+        console.log(post)
+
         dispatch({
             type: ADD_COMMENT,
-            payload: res.data
+            payload: post
         })
 
     } catch (err) {

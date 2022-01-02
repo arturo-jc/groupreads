@@ -27,7 +27,6 @@ const AddCommentForm = ({ postId, addComment, getPostsFor, setAlert }) => {
             setAlert("Your comment cannot be empty.", "danger")
         } else{
             addComment(groupId, recordId, postId, comment);
-            getPostsFor(groupId, recordId);
             setComment({
                 body: ""
             });

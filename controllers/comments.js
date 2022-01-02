@@ -21,16 +21,16 @@ module.exports.addComment = async (req, res) => {
             $addToSet: {
                 comments: newComment
             }
-        },
-        {new: true})
+        })
         .populate({ path: "author", select: "name" })
         .populate({
             path: "comments",
             populate:
                 { path: "author", select: "name" }
         });
-    await newComment.save();
-    return res.json(post);
+    const comment = await newComment.save()
+    await Comment.populate(comment, {path: "author", select: "name"})
+    return res.json({post, comment});
 }
 
 // PUT api/groups/:groupId/records/:recordId/posts/:postId/comments/:commentId
