@@ -12,7 +12,6 @@ const ProgressBar = ({ completed }) => {
     const fillerStyles = {
         height: '100%',
         width: `${completed}%`,
-        backgroundColor: "#18793c",
         borderRadius: 'inherit',
         textAlign: 'right'
       }
@@ -24,7 +23,7 @@ const ProgressBar = ({ completed }) => {
 
     return (
         <div style={containerStyles}>
-            <div style={fillerStyles}>
+            <div className={`progress-bar-${Math.floor(completed/10) * 10}`} style={fillerStyles}>
                 <span style={labelStyles}>{`${completed}%`}</span>
             </div>
         </div>

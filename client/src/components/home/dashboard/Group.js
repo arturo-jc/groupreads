@@ -24,7 +24,9 @@ const Group = ({ groupState, setCurrentGroup }) => {
 
     return (
     <Fragment>
+        <div className="card">
         {current && <h2>{current.name}</h2>}
+        </div>
         <Routes>
                 <Route path="" element={<GroupDetails />} />
                 <Route path="/search" element={<Search />} />

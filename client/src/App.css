@@ -32,6 +32,107 @@
         #f84632,
         #db3f2e
     );
+    --gradient-100: linear-gradient(
+        to left, 
+        #f84632, 
+        #fe6f2a, 
+        #ff9229, 
+        #ffb234, 
+        #ffd149, 
+        #eade5c, 
+        #d7ea74, 
+        #c5f38e, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+    --gradient-90: linear-gradient(
+        to left, 
+        #fe6f2a, 
+        #ff9229, 
+        #ffb234, 
+        #ffd149, 
+        #eade5c, 
+        #d7ea74, 
+        #c5f38e, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+    --gradient-80: linear-gradient(
+        to left, 
+        #ff9229, 
+        #ffb234, 
+        #ffd149, 
+        #eade5c, 
+        #d7ea74, 
+        #c5f38e, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+        --gradient-70: linear-gradient(
+        to left, 
+        #ffb234, 
+        #ffd149, 
+        #eade5c, 
+        #d7ea74, 
+        #c5f38e, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+        --gradient-60: linear-gradient(
+        to left, 
+        #ffd149, 
+        #eade5c, 
+        #d7ea74, 
+        #c5f38e, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+        --gradient-50: linear-gradient(
+        to left, 
+        #eade5c, 
+        #d7ea74, 
+        #c5f38e, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+        --gradient-40: linear-gradient(
+        to left, 
+        #d7ea74, 
+        #c5f38e, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+        --gradient-30: linear-gradient(
+        to left, 
+        #c5f38e, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+        --gradient-20: linear-gradient(
+        to left, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+        --gradient-10: linear-gradient(
+        to left, 
+        #a8eba4, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
+        --gradient-0: linear-gradient(
+        to left, 
+        #95e1b5, 
+        #90d5bf, 
+        #96c7c1);
 }
 
 * {
@@ -466,6 +567,50 @@ main {
       margin: 0 1rem;
       min-width: fit-content;
       height: fit-content;
+  }
+
+  .progress-bar-100 {
+      background-image: var(--gradient-100);
+  }
+
+  .progress-bar-90 {
+      background-image: var(--gradient-90);
+  }
+
+  .progress-bar-80 {
+      background-image: var(--gradient-80);
+  }
+
+  .progress-bar-70 {
+      background-image: var(--gradient-70);
+  }
+
+  .progress-bar-60 {
+      background-image: var(--gradient-60);
+  }
+
+  .progress-bar-50 {
+      background-image: var(--gradient-50);
+  }
+
+  .progress-bar-40 {
+      background-image: var(--gradient-40);
+  }
+
+  .progress-bar-30 {
+      background-image: var(--gradient-30);
+  }
+
+  .progress-bar-20 {
+      background-image: var(--gradient-20);
+  }
+
+  .progress-bar-10 {
+      background-image: var(--gradient-10);
+  }
+
+  .progress-bar-0 {
+      background-image: var(--gradient-0);
   }
 
   .auth-container {
