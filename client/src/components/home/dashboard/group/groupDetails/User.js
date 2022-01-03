@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { acceptRequest, declineRequest } from '../../../../../actions/groupActions';
 import PropTypes from 'prop-types';
+import cloudinary from '../../../../../utils/cloudinary';
+import blank from "./blank-profile-photo-sm.jpeg"
 
-const User = ({user, showButtons , acceptRequest, declineRequest, handleClose }) => {
+const User = ({user, showButtons = false, acceptRequest, declineRequest, handleClose }) => {
     const { groupId } = useParams();
     const accept = () => {
         acceptRequest(groupId, user._id);
@@ -16,7 +18,8 @@ const User = ({user, showButtons , acceptRequest, declineRequest, handleClose })
         declineRequest(groupId, user._id)
     }
     return (
-        <div className='user-sm'>
+        <div className='user'>
+            <img className='profile profile-sm' src={ user.profilePic? cloudinary.small(user.profilePic.url) : blank }/>
             <p>{user.name}</p>
             { (showButtons === "all" || showButtons === "accept") && <button className='btn btn-yellow' onClick={accept}>Accept</button>}
             { (showButtons === "all" || showButtons === "decline") && <button className='btn btn-grey' onClick={decline}>Decline</button>}

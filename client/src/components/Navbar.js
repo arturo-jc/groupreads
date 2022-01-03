@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from "react-router-dom";
@@ -17,12 +17,15 @@ const Navbar = ({ authState, title, icon, logout }) => {
         })
     }
 
+    useEffect(() => {
+        closeDropdown();
+    }, [window.location.href])
+
     const navigate = useNavigate();
 
     const onLogout = () => {
         logout();
         navigate("/");
-        closeDropdown();
     };
 
     const { isAuthenticated, user } = authState;
@@ -31,7 +34,7 @@ const Navbar = ({ authState, title, icon, logout }) => {
             <ul>
                 {user && <li className='navlink' onClick={toggleDropdown}>{user.name}</li>}
                 <ul className={`dropdown ${dropdown.show && "active"}`}>
-                    <Link to="account" className='navlink' onClick={closeDropdown}>Account</Link>
+                    <Link to="account" className='navlink'>Account</Link>
                     <li className='navlink' onClick={onLogout}>
                         Sign out
                     </li>

@@ -26,7 +26,7 @@ module.exports.addRecord = async (req, res) => {
             }
         },
         { new: true })
-        .populate({ path: "members", select: "name" })
+        .populate({ path: "members", select: "-password" })
         .populate({ path: "pendingRequests", select: "name"})
         .populate({ path: "declinedRequests", select: "name"})
         .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });
@@ -56,7 +56,7 @@ module.exports.deleteRecord = async (req, res) => {
             }
         },
         { new: true })
-        .populate({ path: "members", select: "name" })
+        .populate({ path: "members", select: "-password" })
         .populate({ path: "pendingRequests", select: "name"})
         .populate({ path: "declinedRequests", select: "name"})
         .populate({ path: "records", populate: { path: "book", select: "title authors imageUrl" } });

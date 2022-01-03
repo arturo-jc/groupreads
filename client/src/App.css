@@ -263,10 +263,6 @@ main {
     border: 1px solid var(--grey)
 }
 
-.requests {
-    margin-top: 1rem;
-}
-
 .post {
     line-height: 1.5;
 }
@@ -310,6 +306,29 @@ main {
     gap: 1rem;
     margin: 1rem 0;
 }
+
+.users {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.user {
+    text-align: center;
+    margin: auto;
+}
+
+.user .btn {
+    margin: auto;
+    margin-top: .5rem;
+    padding: 3px 5px;
+}
+
+.user img {
+    margin-bottom: .5rem;
+}
+
 
 .get-started {
     line-height: 1.5;
@@ -475,6 +494,7 @@ main {
 
   .book {
       text-align: center;
+      margin: auto;
   }
 
   .book-info{
@@ -672,6 +692,24 @@ main {
       color: black;
   }
 
+  .user{
+      width: fit-content;
+  }
+
+  .profile {
+      border-radius: 100%;
+      margin: auto;
+      display: block;
+  }
+
+  .profile-lg {
+      width: 300px;
+  }
+
+  .profile-sm {
+      width: 40px;
+  }
+
   .spinner {
       max-width: 200px;
       margin: auto;
@@ -687,6 +725,9 @@ main {
     .books {
         grid-template-columns: repeat(3, 1fr);
     }
+    .users {
+        grid-template-columns: repeat(7, 1fr);
+    }
     .modal-main{
         max-width: 60%;
     }
@@ -699,6 +740,9 @@ main {
 
     .books {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .users {
+        grid-template-columns: repeat(3, 1fr);
     }
     .modal-main{
         max-width: 80%;

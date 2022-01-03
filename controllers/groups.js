@@ -3,9 +3,9 @@ const Group = require("../models/Group")
 // GET api/groups
 module.exports.index = async (req, res) => {
     const groups = await Group.find({ members: { $in: req.user.id } })
-        .populate({ path: "members", select: "name" })
-        .populate({ path: "pendingRequests", select: "name"})
-        .populate({ path: "declinedRequests", select: "name"})
+        .populate({ path: "members", select: "-password" })
+        .populate({ path: "pendingRequests", select: "-password"})
+        .populate({ path: "declinedRequests", select: "-password"})
         .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } })
     return res.json(groups);
 }
@@ -21,9 +21,9 @@ module.exports.createGroup = async (req, res) => {
     // Stupid way of doing things while I figure out a better way
     const { _id } = await newGroup.save();
     const group = await Group.findById(_id)
-        .populate({ path: "members", select: "name" })
-        .populate({ path: "pendingRequests", select: "name"})
-        .populate({ path: "declinedRequests", select: "name"})
+        .populate({ path: "members", select: "-password" })
+        .populate({ path: "pendingRequests", select: "-password"})
+        .populate({ path: "declinedRequests", select: "-password"})
         .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } });
     return res.json(group);
 }
@@ -31,7 +31,7 @@ module.exports.createGroup = async (req, res) => {
 // GET api/groups/:groupId
 module.exports.findGroup = async (req, res) => {
     const group = await Group.findById(req.params.groupId)
-        .populate({ path: "members", select: "name" })
+        .populate({ path: "members", select: "-password" })
     return res.json(group);
 }
 
@@ -70,9 +70,9 @@ module.exports.handleRequest = async (req, res) => {
                 },
                 {new: true}
             )
-            .populate({ path: "members", select: "name" })
-            .populate({ path: "pendingRequests", select: "name"})
-            .populate({ path: "declinedRequests", select: "name"})
+            .populate({ path: "members", select: "-password" })
+            .populate({ path: "pendingRequests", select: "-password"})
+            .populate({ path: "declinedRequests", select: "-password"})
             .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } });
             return res.json(group)
         case "decline":
@@ -85,9 +85,9 @@ module.exports.handleRequest = async (req, res) => {
                 },
                 { new: true }
             )
-            .populate({ path: "members", select: "name" })
-            .populate({ path: "pendingRequests", select: "name"})
-            .populate({ path: "declinedRequests", select: "name"})
+            .populate({ path: "members", select: "-password" })
+            .populate({ path: "pendingRequests", select: "-password"})
+            .populate({ path: "declinedRequests", select: "-password"})
             .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } });
             console.log(group)
             return res.json(group)
