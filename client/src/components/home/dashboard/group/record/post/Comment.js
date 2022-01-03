@@ -10,7 +10,6 @@ const Comment = ({comment, postId, authState, deleteComment, getPostsFor}) => {
     const { groupId, recordId } = useParams();
     const onClick = () => {
         deleteComment(groupId, recordId, postId, comment._id);
-        getPostsFor(groupId, recordId);
     }
 
     return (

@@ -8,7 +8,10 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    SET_LOADING
+    UPLOAD_SUCCESS,
+    UPLOAD_FAIL,
+    SET_LOADING,
+    CHANGE_PASSWORD_FAIL
 } from "./types";
 import { setAlert } from "./alertActions"
 
@@ -90,13 +93,13 @@ export const changePasswords = (userId, passwords) => async dispatch => {
         setAuthToken(localStorage.token)
     }
     try {
-        await axios.put(`/api/users/${userId}`, passwords, config);
+        await axios.put(`/api/users/${userId}/change-password`, passwords, config);
 
         dispatch(setAlert("Password successfully changed.", "success"));
 
     } catch (err) {
         dispatch({
-            type: AUTH_ERROR,
+            type: CHANGE_PASSWORD_FAIL,
             payload: err.response.data.msg
         })
     }
@@ -141,3 +144,35 @@ export const logout = () => { return { type: LOGOUT } }
 
 // Set loading to true
 export const setLoading = () => { return { type: SET_LOADING } }
+
+export const uploadPicture = (userId, file) => async dispatch => {
+
+    const formData = new FormData()
+    formData.append("file", file)
+
+    // Config request headers
+    const config = {
+        headers: { "Content-Type": "multipart/form-data" }
+    }
+
+    dispatch(setLoading());
+    
+    try{
+
+        axios.put(`/api/users/${userId}/update-picture`, formData, config)
+        
+        dispatch({
+            type: UPLOAD_SUCCESS
+        })
+        dispatch(setAlert("Profile picture successfully updated.", "success"));
+
+    } catch (err) {
+        dispatch({
+            type: UPLOAD_FAIL,
+            payload: err.response.data.msg
+        })
+    }
+
+
+
+}

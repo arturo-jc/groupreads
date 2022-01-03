@@ -8,6 +8,9 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const SET_LOADING = 'SET_LOADING';
+export const UPLOAD_SUCCESS = 'UPLOAD_PICTURE';
+export const UPLOAD_FAIL = 'UPLOAD_FAIL';
+export const CHANGE_PASSWORD_FAIL = 'CHANGE_PASSWORD_FAIL';
 
 // Groups
 export const SET_CURRENT_GROUP = 'SET_CURRENT_GROUP';

@@ -29,7 +29,7 @@ module.exports.registerUser = async (req, res) => {
     return res.json({ token })
 }
 
-// POST api/users
+// PUT api/users/
 module.exports.changePassword = async (req, res) => {
     const { current, password } = req.body;
     const user = await User.findById(req.user.id)
@@ -41,4 +41,25 @@ module.exports.changePassword = async (req, res) => {
     user.password = await hash(password, salt);
     await user.save();
     return res.json({msg: "success"})
+}
+
+module.exports.updatePicture = async (req, res) => {
+    // Figure out how to get req.file ?
+    // Does it come from a middleware
+    // GOT IT: they came from Multer
+
+    // const user = await User.findByIdAndUpdate(
+    //     req.user.id,
+    //     {
+    //         $set: {
+    //             profilePic: {
+    //                 url: req.file.path,
+    //                 filename: req.file.filename
+    //             }
+    //         }
+    //     }
+    // )
+    // console.log(user)
+    // .select("-password")
+    res.json({msg: "Ok"})
 }

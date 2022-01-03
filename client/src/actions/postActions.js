@@ -83,7 +83,7 @@ export const deletePost = (groupId, recordId, postId) => async dispatch => {
         // If successful, add post to state
         dispatch({
             type: DELETE_POST,
-            payload: postId
+            payload: res.data
         });
 
     } catch (err) {

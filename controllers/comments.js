@@ -63,6 +63,5 @@ module.exports.deleteComment = async (req, res) => {
             populate:
                 { path: "author", select: "name" }
         });
-
     return res.json(post)
 }

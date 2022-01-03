@@ -668,8 +668,8 @@ main {
   }
 
   .alert-success {
-      background-color: var(--green);
-      color: #fff;
+      background-color: var(--yellow);
+      color: black;
   }
 
   .spinner {

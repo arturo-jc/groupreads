@@ -29,6 +29,11 @@ const ChangePasswordForm = ({authState, changePasswords, setAlert, handleClose }
             setAlert("Passwords do not match", "danger");
         } else {
             changePasswords(user._id, passwords)
+            setPasswords({
+                current: "",
+                password: "",
+                password2: ""
+            })
             handleClose();
         }
     }

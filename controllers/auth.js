@@ -5,7 +5,12 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 module.exports.getCurrentUser = async (req, res) => {
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id)
+    .select("-password")
+    .populate({
+        path: "profilePic",
+        populate: "filename"
+    })
     return res.json(user);
 }
 

@@ -7,7 +7,10 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     CLEAR_ERRORS,
-    SET_LOADING
+    SET_LOADING,
+    CHANGE_PASSWORD_FAIL,
+    UPLOAD_SUCCESS,
+    UPLOAD_FAIL
 } from "../actions/types";
 
 const initialState = {
@@ -36,6 +39,11 @@ const authReducer = (state = initialState, action) => {
                 isAuthenticated: true,
                 loading: false
             }
+        case UPLOAD_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case AUTH_ERROR:
@@ -47,6 +55,13 @@ const authReducer = (state = initialState, action) => {
                 loading: false,
                 user: null,
                 error: action.payload
+            }
+        case CHANGE_PASSWORD_FAIL:
+        case UPLOAD_FAIL:
+            return {
+                ...state,
+                error: action.payload,
+                loading: false
             }
         case LOGOUT:
             localStorage.removeItem("token");

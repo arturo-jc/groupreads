@@ -9,8 +9,7 @@ import {
 
 // Add comment to post
 export const addComment = (groupId, recordId, postId, comment) => async dispatch => {
-    console.log(comment)
-    
+
     // Config request headers
     const config = {
         headers: { "Content-Type": "application/json" }
