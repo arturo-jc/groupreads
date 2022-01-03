@@ -15,6 +15,7 @@ const jwt = require("jsonwebtoken");
 // PERMISSIONS
 
 module.exports.authenticate = (req, res, next) => {
+    console.log("hit authenticate")
     const token = req.header("x-auth-token");
     if (!token) {
         return res.status(401).json({ msg: "No token, authorization denied." });
@@ -80,6 +81,13 @@ module.exports.isCommentAuthor = async (req, res, next) => {
     }
     next();
 }
+
+module.exports.ownsAccount = (req, res, next) => {
+    if (req.params.userId !== req.user.id) {
+        return res.status(401).json({ msg: "Does not own account, authorization denied." });
+    };
+    next();
+};
 
 // VALIDATION
 
