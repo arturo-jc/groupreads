@@ -24,6 +24,7 @@ const Account = ({authState}) => {
     return (
         <div className='card'>
             { user && <h2>{user.name}</h2>}
+            { user && user.profilePic && <img src={user.profilePic.url}/> }
             <div className="btn-group">
                 <button onClick={showUpdatePicModal} className="btn btn-yellow">Upload picture</button>
                 <button onClick={showChangePWModal} className="btn btn-grey">Change password</button>

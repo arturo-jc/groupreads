@@ -42,6 +42,7 @@ const authReducer = (state = initialState, action) => {
         case UPLOAD_SUCCESS:
             return {
                 ...state,
+                user: action.payload,
                 loading: false
             }
         case REGISTER_FAIL:

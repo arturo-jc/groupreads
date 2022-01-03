@@ -3,8 +3,8 @@ if (process.env.NODE_ENV !== "production") {
 }
 const User = require("../models/User");
 const { genSalt, hash, compare } = require("bcryptjs/dist/bcrypt");
-const jwt = require("jsonwebtoken")
-
+const jwt = require("jsonwebtoken");
+const { cloudinary } = require("../cloudinary");
 
 // POST api/users
 module.exports.registerUser = async (req, res) => {
@@ -44,22 +44,17 @@ module.exports.changePassword = async (req, res) => {
 }
 
 module.exports.updatePicture = async (req, res) => {
-    // Figure out how to get req.file ?
-    // Does it come from a middleware
-    // GOT IT: they came from Multer
+    const profilePic = {
+        url: req.file.path,
+        filename: req.file.filename
+    }
+    const user = await User.findByIdAndUpdate(
+        req.user.id,
+        {$set: { profilePic }}
+    ).select("-password")
 
-    // const user = await User.findByIdAndUpdate(
-    //     req.user.id,
-    //     {
-    //         $set: {
-    //             profilePic: {
-    //                 url: req.file.path,
-    //                 filename: req.file.filename
-    //             }
-    //         }
-    //     }
-    // )
-    // console.log(user)
-    // .select("-password")
-    res.json({msg: "Ok"})
+    if(user.profilePic){
+        await cloudinary.uploader.destroy(user.profilePic.filename)
+    }
+    res.json({user, profilePic })
 }

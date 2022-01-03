@@ -7,10 +7,10 @@ const jwt = require("jsonwebtoken");
 module.exports.getCurrentUser = async (req, res) => {
     const user = await User.findById(req.user.id)
     .select("-password")
-    .populate({
-        path: "profilePic",
-        populate: "filename"
-    })
+    // .populate({
+    //     path: "profilePic",
+    //     populate: "filename"
+    // })
     return res.json(user);
 }
 

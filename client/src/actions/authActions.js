@@ -158,11 +158,12 @@ export const uploadPicture = (userId, file) => async dispatch => {
     dispatch(setLoading());
     
     try{
-
-        axios.put(`/api/users/${userId}/update-picture`, formData, config)
-        
+        const res = await axios.put(`/api/users/${userId}/update-picture`, formData, config)
+        const { user, profilePic } = res.data
+        user.profilePic = profilePic
         dispatch({
-            type: UPLOAD_SUCCESS
+            type: UPLOAD_SUCCESS,
+            payload: user
         })
         dispatch(setAlert("Profile picture successfully updated.", "success"));
 
