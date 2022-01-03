@@ -246,9 +246,25 @@ nav ul {
     margin-bottom: 0;
 }
 
-.record-link {
-    margin-left: .5rem;
-    font-size: .8rem;
+.group-menu {
+    display: flex;
+    align-items: flex-start;
+}
+
+.toggle-book-links{
+    background: none;
+    color: var(--font-color);
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.toggle-book-links:hover {
+    cursor: pointer;
+}
+
+.sidebar .fas {
+    margin-right: .5rem;
 }
 
 main {
@@ -315,18 +331,20 @@ main {
 }
 
 .user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     text-align: center;
-    margin: auto;
 }
 
 .user .btn {
-    margin: auto;
     margin-top: .5rem;
     padding: 3px 5px;
 }
 
 .user img {
-    margin-bottom: .5rem;
+    margin: .5rem auto;
 }
 
 
@@ -692,17 +710,13 @@ main {
       color: black;
   }
 
-  .user{
-      width: fit-content;
-  }
-
   .profile {
       border-radius: 100%;
-      margin: auto;
       display: block;
   }
 
   .profile-lg {
+      margin: auto;
       width: 300px;
   }
 

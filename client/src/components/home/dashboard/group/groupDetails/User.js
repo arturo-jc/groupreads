@@ -19,10 +19,14 @@ const User = ({user, showButtons = false, acceptRequest, declineRequest, handleC
     }
     return (
         <div className='user'>
+            <div className="user-details">
             <img className='profile profile-sm' src={ user.profilePic? cloudinary.small(user.profilePic.url) : blank }/>
             <p>{user.name}</p>
-            { (showButtons === "all" || showButtons === "accept") && <button className='btn btn-yellow' onClick={accept}>Accept</button>}
-            { (showButtons === "all" || showButtons === "decline") && <button className='btn btn-grey' onClick={decline}>Decline</button>}
+            </div>
+            <div className="user-btns">
+                { (showButtons === "all" || showButtons === "accept") && <button className='btn btn-yellow' onClick={accept}>Accept</button>}
+                { (showButtons === "all" || showButtons === "decline") && <button className='btn btn-grey' onClick={decline}>Decline</button>}
+            </div>
         </div>
     )
 }
