@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import Members from './groupDetails/Members';
-// import Requests from './groupDetails/Requests';
 import Records from './groupDetails/Records';
 import Modal from "../../../Modal";
 import PropTypes from 'prop-types';
 import DeleteGroup from './groupDetails/DeleteGroup';
-// import DeclinedRequests from './groupDetails/DeclinedRequests';
+import DeclinedRequests from './groupDetails/DeclinedRequests';
 import LeaveGroup from './groupDetails/LeaveGroup';
 import Users from './groupDetails/Users';
 
@@ -62,7 +60,7 @@ const GroupDetails = ({authState, groupState}) => {
                     {current && current.members.length > 1 && <button className='btn btn-red' onClick={showLeaveGroupModal}>Leave group</button> }
                     <Modal show={leaveGroupModal.show} handleClose={hideLeaveGroupModal} Component={LeaveGroup}/>
                     {current && current.declinedRequests.length > 0 && <button className='btn btn-grey' onClick={showDeclinedRequestsModal}>More</button> }
-                    {/* {current && <Modal show={declinedRequestsModal.show} handleClose={hideDeclinedRequestsModal} Component={<Users title='Declined Requests' users={current.declinedRequests}/>}/>} */}
+                    {current && current.declinedRequests.length > 0  && <Modal show={declinedRequestsModal.show} handleClose={hideDeclinedRequestsModal} Component={DeclinedRequests}/>}
                 </div>
             </div>
             <div className="card">

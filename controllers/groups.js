@@ -76,7 +76,6 @@ module.exports.handleRequest = async (req, res) => {
             .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } });
             return res.json(group)
         case "decline":
-            console.log("hit decline")
             group = await Group.findByIdAndUpdate(
                 groupId,
                 {
@@ -89,7 +88,6 @@ module.exports.handleRequest = async (req, res) => {
             .populate({ path: "pendingRequests", select: "-password"})
             .populate({ path: "declinedRequests", select: "-password"})
             .populate({ path: "records", populate: { path: "book", select: "title subtitle authors imageUrl" } });
-            console.log(group)
             return res.json(group)
         default:
             return res.status(400).json({msg: "Failed to specify action in params. Possible actions: accept, decline"})
