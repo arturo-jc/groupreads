@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import DeleteGroup from './groupDetails/DeleteGroup';
 import DeclinedRequests from './groupDetails/DeclinedRequests';
 import LeaveGroup from './groupDetails/LeaveGroup';
+import InviteFriends from './groupDetails/InviteFriends';
 import Users from './groupDetails/Users';
 import { openModal, closeModal } from "../../../../actions/modalActions"
 
@@ -50,7 +51,19 @@ const GroupDetails = ({authState, groupState, openModal, closeModal }) => {
         })
         closeModal()
     }
-
+    const [inviteFriendsModal, setInviteFriendsModal] = useState({show: false})
+    const showInviteFriendsModal = () => {
+        setInviteFriendsModal({
+            show: true
+        })
+        openModal()
+    }
+    const hideInviteFriendsModal = () => {
+        setInviteFriendsModal({
+            show: false
+        })
+        closeModal()
+    }
     const { user } = authState;
     const { current } = groupState
 
@@ -61,7 +74,8 @@ const GroupDetails = ({authState, groupState, openModal, closeModal }) => {
                 {current && <Users title='Members' users={current.members}/>}
                 {current && current.pendingRequests.length > 0 && <Users title='Pending Requests' users={current.pendingRequests} showButtons={"all"} /> }
                 <div className='btn-group'>
-                    <button className="btn btn-yellow">Invite friends</button>
+                    <button className="btn btn-yellow" onClick={showInviteFriendsModal}>Invite friends</button>
+                    <Modal show={inviteFriendsModal.show} handleClose={hideInviteFriendsModal} Component={InviteFriends} />
                     {current && current.members.length === 1 && current.members.map(member => member._id).includes(user._id) && <button className='btn btn-red' onClick={showDeleteGroupModal}>Delete group</button>}
                     <Modal show={deleteGroupModal.show} handleClose={hideDeleteGroupModal} Component={DeleteGroup}/>
                     {current && current.members.length > 1 && <button className='btn btn-red' onClick={showLeaveGroupModal}>Leave group</button> }

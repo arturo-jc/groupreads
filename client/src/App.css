@@ -175,6 +175,10 @@ a:hover{
     text-decoration: underline;
 }
 
+ol li {
+    margin-left: 2.5rem;
+}
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -639,6 +643,10 @@ main {
 
   .delete-account-form .btn-group{
       margin: 0 1rem 1rem;
+  }
+
+  .invite-friends {
+      line-height: 1.5;
   }
 
   .btn-group .btn{
