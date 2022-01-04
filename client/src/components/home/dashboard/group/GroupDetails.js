@@ -8,40 +8,47 @@ import DeleteGroup from './groupDetails/DeleteGroup';
 import DeclinedRequests from './groupDetails/DeclinedRequests';
 import LeaveGroup from './groupDetails/LeaveGroup';
 import Users from './groupDetails/Users';
+import { openModal, closeModal } from "../../../../actions/modalActions"
 
-const GroupDetails = ({authState, groupState}) => {
+const GroupDetails = ({authState, groupState, openModal, closeModal }) => {
     const [deleteGroupModal, setDeleteGroupModal] = useState({show: false});
     const showDeleteGroupModal = () => {
         setDeleteGroupModal({
             show: true
         })
+        openModal()
     }
     const hideDeleteGroupModal = () => {
         setDeleteGroupModal({
             show: false
         })
+        closeModal()
     }
     const [declinedRequestsModal, setDeclinedRequestsModal] = useState({show: false})
     const showDeclinedRequestsModal = () => {
         setDeclinedRequestsModal({
             show: true
         })
+        openModal()
     }
     const hideDeclinedRequestsModal = () => {
         setDeclinedRequestsModal({
             show: false
         })
+        closeModal()
     }
     const [leaveGroupModal, setLeaveGroupModal] = useState({show: false})
     const showLeaveGroupModal = () => {
         setLeaveGroupModal({
             show: true
         })
+        openModal()
     }
     const hideLeaveGroupModal = () => {
         setLeaveGroupModal({
             show: false
         })
+        closeModal()
     }
 
     const { user } = authState;
@@ -75,7 +82,9 @@ const GroupDetails = ({authState, groupState}) => {
 
 GroupDetails.propTypes = {
     authState: PropTypes.object.isRequired,
-    groupState: PropTypes.object.isRequired
+    groupState: PropTypes.object.isRequired,
+    openModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -83,6 +92,6 @@ const mapStateToProps = state => ({
     groupState: state.group
 })
 
-const addState = connect(mapStateToProps)
+const addState = connect(mapStateToProps, { openModal, closeModal })
 
 export default addState(GroupDetails);

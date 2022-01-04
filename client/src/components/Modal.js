@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-const NewGroupModal = ({handleClose, show, Component}) => {
+const Modal = ({handleClose, show, Component}) => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
 
     return (
@@ -14,10 +14,10 @@ const NewGroupModal = ({handleClose, show, Component}) => {
     )
 }
 
-NewGroupModal.propTypes = {
+Modal.propTypes = {
     handleClose: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
     component: PropTypes.element
 }
 
-export default NewGroupModal
+export default Modal

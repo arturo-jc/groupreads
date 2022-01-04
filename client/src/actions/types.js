@@ -77,3 +77,7 @@ export const DELETE_BOOKMARK = 'DELETE_BOOKMARK';
 // Alerts
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
+
+// Modals
+export const MODAL_OPEN = 'MODAL_OPEN';
+export const MODAL_CLOSED = 'MODAL_CLOSED';

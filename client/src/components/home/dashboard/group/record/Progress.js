@@ -8,8 +8,9 @@ import PropTypes from 'prop-types';
 import { getMarkersFor, addMarker } from '../../../../../actions/markerActions';
 import StatusHistory from './StatusHistory';
 import NewMarkerForm from './NewMarkerForm';
+import { openModal, closeModal } from '../../../../../actions/modalActions';
 
-const Progress = ({recordState, markerState, getMarkersFor, addMarker}) => {
+const Progress = ({recordState, markerState, getMarkersFor, addMarker, openModal, closeModal}) => {
 
     const [newMarkerModal, setNewMarkerModal] = useState({show: false})
     const [statusHistoryModal, setStatusHistoryModal] = useState({show: false})
@@ -19,12 +20,14 @@ const Progress = ({recordState, markerState, getMarkersFor, addMarker}) => {
             ...newMarkerModal,
             show: true
         })
+        openModal()
     }
     const hideNewMarkerModal = () => {
         setNewMarkerModal({
             ...newMarkerModal,
             show: false
         })
+        closeModal()
     }
 
     
@@ -33,6 +36,7 @@ const Progress = ({recordState, markerState, getMarkersFor, addMarker}) => {
             ...statusHistoryModal,
             show: true
         })
+        openModal()
     }
 
     const hideStatusHistoryModal = () => {
@@ -40,6 +44,7 @@ const Progress = ({recordState, markerState, getMarkersFor, addMarker}) => {
             ...statusHistoryModal,
             show: false
         })
+        closeModal()
     }
 
     const {groupId, recordId } = useParams();
@@ -92,7 +97,9 @@ Progress.propTypes = {
     recordState: PropTypes.object.isRequired,
     markerState: PropTypes.object.isRequired,
     getMarkersFor: PropTypes.func.isRequired,
-    addMarker: PropTypes.func.isRequired
+    addMarker: PropTypes.func.isRequired,
+    openModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -100,6 +107,6 @@ const mapStateToProps = state => ({
     markerState: state.marker
 })
 
-const addState = connect(mapStateToProps, { getMarkersFor, addMarker })
+const addState = connect(mapStateToProps, { getMarkersFor, addMarker, openModal, closeModal })
 
 export default addState(Progress);

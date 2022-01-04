@@ -9,9 +9,10 @@ import DeleteRecord from './record/DeleteRecord';
 import BookDetails from './record/BookDetails';
 import Items from './record/Items';
 import Progress from './record/Progress';
-import nocover from "./search/nocover.gif"
+import nocover from "./search/nocover.gif";
+import { openModal, closeModal } from '../../../../actions/modalActions';
 
-const Record = ({ groupState, recordState, authState }) => {
+const Record = ({ groupState, recordState, authState, openModal, closeModal }) => {
 
     const { user } = authState
     const { current: group } = groupState;
@@ -29,12 +30,14 @@ const Record = ({ groupState, recordState, authState }) => {
             ...newBookmarkModal,
             show: true
         })
+        openModal()
     }
     const hideNewBookmarkModal = () => {
         setNewBookmarkModal({
             ...newBookmarkModal,
             show: false
         })
+        closeModal()
     }
 
     const [deleteRecordModal, setDeleteRecordModal] = useState({show: false})
@@ -43,12 +46,14 @@ const Record = ({ groupState, recordState, authState }) => {
             ...deleteRecordModal,
             show: true
         })
+        openModal()
     }
     const hideDeleteRecordModal = () => {
         setDeleteRecordModal({
             ...deleteRecordModal,
             show: false
         })
+        closeModal()
     }
 
     return (
@@ -86,7 +91,9 @@ const Record = ({ groupState, recordState, authState }) => {
 Record.propTypes = {
     groupState: PropTypes.object.isRequired,
     recordState: PropTypes.object.isRequired,
-    authState: PropTypes.object.isRequired
+    authState: PropTypes.object.isRequired,
+    openModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -95,6 +102,6 @@ const mapStateToProps = state => ({
     authState: state.auth
 })
 
-const addState = connect(mapStateToProps);
+const addState = connect(mapStateToProps, {openModal, closeModal});
 
 export default addState(Record);

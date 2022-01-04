@@ -6,22 +6,27 @@ import ChangePasswordForm from './account/ChangePasswordForm';
 import UpdateProfileForm from './account/UpdateProfileForm';
 import blank from "./account/blank-profile-photo-lg.jpeg";
 import cloudinary from "../../../utils/cloudinary"
-import Spinner from "../../Spinner"
+import Spinner from "../../Spinner";
+import {openModal, closeModal } from "../../../actions/modalActions";
 
-const Account = ({authState}) => {
+const Account = ({authState, openModal, closeModal}) => {
     const [changePWModal, setChangePWModal] = useState({show: false})
     const showChangePWModal = () => {
         setChangePWModal({show: true})
+        openModal()
     }
     const hideChangePWModal = () => {
         setChangePWModal({show: false})
+        closeModal()
     }
     const [updatePicModal, setUpdatePicModal] = useState({show: false})
     const showUpdatePicModal = () => {
         setUpdatePicModal({show: true})
+        openModal()
     }
     const hideUpdatePicModal = () => {
         setUpdatePicModal({show: false})
+        closeModal()
     }
     const { user, loading } = authState
     return (
@@ -41,13 +46,15 @@ const Account = ({authState}) => {
 }
 
 Account.propTypes = {
-    authState: PropTypes.object.isRequired
+    authState: PropTypes.object.isRequired,
+    openModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     authState: state.auth
 })
 
-const addState = connect(mapStateToProps);
+const addState = connect(mapStateToProps, {openModal, closeModal});
 
 export default addState(Account)

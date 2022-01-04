@@ -8,6 +8,7 @@ import commentReducer from "./commentReducer";
 import markerReducer from "./markerReducer";
 import bookmarkReducer from "./bookmarkReducer";
 import alertReducer from "./alertReducer";
+import modalReducer from "./modalReducer"
 
 export default combineReducers({
     auth: authReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     comment: commentReducer,
     marker: markerReducer,
     bookmark: bookmarkReducer,
-    alert: alertReducer
+    alert: alertReducer,
+    modal: modalReducer
 });

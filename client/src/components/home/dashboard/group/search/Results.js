@@ -4,9 +4,10 @@ import BookDetails from './BookDetails';
 import Result from './Result';
 import Spinner from "../../../../Spinner";
 import Modal from "../../../../Modal";
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { openModal, closeModal } from '../../../../../actions/modalActions';
 
-const Results = ({searchState}) => {
+const Results = ({searchState, openModal, closeModal}) => {
 
     const [bookDetailsModal, setBookDetailsModal] = useState({show: false});
     
@@ -15,6 +16,7 @@ const Results = ({searchState}) => {
             ...bookDetailsModal,
             show: true
         })
+        openModal()
     };
     
     const hideBookDetails = () => {
@@ -22,6 +24,7 @@ const Results = ({searchState}) => {
             ...bookDetailsModal,
             show: false
         })
+        closeModal()
     }
 
     const {results, loading } = searchState;
@@ -39,13 +42,15 @@ const Results = ({searchState}) => {
 }
 
 Results.propTypes = {
-    searchState: PropTypes.object.isRequired
+    searchState: PropTypes.object.isRequired,
+    openModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     searchState: state.search
 })
 
-const addState = connect(mapStateToProps);
+const addState = connect(mapStateToProps, {openModal, closeModal});
 
 export default addState(Results)
