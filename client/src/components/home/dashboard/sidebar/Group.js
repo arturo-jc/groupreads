@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 const Group = ({group}) => {
-    const [bookLinks, setBookLinks] = useState({show: false})
+    const [bookLinks, setBookLinks] = useState({show: true})
     const toggleBookLinks = () => {
         setBookLinks({show: !bookLinks.show})
     }

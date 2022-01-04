@@ -201,7 +201,7 @@ export const deleteAccount = (userId, password) => async dispatch => {
     try{
         await axios.post(`/api/users/${userId}?_method=DELETE`, password, config)
         dispatch(setAlert("Account successfully deleted. Goodbye.", "success"));
-        // dispatch({type: LOGOUT})
+        dispatch({type: LOGOUT})
     } catch (err) {
         dispatch({
             type: DELETE_ACCOUNT_FAIL,

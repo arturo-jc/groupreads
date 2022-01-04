@@ -2,7 +2,13 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 const User = require("../models/User");
-const { genSalt, hash, compare } = require("bcryptjs/dist/bcrypt");
+const Group = require("../models/Group");
+const Record = require("../models/Record")
+const Bookmark = require("../models/Bookmark");
+const Marker = require("../models/Marker");
+const Post = require("../models/Post");
+const Comment = require("../models/Comment");
+const { genSalt, hash  } = require("bcryptjs/dist/bcrypt");
 const jwt = require("jsonwebtoken");
 const { cloudinary } = require("../cloudinary");
 
@@ -55,55 +61,78 @@ module.exports.updatePicture = async (req, res) => {
     res.json({user, profilePic })
 }
 
-module.exports.deleteAccount = async (req, res, next) => {
-    console.log("hit deleteAccount controller")
-    // const {userId} = req.params;
-    // const {password} = req.body;
+module.exports.deleteAccount = async (req, res) => {
 
-    // // Find user and populate for Cloudinary purposes
-    // const user = await User.findById(userId)
-    // .populate({
-    //     path: "profilePic",
-    //     populate: "filename"
-    // })
+    // Find user
+    const user = await User.findById(req.user.id)
 
-    // // Authenticate user
-    // const authentication = await user.authenticate(password)
-    // if (authentication.error){
-    //     return next(authentication.error)
-    // }
+    // STEP 1: CASCADE DELETE ALL GROUPS WHERE USER IS ONLY MEMBER
 
-    // // Delete user reference from households
-    // await Household.updateMany({users: user}, {$pull: { users: user._id }})
+    // Get all groups where user is only member
+    const groups = await Group.find(
+        { members: { $all: [req.user.id], $size: 1 }}
+    )
 
-    // // Delete all user activities
-    // await Activity.deleteMany({user})
+    // Get id of every record in any one of those groups
+    const recordIds = groups.map(group => group.records).flat()
 
-    // // Delete all user comments and their references from their respective activities
-    // const comments = await Comment.find({user})
-    // await Activity.updateMany({comments: {$in: comments}}, {$pull: {comments: {$in: comments}}})
-    // await Comment.deleteMany({user})
+    // Delete all bookmarks and markers in each record
+    await Bookmark.deleteMany({ record: { $in: recordIds }})
+    await Marker.deleteMany({ record: { $in: recordIds }})
+
+    // Get all posts in each record
+    const posts = await Post.find({record: {$in: recordIds}})
+
+    // Delete every comment in any one of those posts
+    const commentIds = posts.map(post => post.comments).flat()
+    await Comment.deleteMany({_id: {$in: commentIds }})
+
+    // Delete all posts in each record to delete
+    await Post.deleteMany({record: {$in: recordIds}})
+
+    // Delete all records in groups to delete
+    await Record.deleteMany({_id: {$in: recordIds}})
+
+    // Delete all groups in question
+    await Group.deleteMany({ members: { $all: [req.user.id], $size: 1 }})
+
+    // STEP 2: DELETE ALL RESOURCES ASSOCIATED WITH USER
+
+    // Delete all user bookmarks
+    await Bookmark.deleteMany({ addedBy: req.user.id})
+
+    // Get all user posts
+    const userPosts = await Post.find({author: req.user.id})
+
+    // Delete all comments in any one of those posts
+    const userPostComments = userPosts.map(post => post.comments).flat()
+    await Comment.deleteMany({_id: {$in: userPostComments }})
+
+    // Delete user posts
+    await Post.deleteMany({author: req.user.id})
+
+    // Get all user comments
+    const userComments = await Comment.find({author: req.user.id})
+    
+    // Pull them out of posts
+    await Post.updateMany(
+        {comments: {$in: userComments}},
+        {$pull: {comments: {$in: userComments}}}
+        )
+
+    // Delete user comments
+    await Comment.deleteMany({author: req.user.id})
+
+    // Pull user from groups
+    await Group.updateMany({members: req.user.id}, {$pull: {members: req.user.id}})
     
     // // Tell Cloudinary to delete profile pic if user has one
-    // if (user.profilePic) {
-    //     await cloudinary.uploader.destroy(user.profilePic.filename)
-    // }
+    if (user.profilePic) {
+        await cloudinary.uploader.destroy(user.profilePic.filename)
+    }
 
-    // // Delete all activity types within empty households
-    // const emptyHouseholds = await Household.find({users: {$eq: []}});
-    // if (emptyHouseholds){
-    //     for (let household of emptyHouseholds){
-    //         await ActivityType.deleteMany({_id: {$in: household.activityTypes}})
-    //     }
-    // }
+    // Delete user
+    await User.findByIdAndDelete(req.user.id);
 
-    // // Delete all empty households
-    // await Household.deleteMany({users: {$eq: []}})
-
-    // // Delete user
-    // await User.findByIdAndDelete(userId)
-
-    // req.flash("success", "Account deleted.")
-    // res.redirect("/login")
     res.json({msg: "ok"})
 }
