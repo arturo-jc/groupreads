@@ -14,6 +14,7 @@ import {
     DELETE_RECORD,
     ADD_MEMBER,
     DECLINE_REQUEST,
+    UPLOAD_SUCCESS,
     LEAVE_GROUP,
     LOGOUT
 } from "../actions/types";
@@ -76,6 +77,14 @@ const groupReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true
+            }
+        case UPLOAD_SUCCESS:
+            for (let group of state.groups){
+                group.members = group.members.map(user => user._id === action.payload._id ? action.payload : user)
+            }
+            return {
+                ...state,
+                loading: false
             }
         case GROUPS_ERROR:
             return {

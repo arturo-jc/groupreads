@@ -37,20 +37,6 @@ const Record = ({ groupState, recordState, authState }) => {
         })
     }
 
-    const [newPostModal, setNewPostModal] = useState({show: false})
-    const showNewPostModal = () => {
-        setNewPostModal({
-            ...newPostModal,
-            show: true
-        })
-    }
-    const hideNewPostModal = () => {
-        setNewPostModal({
-            ...newPostModal,
-            show: false
-        })
-    }
-
     const [deleteRecordModal, setDeleteRecordModal] = useState({show: false})
     const showDeleteRecordModal = () => {
         setDeleteRecordModal({
@@ -80,8 +66,7 @@ const Record = ({ groupState, recordState, authState }) => {
                     </div>
                 </div>
                 <div className='btn-group'>
-                    <button className='btn btn-yellow' onClick={showNewPostModal}>Write post</button>
-                    <button className='btn btn-grey' onClick={showNewBookmarkModal}>Add bookmark</button>
+                    <button className='btn btn-yellow' onClick={showNewBookmarkModal}>Add bookmark</button>
                     {recordDetails && recordDetails.owner === user._id && <button className='btn btn-red' onClick={showDeleteRecordModal}>Delete book</button>}
                 </div>
             </div>
@@ -89,8 +74,10 @@ const Record = ({ groupState, recordState, authState }) => {
                 {recordDetails && recordDetails.book.pageCount && <Progress/>}
             </div>
             <Items/>
+            <div className='card'>
+                <NewPostForm/>
+            </div>
             <Modal show={newBookmarkModal.show} handleClose={hideNewBookmarkModal} Component={NewBookmarkForm}/>
-            <Modal show={newPostModal.show} handleClose={hideNewPostModal} Component={NewPostForm}/>
             <Modal show={deleteRecordModal.show} handleClose={hideDeleteRecordModal} Component={DeleteRecord}/>
         </Fragment>
     )

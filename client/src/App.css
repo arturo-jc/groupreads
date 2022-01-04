@@ -479,9 +479,8 @@ main {
       font-size: .8rem;
       display: block;
       padding: 5px 20px;
-      box-shadow: 1px 3px 4px 1px rgba(0, 0, 0, .1);
       margin: 1rem 0;
-      border-radius: 5px;
+      border: 1px solid var(--grey);
   }
 
   .number-input{
@@ -490,8 +489,11 @@ main {
       padding: 5px;
       margin-bottom: 1rem;
       width: 4rem;
-      box-shadow: 1px 3px 4px 1px rgba(0, 0, 0, .1);
-      border-radius: 5px;
+      border: 1px solid var(--grey);
+  }
+
+  .input-long {
+      width: 100%;
   }
 
   .form-text-area{
@@ -499,10 +501,9 @@ main {
     font-size: .8rem;
     display: block;
     padding: 5px 20px;
-    box-shadow: 1px 3px 4px 1px rgba(0, 0, 0, .1);
     height: 5rem;
     resize: none;
-    border-radius: 5px;
+    border: 1px solid var(--grey);
   }
 
   .add-comment-form .form-text-area {
@@ -512,8 +513,11 @@ main {
   }
 
   .add-comment-form .btn {
-      margin: auto;
-      margin-top: 1rem;
+    margin: 1rem auto 0;
+  }
+
+  .add-post-form .btn {
+      margin: 1rem auto 0;
   }
 
   .hidden {

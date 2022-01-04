@@ -6,6 +6,7 @@ import ChangePasswordForm from './account/ChangePasswordForm';
 import UpdateProfileForm from './account/UpdateProfileForm';
 import blank from "./account/blank-profile-photo-lg.jpeg";
 import cloudinary from "../../../utils/cloudinary"
+import Spinner from "../../Spinner"
 
 const Account = ({authState}) => {
     const [changePWModal, setChangePWModal] = useState({show: false})
@@ -22,11 +23,12 @@ const Account = ({authState}) => {
     const hideUpdatePicModal = () => {
         setUpdatePicModal({show: false})
     }
-    const { user } = authState
+    const { user, loading } = authState
     return (
         <div className='card'>
             { user && <h2>{user.name}</h2>}
-            { user && <img className='profile profile-lg' src={ user.profilePic? cloudinary.large(user.profilePic.url) : blank }/>}
+            { loading && <Spinner/>}
+            { user && !loading && <img className='profile profile-lg' src={ user.profilePic? cloudinary.large(user.profilePic.url) : blank }/>}
             <div className="btn-group">
                 <button onClick={showUpdatePicModal} className="btn btn-yellow">Upload picture</button>
                 <button onClick={showChangePWModal} className="btn btn-grey">Change password</button>

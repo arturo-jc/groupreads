@@ -27,7 +27,7 @@ const Group = ({ groupState, setCurrentGroup }) => {
         <Routes>
                 <Route path="" element={<GroupDetails />} />
                 <Route path="/search" element={<Search group={current} />} />
-                <Route path="/records/:recordId/*" element={<Record />} />
+                <Route path="/records/:recordId/" element={<Record />} />
             </Routes>
     </Fragment>
     )
