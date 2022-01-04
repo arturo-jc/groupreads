@@ -50,7 +50,7 @@ const Navbar = ({ authState, title, icon, logout }) => {
     )
 
     return (
-        <nav>
+        <nav className={window.location.pathname === "/" && !isAuthenticated && "transparent"}>
             <Link className='navlink' to="/"><i className={icon} /> {title}</Link>
                 {isAuthenticated ? authLinks : guestLinks}
         </nav>

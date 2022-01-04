@@ -18,14 +18,14 @@ const App = () => {
       <Router>
         <Fragment>
           <ErrorBoundary>
-            <Navbar />
-              <Alerts/>
-              <div className="main-container">
-                <Routes>
-                  <Route path="login" element={<Login />} />
-                  <Route path="register" element={<Register />} />
-                  <Route path="/*" element={<Home />} />
-                </Routes>
+              <div className="site-content">
+                <Navbar />
+                <Alerts/>
+                  <Routes>
+                    <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
+                    <Route path="/*" element={<Home />} />
+                  </Routes>
               </div>
             <Footer/>
           </ErrorBoundary>

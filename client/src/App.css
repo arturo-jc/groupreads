@@ -142,6 +142,16 @@
     box-sizing: border-box;
 }
 
+#root{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-content {
+    flex: 1;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--font-color);
@@ -150,12 +160,6 @@ body {
 
 body.modal-open {
     overflow-y: hidden;
-}
-
-#root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -181,8 +185,28 @@ ol li {
 
 nav {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     background-color: var(--primary);
+}
+
+nav.transparent {
+    position: absolute;
+    background: none;
+    z-index: 1;
+}
+
+nav.transparent a {
+    color: var(--grey);
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .8);
+}
+
+nav.transparent a:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    text-shadow: 3px 4px 5px rgba(0, 0, 0, 1);
 }
 
 nav a {
@@ -226,9 +250,61 @@ nav ul {
     display: block;
 }
 
-.main-container{
+.wrapper{
     padding: 0 7%;
-    flex: 1;
+}
+
+.header-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.header {
+    color: #fff;
+    height: 60vh;
+    background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./hero.jpg");
+    background-size: cover;
+    background-position: top;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    margin-bottom: 2rem;
+}
+
+.heading {
+    font-size: 5rem;
+    text-shadow: 5px 8px 4px rgba(0, 0, 0, .5);
+}
+
+.sub-heading {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .8);
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+.section-one{
+    color: var(--primary-dark);
+    background-color: var(--primary);
+    padding-bottom: 3rem;
+}
+
+.row {
+    display: flex;
+    line-height: 1.5;
+
+}
+
+.row h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.col-50{
+    width: 50%;
 }
 
 .dashboard{
@@ -782,8 +858,15 @@ main {
 }
 
 @media (max-width: 992px){
-    .main-container{
+    .wrapper{
         padding: 0 3%;
+    }
+
+    .heading {
+        font-size: 4rem;
+    }
+    .sub-heading{
+        font-size: 1.5rem;
     }
 
     .books {
@@ -807,9 +890,21 @@ main {
 }
 
 @media (max-width: 576px){
-    .main-container {
+    .wrapper{
         padding: 0;
     }
+
+    .wrapper.header-wrapper{
+        padding: 0 3%
+    }
+
+    .heading {
+        font-size: 3rem;
+    }
+    .sub-heading{
+        font-size: 1.5rem;
+    }
+
     .dashboard{
         flex-direction: column-reverse;
     }

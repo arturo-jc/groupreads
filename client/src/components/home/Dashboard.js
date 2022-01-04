@@ -14,16 +14,18 @@ const Dashboard = ({ getGroups }) => {
     }, [])
 
     return (
-        <div className='dashboard'>
-            <Sidebar/>
-            <main>
-                    <Routes>
-                        <Route path="/" element={<Welcome/>} />
-                        <Route path="/account" element={<Account/>}/>
-                        <Route path="/groups/:groupId/*" element={<Group />} />
-                        <Route path="/*" element={<p>Sorry, that page does not exist</p>} />
-                    </Routes>
-            </main>
+        <div className='wrapper'>
+            <div className='dashboard'>
+                <Sidebar/>
+                <main>
+                        <Routes>
+                            <Route path="/" element={<Welcome/>} />
+                            <Route path="/account" element={<Account/>}/>
+                            <Route path="/groups/:groupId/*" element={<Group />} />
+                            <Route path="/*" element={<p>Sorry, that page does not exist</p>} />
+                        </Routes>
+                </main>
+            </div>
         </div>
     )
 }
