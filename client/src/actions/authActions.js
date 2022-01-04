@@ -11,7 +11,8 @@ import {
     UPLOAD_SUCCESS,
     UPLOAD_FAIL,
     SET_LOADING,
-    CHANGE_PASSWORD_FAIL
+    CHANGE_PASSWORD_FAIL,
+    DELETE_ACCOUNT_FAIL
 } from "./types";
 import { setAlert } from "./alertActions"
 
@@ -92,6 +93,7 @@ export const changePasswords = (userId, passwords) => async dispatch => {
     if (localStorage.token) {
         setAuthToken(localStorage.token)
     }
+
     try {
         await axios.put(`/api/users/${userId}/change-password`, passwords, config);
 
@@ -149,6 +151,11 @@ export const uploadPicture = (userId, file) => async dispatch => {
 
     const formData = new FormData()
     formData.append("file", file)
+    
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
 
     // Config request headers
     const config = {
@@ -173,7 +180,32 @@ export const uploadPicture = (userId, file) => async dispatch => {
             payload: err.response.data.msg
         })
     }
+}
 
+// Delete account
 
+export const deleteAccount = (userId, password) => async dispatch => {
 
+    // Add token to request headers for authentication
+    if (localStorage.token) {
+        setAuthToken(localStorage.token)
+    }
+    
+    // Config request headers
+    const config = {
+        headers: { "Content-Type": "application/json;charset=utf-8" }
+    }
+    
+    dispatch(setLoading());
+
+    try{
+        await axios.post(`/api/users/${userId}?_method=DELETE`, password, config)
+        dispatch(setAlert("Account successfully deleted. Goodbye.", "success"));
+        // dispatch({type: LOGOUT})
+    } catch (err) {
+        dispatch({
+            type: DELETE_ACCOUNT_FAIL,
+            payload: err.response.data.msg
+        })
+    }
 }

@@ -25,6 +25,7 @@ export const FindGroupForm = ({ groupState, findGroup, setAlert, handleClose }) 
             handleClose();
         } else{
             findGroup(group._id)
+            setGroup({ _id: "" })
         }
     }
 

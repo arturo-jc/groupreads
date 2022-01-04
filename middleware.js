@@ -25,6 +25,16 @@ module.exports.authenticate = (req, res, next) => {
     next();
 };
 
+module.exports.isPasswordValid = async (req, res, next ) => {
+    const { current } = req.body;
+    const user = await User.findById(req.user.id)
+    const isPasswordValid = await bcrypt.compare(current, user.password);
+    if (!isPasswordValid) {
+        return res.status(400).json({ msg: "Invalid credentials." });
+    }
+    next();
+}
+
 module.exports.isGroupMember = async (req, res, next) => {
     const group = await Group.findById(req.params.groupId);
     const members = group.members.map(userId => userId.toString());

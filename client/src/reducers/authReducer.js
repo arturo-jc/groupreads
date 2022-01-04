@@ -9,6 +9,7 @@ import {
     CLEAR_ERRORS,
     SET_LOADING,
     CHANGE_PASSWORD_FAIL,
+    DELETE_ACCOUNT_FAIL,
     UPLOAD_SUCCESS,
     UPLOAD_FAIL
 } from "../actions/types";
@@ -58,6 +59,7 @@ const authReducer = (state = initialState, action) => {
                 error: action.payload
             }
         case CHANGE_PASSWORD_FAIL:
+        case DELETE_ACCOUNT_FAIL:
         case UPLOAD_FAIL:
             return {
                 ...state,

@@ -1,10 +1,12 @@
 const express = require("express");
 const connectDB = require("./connectDB");
+const methodOverride = require("method-override");
 const routes = require("./routes/");
 
 const app = express();
 connectDB();
 app.use(express.json())
+app.use(methodOverride("_method"))
 
 app.use("/api/users", routes.users);
 app.use("/api/auth", routes.auth);

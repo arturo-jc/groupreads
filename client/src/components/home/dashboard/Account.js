@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Modal from "../../Modal";
 import ChangePasswordForm from './account/ChangePasswordForm';
 import UpdateProfileForm from './account/UpdateProfileForm';
+import DeleteAccountForm from "./account/DeleteAccountForm"
 import blank from "./account/blank-profile-photo-lg.jpeg";
 import cloudinary from "../../../utils/cloudinary"
 import Spinner from "../../Spinner";
@@ -28,6 +29,16 @@ const Account = ({authState, openModal, closeModal}) => {
         setUpdatePicModal({show: false})
         closeModal()
     }
+    const [deleteAccountModal, setDeleteAccountModal] = useState({show: false})
+    const showDeleteAccountModal = () => {
+        setDeleteAccountModal({show: true})
+        openModal()
+    }
+    const hideDeleteAccountModal = () => {
+        setDeleteAccountModal({show: false})
+        closeModal()
+    }
+
     const { user, loading } = authState
     return (
         <div className='card'>
@@ -37,10 +48,11 @@ const Account = ({authState, openModal, closeModal}) => {
             <div className="btn-group">
                 <button onClick={showUpdatePicModal} className="btn btn-yellow">Upload picture</button>
                 <button onClick={showChangePWModal} className="btn btn-grey">Change password</button>
-                <button className="btn btn-red">Delete account</button>
+                <button onClick={showDeleteAccountModal} className="btn btn-red">Delete account</button>
             </div>
             <Modal show={changePWModal.show} handleClose={hideChangePWModal} Component={ChangePasswordForm}/>
             <Modal show={updatePicModal.show} handleClose={hideUpdatePicModal} Component={UpdateProfileForm}/>
+            <Modal show={deleteAccountModal.show} handleClose={hideDeleteAccountModal} Component={DeleteAccountForm}/>
         </div>
     )
 }
