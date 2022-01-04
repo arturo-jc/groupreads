@@ -11,6 +11,7 @@ const Comment = require("./models/Comment");
 const joi = require("joi")
 const bcrypt = require('bcryptjs/dist/bcrypt');
 const jwt = require("jsonwebtoken");
+const sanitizeHtml = require("sanitize-html");
 
 // PERMISSIONS
 
@@ -234,6 +235,12 @@ module.exports.validateComment = (req, res, next) => {
     };
 
     next();
+}
+
+module.exports.sanitizeBody = (req, res, next) => {
+    const allowedTags = ["h2", "h3", "h3", "p", "i", "strong", "a", "ul", "ol", "li", "blockquote"]
+    req.body.body = sanitizeHtml(req.body.body, {allowedTags})
+    next()
 }
 
 module.exports.validateBook = (req, res, next) => {
