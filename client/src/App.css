@@ -11,6 +11,7 @@
     --grey: #cacac7;
     --darker-grey: #999990;
     --yellow: #F9F871;
+    --yellowish-green: #d4d467;
     --green: #18793c;
     --red: #f84632;
 
@@ -290,16 +291,36 @@ nav ul {
 .section-one{
     color: var(--primary-dark);
     background-color: var(--primary);
-    padding-bottom: 3rem;
+    padding-bottom: 1rem;
+}
+
+.section-two {
+    padding: 1rem 0;
+}
+
+.section-three {
+    background-color: var(--yellowish-green);
+}
+
+.fake-element {
+    height: 6rem;
+    background-color: var(--bg-color);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
+    margin-bottom: -6rem;
 }
 
 .row {
     display: flex;
     line-height: 1.5;
+    flex-wrap: wrap;
+}
+.row-reverse {
+    display: flex;
+    line-height: 1.5;
     flex-wrap: wrap-reverse;
 }
 
-.row h3 {
+.row h3, .row-reverse h3 {
     font-size: 1.5rem;
     margin-bottom: 0;
 }
@@ -315,12 +336,36 @@ nav ul {
     z-index: 1;
 }
 
+.col-30{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 250px;
+}
+
+.col-30.pad{
+    padding: 1rem;
+}
+
 .app-description h3{
     font-size: 2rem;
 }
 
 .app-description p {
-    font-size: 1.5;
+    font-size: 1.5rem;
+}
+
+.feature-card {
+    text-align: center;
+    width: 400px;
+    margin: auto;
+}
+
+.feature-card h3 {
+    margin-top: 1rem;
+}
+
+.feature-card p {
+    font-size: 1.25rem;
 }
 
 .screenshot{
@@ -894,6 +939,14 @@ main {
         font-size: 1.5rem;
     }
 
+    .app-description h3{
+        font-size: 1.5rem;
+    }
+
+    .app-description p {
+        font-size: 1.25rem;
+    }
+
     .books {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -961,4 +1014,7 @@ main {
         margin-bottom: 1rem;
     }
 
+    .feature-card {
+        width: 100%;
+    }
 }
