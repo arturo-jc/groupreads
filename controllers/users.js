@@ -29,7 +29,7 @@ module.exports.registerUser = async (req, res) => {
     const token = await jwt.sign(
         payload,
         process.env.JWT_SECRET,
-        { expiresIn: 360000 }
+        { expiresIn: 3600 }
     );
 
     return res.json({ token })

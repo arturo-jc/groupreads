@@ -528,6 +528,7 @@ main {
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
     overflow-y: auto;
+    z-index: 2;
   }
   
   .modal-main {
@@ -877,7 +878,8 @@ main {
     padding: 0.7rem;
     opacity: 0.9;
     background-color: var(--lighter-grey);
-    color: var(--font-color)
+    color: var(--font-color);
+    z-index: 2;
   }
 
   .alert-danger {

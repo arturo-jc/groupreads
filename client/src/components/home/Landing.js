@@ -38,14 +38,14 @@ const Landing = () => {
                                 </div>
                                 <div className="col-30 pad">
                                     <div className="card extend feature-card">
-                                        <i class="fas fa-mobile-alt fa-4x"></i>
+                                        <i className="fas fa-mobile-alt fa-4x"></i>
                                         <h3>Mobile friendly</h3>
                                         <p>Access your groups from anywhere with an internet connection!</p>
                                     </div>
                                 </div>
                                 <div className="col-30 pad">
                                     <div className="card extend feature-card">
-                                    <i class="fas fa-wallet fa-4x"></i>
+                                    <i className="fas fa-wallet fa-4x"></i>
                                         <h3>Completely free</h3>
                                         <p>GroupReads is both free to use and free from ads!</p>
                                     </div>
