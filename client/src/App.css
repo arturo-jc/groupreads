@@ -219,9 +219,6 @@ nav a {
     color: var(--primary-dark);
 }
 
-.ham-menu {
-    display: none;
-}
 
 nav a:hover {
     text-decoration: none;
@@ -230,6 +227,16 @@ nav a:hover {
 
 nav ul {
     list-style: none;
+}
+
+
+.ham-menu {
+    display: none;
+}
+
+.navlinks ul {
+    display: flex;
+    flex-direction: row;
 }
 
 .navlink {
@@ -1000,6 +1007,12 @@ main {
         box-shadow: 10px 27px 20px 20px rgba(0, 0, 0, .2);
         z-index: 1;
     }
+
+    .navlinks ul {
+        display: flex;
+        flex-direction: column;
+    }
+    
 
     .navlinks .navlink {
         color: var(--font-color);
