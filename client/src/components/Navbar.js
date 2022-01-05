@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from "react-router-dom";
@@ -31,28 +31,30 @@ const Navbar = ({ authState, title, icon, logout }) => {
     const { isAuthenticated, user } = authState;
 
     const authLinks = (
-            <ul>
-                {user && <li className='navlink' onClick={toggleDropdown}>{user.name}</li>}
-                <ul className={`dropdown ${dropdown.show && "active"}`}>
-                    <Link to="account" className='navlink'>Account</Link>
-                    <li className='navlink' onClick={onLogout}>
+                <ul>
+                {user && <Link to="account" className='navlink'>{user.name}</Link>}                    
+                <li className='navlink' onClick={onLogout}>
                         Sign out
                     </li>
                 </ul>
-            </ul>
-    )
+                    )
 
     const guestLinks = (
-        <div>
+        <Fragment>
             <Link className='navlink' to="register">Register</Link>
             <Link className='navlink' to="login">Login</Link>
-        </div>
+        </Fragment>
     )
 
     return (
         <nav className={window.location.pathname === "/" && !isAuthenticated ? "transparent" : "visible"}>
             <Link className='navlink' to="/"><i className={icon} /> {title}</Link>
+            <div className={`navlinks ${dropdown.show && "active"}`}>
                 {isAuthenticated ? authLinks : guestLinks}
+            </div>
+            <a onClick={toggleDropdown} className='navlink ham-menu'>
+            <i className='fas fa-bars fa-lg'></i>    
+            </a>            
         </nav>
     )
 }

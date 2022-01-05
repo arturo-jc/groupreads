@@ -189,12 +189,13 @@ nav {
     width: 100%;
     justify-content: space-between;
     background-color: var(--primary);
+    z-index: 2;
 }
 
 nav.transparent {
     position: absolute;
     background: none;
-    z-index: 1;
+    z-index: 2;
 }
 
 nav.transparent a {
@@ -216,6 +217,10 @@ nav a {
     text-decoration: none;
     font-size: 1.25rem;
     color: var(--primary-dark);
+}
+
+.ham-menu {
+    display: none;
 }
 
 nav a:hover {
@@ -975,6 +980,41 @@ main {
 }
 
 @media (max-width: 576px){
+    .ham-menu {
+        display: block;
+    }
+
+    .navlinks {
+        text-align: center;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        transition: 0.3s;
+        box-shadow: 10px 27px 20px 20px rgba(0, 0, 0, .2);
+        z-index: 1;
+    }
+
+    .navlinks .navlink {
+        color: var(--font-color);
+        text-shadow: none;
+    }
+
+    .navlinks .navlink:hover{
+        color: var(--font-color);
+        text-shadow: none;
+    }
+
+    .navlinks.active {
+        left: 0;
+    }
+
     .wrapper{
         padding: 0;
     }
