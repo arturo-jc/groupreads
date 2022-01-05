@@ -1,4 +1,6 @@
-import React, {Fragment} from 'react'
+import React, {Fragment} from 'react';
+import screenshot from "./screenshot.jpg"
+import footage from "./footage.gif"
 
 const Landing = () => {
     return (
@@ -12,13 +14,14 @@ const Landing = () => {
                 </header>
                 <div className='wrapper'>
                     <div className="row">
-                        <div className="col-50">
-                        <h3>Make a reading group</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel pellentesque eros. Donec aliquam non lectus quis sagittis.</p>
+                        <div className="col-50 pad">                        
+                        <img className='screenshot' src={screenshot} alt="" />   
                         </div>
-                        <div className="col-50">
-                        <h3>Make a reading group</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel pellentesque eros. Donec aliquam non lectus quis sagittis.</p>
+                        <div className="col-50 pad">
+                            <div className="card extend">
+                                <h3>Make a reading group</h3>
+                                <p>GroupReads makes it eady to...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -26,13 +29,15 @@ const Landing = () => {
             <section className='section-two'>
             <div className='wrapper'>
                     <div className="row">
-                        <div className="col-50">
-                        <h3>Make a reading group</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel pellentesque eros. Donec aliquam non lectus quis sagittis.</p>
+                        <div className="col-50 pad">
+                            <div className="card app-description">
+                                <h3>Make a reading group</h3>
+                                <p>GroupReads makes it easy to create a group where you and your friends can keep track of all the books you read together.
+                                </p>
+                            </div>
                         </div>
-                        <div className="col-50">
-                        <h3>Make a reading group</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel pellentesque eros. Donec aliquam non lectus quis sagittis.</p>
+                        <div className="col-50 pad">
+                            <img src={footage} alt="" />
                         </div>
                     </div>
                 </div>
