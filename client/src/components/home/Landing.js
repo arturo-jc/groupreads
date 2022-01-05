@@ -54,7 +54,6 @@ const Landing = () => {
                         </div>
                     </section>
                 <section className='section-three'>
-                <div className="fake-element"></div>
                     <div className="wrapper">
                     <div className="row">
                             <div className="col-50 pad">                        
