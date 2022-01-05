@@ -21,7 +21,7 @@ const Post = ({ post, authState, deletePost }) => {
             {user._id === author._id && <button type='button' className='btn-delete' onClick={() => deletePost(groupId, recordId, post._id)}><i className="fas fa-trash-alt fa-lg"></i></button>}
             </div>
             <p className='post-author'>Posted by {author.name} on {date.split("T")[0]}</p>
-            <div dangerouslySetInnerHTML={createMarkup()} />
+            <p>{body}</p>
             <div className='comments'>
                 {comments.map(comment => (<Comment key={comment._id} comment={comment} postId={post._id}/>))}
             </div>

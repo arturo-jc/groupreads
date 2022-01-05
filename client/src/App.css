@@ -662,6 +662,10 @@ main {
     border: 1px solid var(--grey);
   }
 
+  .form-text-area.expanded {
+      width: 100%;
+  }
+
   .add-comment-form .form-text-area {
       margin: auto;
       margin-top: 1rem;

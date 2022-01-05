@@ -247,12 +247,6 @@ module.exports.validateComment = (req, res, next) => {
     next();
 }
 
-module.exports.sanitizeBody = (req, res, next) => {
-    const allowedTags = ["h2", "h3", "h3", "p", "i", "strong", "a", "ul", "ol", "li", "blockquote"]
-    req.body.body = sanitizeHtml(req.body.body, {allowedTags})
-    next()
-}
-
 module.exports.validateBook = (req, res, next) => {
 
     const bookSchema = joi.object({
